@@ -8,20 +8,16 @@ ingress:
         kubernetes.io/ingress.class: nginx
         kubernetes.io/tls-acme: "true"
     hosts:
-      - host: wallabag.home.gavinmogan.com
-        paths:
-          - /
       - host: w.g4v.dev
         paths:
           - /
     tls:
       - secretName: wallabag-tls
         hosts:
-          - wallabag.home.gavinmogan.com
           - w.g4v.dev
 resources:
     limits:
-        cpu: 100m
+        cpu: 1000m
         memory: 200Mi
     requests:
         cpu: 100m
