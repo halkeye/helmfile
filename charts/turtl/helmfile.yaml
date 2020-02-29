@@ -1,0 +1,8 @@
+releases:
+  - name: turtl
+    chart: halkeye/turtl
+    namespace: turtl
+    values:
+      - turtl.yaml
+    secrets:
+      - ../../secrets/turtl.yaml

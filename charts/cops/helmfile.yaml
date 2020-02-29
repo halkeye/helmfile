@@ -1,0 +1,5 @@
+releases:
+  - name: cops
+    chart: halkeye/cops
+    values:
+      - cops.yaml

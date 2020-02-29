@@ -1,0 +1,18 @@
+ingress:
+  enabled: true
+  hosts:
+    - host: requestbin.home.gavinmogan.com
+      paths: ['/']
+  tls:
+    - secretName: requestbin-tls
+      hosts:
+        - requestbin.home.gavinmogan.com
+  annotations:
+    cert-manager.io/cluster-issuer: letsencrypt
+    kubernetes.io/ingress.class: nginx
+    kubernetes.io/tls-acme: "true"
+
+
+host: requestbin.home.gavinmogan.com
+scheme: "https"
+port: 443

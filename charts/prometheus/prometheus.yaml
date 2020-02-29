@@ -1,0 +1,74 @@
+alertmanager:
+  persistentVolume:
+    storageClass: linstor
+  ingress:
+    enabled: true
+    hosts:
+      - alertmanager.home.gavinmogan.com
+    tls:
+      - secretName: prometheus-alertmanager-tls
+        hosts:
+          - alertmanager.home.gavinmogan.com
+    annotations:
+      cert-manager.io/cluster-issuer: letsencrypt
+      kubernetes.io/ingress.class: nginx
+      kubernetes.io/tls-acme: "true"
+
+extraScrapeConfigs: |
+  - job_name: 'bind_exporter'
+    scheme: https
+    metrics_path: '/metrics'
+    static_configs:
+      - targets: ['bind_exporter.odin.gavinmogan.com:443']
+  - job_name: 'octoprint'
+    scheme: https
+    metrics_path: '/plugin/prometheus_exporter/metrics'
+    static_configs:
+      - targets: ['octoprint.odin.gavinmogan.com:443']
+  - job_name: 'raspberrypi'
+    scheme: http
+    metrics_path: '/metrics'
+    static_configs:
+      - targets: ['raspberrypi.dhcp.home:9243']
+server:
+  persistentVolume:
+    storageClass: linstor
+  ingress:
+    enabled: true
+    hosts:
+      - prometheus.home.gavinmogan.com
+    tls:
+      - secretName: prometheus-tls
+        hosts:
+          - prometheus.home.gavinmogan.com
+    annotations:
+      cert-manager.io/cluster-issuer: letsencrypt
+      kubernetes.io/ingress.class: nginx
+      kubernetes.io/tls-acme: "true"
+
+pushgateway:
+  persistentVolume:
+    storageClass: linstor
+  ingress:
+    enabled: true
+    hosts:
+      - pushgateway.home.gavinmogan.com
+    tls:
+      - secretName: prometheus-pushgateway-tls
+        hosts:
+          - pushgateway.home.gavinmogan.com
+    annotations:
+      cert-manager.io/cluster-issuer: letsencrypt
+      kubernetes.io/ingress.class: nginx
+      kubernetes.io/tls-acme: "true"
+#
+#
+# The Prometheus PushGateway can be accessed via port 9091 on the following DNS name from within your cluster:
+# prometheus-pushgateway.default.svc.cluster.local
+
+# Get the PushGateway URL by running these commands in the same shell:
+#   export POD_NAME=$(kubectl get pods --namespace default -l "app=prometheus,component=pushgateway" -o jsonpath="{.items[0].metadata.name}")
+#   kubectl --namespace default port-forward $POD_NAME 9091
+#
+kubeStateMetrics:
+  enabled: false

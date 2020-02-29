@@ -1,0 +1,8 @@
+releases:
+  - name: openldap
+    chart: stable/openldap
+    namespace: openldap
+    values:
+      - openldap.yaml
+    secrets:
+      - ../../secrets/openldap.yaml

@@ -1,0 +1,8 @@
+releases:
+  - name: discord-streamers
+    chart: halkeye/discord-streamers
+    namespace: discord-streamers
+    values:
+      - discord-streamers.yaml
+    secrets:
+      - ../../secrets/discord-streamers.yaml

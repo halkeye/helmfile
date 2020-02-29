@@ -1,0 +1,8 @@
+releases:
+  - name: powerdnsadmin
+    chart: halkeye/powerdnsadmin
+    values:
+      - powerdnsadmin.yaml
+    namespace: powerdns
+    secrets:
+      - ../../secrets/powerdnsadmin.yaml

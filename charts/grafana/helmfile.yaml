@@ -1,0 +1,8 @@
+releases:
+  - name: grafana
+    chart: stable/grafana
+    namespace: grafana
+    values:
+      - grafana.yaml
+    secrets:
+      - ../../secrets/grafana.yaml

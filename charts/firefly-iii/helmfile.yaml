@@ -1,0 +1,8 @@
+releases:
+  - name: firefly-iii
+    chart: halkeye/firefly-iii
+    namespace: firefly-iii
+    values:
+      - firefly-iii.yaml
+    secrets:
+      - ../../secrets/firefly-iii.yaml

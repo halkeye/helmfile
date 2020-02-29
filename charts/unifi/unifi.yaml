@@ -1,0 +1,44 @@
+image:
+  tag: 5.12.35
+timezone: America/Vancouver
+ingress:
+  enabled: true
+  hosts:
+    - unifi.home.gavinmogan.com
+  tls:
+    - secretName: unifi-tls
+      hosts:
+        - unifi.home.gavinmogan.com
+  annotations:
+    cert-manager.io/cluster-issuer: letsencrypt
+    nginx.ingress.kubernetes.io/proxy-body-size: "0"
+    nginx.ingress.kubernetes.io/proxy-read-timeout: "600"
+    nginx.ingress.kubernetes.io/proxy-send-timeout: "600"
+    kubernetes.io/ingress.class: nginx
+    kubernetes.io/tls-acme: "true"
+    nginx.ingress.kubernetes.io/force-ssl-redirect: "true"
+    nginx.ingress.kubernetes.io/backend-protocol: "HTTPS"
+persistence:
+  enabled: true
+  storageClass: "linstor"
+
+guiService:
+  externalTrafficPolicy: Local
+  type: LoadBalancer
+  annotations:
+    metallb.universe.tf/allow-shared-ip: unifi
+discoveryService:
+  externalTrafficPolicy: Local
+  type: LoadBalancer
+  annotations:
+    metallb.universe.tf/allow-shared-ip: unifi
+stunService:
+  externalTrafficPolicy: Local
+  type: LoadBalancer
+  annotations:
+    metallb.universe.tf/allow-shared-ip: unifi
+controllerService:
+  externalTrafficPolicy: Local
+  type: LoadBalancer
+  annotations:
+    metallb.universe.tf/allow-shared-ip: unifi

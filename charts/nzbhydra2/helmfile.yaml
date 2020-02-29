@@ -1,0 +1,6 @@
+releases:
+  - name: nzbhydra2
+    chart: halkeye/nzbhydra2
+    namespace: nzbhydra2
+    values:
+      - nzbhydra2.yaml

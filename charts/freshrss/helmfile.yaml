@@ -1,0 +1,6 @@
+releases:
+  - name: freshrss
+    chart: halkeye/freshrss
+    namespace: freshrss
+    values:
+      - freshrss.yaml

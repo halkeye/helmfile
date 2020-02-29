@@ -1,0 +1,4 @@
+releases:
+  - name: docker-gc
+    namespace: kube-system
+    chart: halkeye/docker-gc

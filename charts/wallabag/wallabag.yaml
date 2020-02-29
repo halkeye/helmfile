@@ -1,0 +1,34 @@
+strategy:
+    type: Recreate
+    rollingUpdate: null
+ingress:
+    enabled: true
+    annotations:
+        cert-manager.io/cluster-issuer: letsencrypt
+        kubernetes.io/ingress.class: nginx
+        kubernetes.io/tls-acme: "true"
+    hosts:
+      - host: wallabag.home.gavinmogan.com
+        paths:
+          - /
+      - host: w.g4v.dev
+        paths:
+          - /
+    tls:
+      - secretName: wallabag-tls
+        hosts:
+          - wallabag.home.gavinmogan.com
+          - w.g4v.dev
+resources:
+    limits:
+        cpu: 100m
+        memory: 200Mi
+    requests:
+        cpu: 100m
+        memory: 200Mi
+persistence:
+    enabled: true
+    storageClassName: linstor
+    accessModes:
+      - ReadWriteOnce
+    size: 1Gi

@@ -1,0 +1,25 @@
+persistence:
+  enabled: true
+  storageClassName: "linstor"
+  accessModes:
+    - ReadWriteOnce
+  size: 10Gi
+
+service:
+  externalTrafficPolicy: Local
+  type: LoadBalancer
+  annotations:
+    external-dns.alpha.kubernetes.io/hostname: sevendays.g4v.dev
+    external-dns.alpha.kubernetes.io/ttl: "120"
+
+settings:
+  ServerName: "Halkeye's server"
+  ServerWebsite: ""
+  ServerVisibility: "1"
+  ServerAdminSlots: "1"
+
+admins:
+  # https://steamid.io/lookup/76561197973697813
+  - id: "76561197973697813"
+    permission: "1000"
+

@@ -1,0 +1,6 @@
+service:
+  type: NodePort
+persistence:
+  storageClass: "linstor"
+metrics:
+  enabled: true

@@ -1,0 +1,8 @@
+releases:
+  - name: room-assistant
+    namespace: room-assistant
+    chart: halkeye/room-assistant
+    values:
+      - room-assistant.yaml
+    secrets:
+      - ../../secrets/room-assistant.yaml

@@ -1,0 +1,8 @@
+releases:
+  - name: resurrectbot
+    chart: halkeye/resurrectbot
+    namespace: resurrectbot
+    values:
+      - resurrectbot.yaml
+    secrets:
+      - ../../secrets/resurrectbot.yaml

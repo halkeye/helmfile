@@ -1,0 +1,34 @@
+---
+ingress:
+  enabled: true
+  hosts:
+    - lasso.gavinmogan.com
+    - vouch.g4v.dev
+    - auth.gavinmogan.com
+  tls:
+    - secretName: vouch-tls
+      hosts:
+        - lasso.gavinmogan.com
+        - vouch.g4v.dev
+        - auth.gavinmogan.com
+  annotations:
+    cert-manager.io/cluster-issuer: letsencrypt
+    kubernetes.io/ingress.class: nginx
+    kubernetes.io/tls-acme: "true"
+
+config:
+  vouch:
+    loglevel: 'error'
+
+    allowAllUsers: false
+
+    domains:
+      - gavinmogan.com
+      - home.gavinmogan.com
+      - g4v.dev
+
+    webapp: true
+    testing: false
+
+  oauth:
+    provider: google

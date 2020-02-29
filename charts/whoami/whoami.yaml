@@ -1,0 +1,18 @@
+---
+ingress:
+  enabled: true
+  path: /
+  hosts:
+    - whoami.home.gavinmogan.com
+    - whoami.gavinmogan.com
+    - whoami.g4v.dev
+  tls:
+    - secretName: whoami-tls
+      hosts:
+        - whoami.home.gavinmogan.com
+        - whoami.gavinmogan.com
+        - whoami.g4v.dev
+  annotations:
+    cert-manager.io/cluster-issuer: letsencrypt
+    kubernetes.io/ingress.class: nginx
+    kubernetes.io/tls-acme: "true"

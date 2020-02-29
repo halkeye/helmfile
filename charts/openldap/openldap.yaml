@@ -1,0 +1,16 @@
+env:
+  LDAP_ORGANISATION: "Gavin Mogan"
+  LDAP_DOMAIN: "gavinmogan.com"
+
+strategy:
+  type: Recreate
+  rollingUpdate: null
+
+persistence:
+  enabled: true
+  accessMode: ReadWriteMany
+  size: 1Gi
+  storageClass: linstor
+
+service:
+  type: LoadBalancer

@@ -1,0 +1,13 @@
+rbac:
+  create: true
+controller:
+  ingressClass: "nginx"
+  stats:
+    enabled: true
+  metrics:
+    enabled: true
+  config:
+    # This is the important part
+    use-forwarded-headers: "true"
+  service:
+    externalTrafficPolicy: Local

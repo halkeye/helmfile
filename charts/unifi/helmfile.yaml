@@ -1,0 +1,8 @@
+releases:
+  - name: unifi
+    chart: stable/unifi
+    namespace: unifi
+    values:
+      - unifi.yaml
+    secrets:
+      - ../../secrets/unifi.yaml

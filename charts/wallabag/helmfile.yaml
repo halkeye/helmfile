@@ -1,0 +1,11 @@
+releases:
+  - name: wallabag
+    chart: halkeye/wallabag
+    namespace: wallabag
+    wait: true
+    timeout: 300
+    atomic: true
+    values:
+      - ./wallabag.yaml
+    secrets:
+      - ../../secrets/wallabag.yaml

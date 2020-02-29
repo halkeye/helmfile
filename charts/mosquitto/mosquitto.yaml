@@ -1,0 +1,5 @@
+service:
+  type: LoadBalancer
+  annotations:
+    external-dns.alpha.kubernetes.io/hostname: mqtt.g4v.dev
+    external-dns.alpha.kubernetes.io/ttl: "120"

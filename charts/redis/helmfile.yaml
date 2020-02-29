@@ -1,0 +1,7 @@
+releases:
+  - name: redis
+    chart: stable/redis
+    values:
+      - redis.yaml
+    secrets:
+      - ../../secrets/redis.yaml

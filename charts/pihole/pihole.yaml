@@ -1,0 +1,58 @@
+ingress:
+  enabled: true
+  hosts:
+    - pihole.home.gavinmogan.com
+  tls:
+    - secretName: pihole-tls
+      hosts:
+        - pihole.home.gavinmogan.com
+  annotations:
+    cert-manager.io/cluster-issuer: letsencrypt
+    kubernetes.io/ingress.class: nginx
+    kubernetes.io/tls-acme: "true"
+
+service:
+  type: LoadBalancer
+  externalTrafficPolicy: Local
+
+pihole:
+  tz: America/Vancouver
+  virtual_host: pihole.home.gavinmogan.com
+
+  customConfig: |
+    rebind-domain-ok=/plex.direct/
+    #domain=dhcp.home
+    #expand-hosts
+    # Never forward plain names (without a dot or domain part)
+    #domain-needed
+    # Never forward addresses in the non-routed address spaces.
+    #bogus-priv
+
+    srv-host=_mqtt._tcp.gavinmogan.com,mqtt.gavinmogan.com,1883
+    srv-host=_mqtt._tcp.dhcp.home,mqtt.gavinmogan.com,1883
+    srv-host=_mqtt._tcp,mqtt.gavinmogan.com,1883
+    #server=/dhcp.home/powerdns-tcp.powerdns.svc.cluster.local
+    #server=/g4v.dev/powerdns-tcp.powerdns.svc.cluster.local
+    #server=/home.gavinmogan.com/powerdns-tcp.powerdns.svc.cluster.local
+    #server=/odin.gavinmogan.com/172.16.10.202/powerdns-tcp.powerdns.svc.cluster.local
+    #server=/10.16.172.in-addr.arpa/172.16.10.202/powerdns-tcp.powerdns.svc.cluster.local
+    #server=/dhcp.home/172.16.10.202
+    #server=/10.16.172.in-addr.arpa/172.16.10.202
+    server=/dhcp.home/172.16.10.1
+    server=/g4v.dev/172.16.10.202
+    server=/home.gavinmogan.com/172.16.10.202
+    server=/odin.gavinmogan.com/172.16.10.202
+    server=/10.16.172.in-addr.arpa/172.16.10.1
+    address=/theirc.gavinmogan.com/172.16.10.201
+    address=/hab.gavinmogan.com/172.16.10.201
+    address=/books.gavinmogan.com/172.16.10.201
+    address=/stats.gavinmogan.com/172.16.10.201
+    address=/lasso.gavinmogan.com/172.16.10.201
+    address=/turtl.gavinmogan.com/172.16.10.201
+    address=/whoami.gavinmogan.com/172.16.10.201
+    address=/plaxt.gavinmogan.com/172.16.10.201
+    address=/plexstats.gavinmogan.com/172.16.10.201
+    address=/kaitlyn-mc.halkeye.net/172.16.10.201
+    address=/whostreaming.halkeye.net/172.16.10.201
+    address=/mqtt.gavinmogan.com/172.16.10.2
+    address=/syslog.gavinmogan.com/172.16.10.2

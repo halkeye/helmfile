@@ -1,0 +1,22 @@
+---
+image:
+  repository: halkeye/hubot
+  tag: 51a9746aeb6e6e733a718843628ab1f512e5178a
+name: Threepwood
+env:
+  HUBOT_LOG_LEVEL: debug
+  DEBUG: hubot-rss-reader:*
+  HUBOT_AUTH_ROLES: admin=105880217595211776
+
+#     id CHARACTER VARYING(1024) NOT NULL,
+#     storage JSON,
+#     CONSTRAINT hubot_pkey PRIMARY KEY (id)
+#   )
+#   INSERT INTO hubot VALUES(1, NULL)
+brain:
+  type: hubot-postgres-brain
+dnsConfig:
+  options:
+    - name: ndots
+      value: "1"
+

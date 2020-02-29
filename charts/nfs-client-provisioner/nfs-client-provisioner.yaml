@@ -1,0 +1,8 @@
+---
+nfs:
+  mountOptions:
+    - intr
+    - soft
+    - tcp
+storageClass:
+  defaultClass: true

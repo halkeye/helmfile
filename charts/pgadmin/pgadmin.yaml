@@ -1,0 +1,12 @@
+ingress:
+  enabled: true
+  hosts:
+    - pgadmin.home.gavinmogan.com
+  tls:
+    - secretName: pgadmin-tls
+      hosts:
+        - pgadmin.home.gavinmogan.com
+  annotations:
+    cert-manager.io/cluster-issuer: letsencrypt
+    kubernetes.io/ingress.class: nginx
+    kubernetes.io/tls-acme: "true"

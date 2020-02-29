@@ -1,0 +1,22 @@
+replicaCount: 1
+
+persistence:
+  enabled: true
+  storageClassName: linstor
+  size: 5Gi
+
+rest:
+  enabled: true
+
+terraria:
+  service:
+    externalTrafficPolicy: Local
+    type: LoadBalancer
+    loadBalancerIP: 172.16.10.207
+    annotations:
+      external-dns.alpha.kubernetes.io/hostname: terraria.g4v.dev
+      external-dns.alpha.kubernetes.io/ttl: "120"
+  settings:
+    SpawnProtection: false
+    ServerName: 'Halkeye Server'
+    TileKillThreshold: 200

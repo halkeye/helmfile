@@ -1,0 +1,4 @@
+releases:
+  - name: helm-exporter
+    chart: stable/helm-exporter
+    namespace: monitoring

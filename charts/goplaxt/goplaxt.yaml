@@ -1,0 +1,24 @@
+image:
+  repository: halkeye/goplaxt
+
+allowed_hostnames:
+  - plaxt.gavinmogan.com
+  - plaxt.home.gavinmogan.com
+
+ingress:
+  enabled: true
+  paths:
+    - /
+  hosts:
+    - plaxt.home.gavinmogan.com
+    - plaxt.gavinmogan.com
+  tls:
+    - secretName: plaxt-tls
+      hosts:
+        - plaxt.home.gavinmogan.com
+        - plaxt.gavinmogan.com
+  annotations:
+    cert-manager.io/cluster-issuer: letsencrypt
+    kubernetes.io/ingress.class: nginx
+    kubernetes.io/tls-acme: "true"
+    nginx.ingress.kubernetes.io/proxy-body-size: 2000m

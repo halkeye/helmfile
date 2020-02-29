@@ -1,0 +1,20 @@
+repositories:
+  - name: stable
+    url: https://kubernetes-charts.storage.googleapis.com
+  - name: halkeye
+    url: https://halkeye.github.io/helm-charts
+  - name: jetstack
+    url: https://charts.jetstack.io
+
+
+helmfiles:
+  - charts/*/helmfile.yaml
+
+## kubectl apply -f $HELM_CONFIG_DIR/pg-backup-cronJob.yaml
+##kubectl apply -f $HELM_CONFIG_DIR/bazarr.yaml
+##kubectl apply -f $HELM_CONFIG_DIR/cifs-secret.yaml
+##kubectl apply -f $HELM_CONFIG_DIR/lidarr.yaml
+##kubectl apply -f $HELM_CONFIG_DIR/nextcloud.yaml
+##kubectl apply -f openldap-backup-cronjob.yaml
+##kubectl apply -f $HELM_CONFIG_DIR/openldap-selfservice.yaml
+##kubectl apply -f $HELM_CONFIG_DIR/external-dns.yaml

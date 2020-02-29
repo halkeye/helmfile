@@ -1,0 +1,8 @@
+releases:
+  - name: nginx-ingress
+    chart: stable/nginx-ingress
+    values:
+      - nginx-ingress.yaml
+    namespace: kube-system
+    secrets:
+      - ../../secrets/nginx-ingress.yaml

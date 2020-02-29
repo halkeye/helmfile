@@ -1,0 +1,12 @@
+releases:
+  - name: guacamole
+    chart: halkeye/guacamole
+    namespace: guacamole
+    wait: true
+    timeout: 300
+    atomic: true
+    values:
+      - ./guacamole.yaml
+    secrets:
+      - ../../secrets/guacamole.yaml
+

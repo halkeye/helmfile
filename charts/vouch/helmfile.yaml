@@ -1,0 +1,7 @@
+releases:
+  - name: vouch
+    chart: halkeye/vouch
+    values:
+      - vouch.yaml
+    secrets:
+      - ../../secrets/vouch.yaml

@@ -1,0 +1,8 @@
+releases:
+  - name: requestbin
+    namespace: requestbin
+    chart: halkeye/requestbin
+    values:
+      - requestbin.yaml
+    secrets:
+      - ../../secrets/requestbin.yaml

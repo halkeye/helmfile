@@ -1,0 +1,4 @@
+releases:
+  - name: metallb
+    chart: stable/metallb
+    namespace: kube-system

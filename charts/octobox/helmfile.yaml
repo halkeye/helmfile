@@ -1,0 +1,7 @@
+releases:
+  - name: octobox
+    chart: halkeye/octobox
+    values:
+      - octobox.yaml
+    secrets:
+      - ../../secrets/octobox.yaml

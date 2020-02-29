@@ -1,0 +1,7 @@
+releases:
+  - name: postgresql
+    chart: stable/postgresql
+    values:
+      - postgresql.yaml
+    secrets:
+      - ../../secrets/postgresql.yaml

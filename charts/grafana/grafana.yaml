@@ -1,0 +1,111 @@
+ingress:
+  enabled: true
+  hosts:
+    - stats.gavinmogan.com
+  tls:
+    - secretName: grafana-tls
+      hosts:
+        - stats.gavinmogan.com
+
+  annotations:
+    cert-manager.io/cluster-issuer: letsencrypt
+    kubernetes.io/ingress.class: nginx
+    kubernetes.io/tls-acme: "true"
+    nginx.ingress.kubernetes.io/auth-signin: "https://lasso.gavinmogan.com/login?url=$scheme://$http_host$request_uri&lasso-failcount=$auth_resp_failcount&X-Vouch-Token=$auth_resp_jwt&error=$auth_resp_err"
+    nginx.ingress.kubernetes.io/auth-url: https://lasso.gavinmogan.com
+    nginx.ingress.kubernetes.io/auth-response-headers: X-Vouch-User
+    nginx.ingress.kubernetes.io/auth-snippet: |
+      # these return values are used by the @error401 call
+      auth_request_set $auth_resp_jwt $upstream_http_x_vouch_jwt;
+      auth_request_set $auth_resp_err $upstream_http_x_vouch_err;
+      auth_request_set $auth_resp_failcount $upstream_http_x_vouch_failcount;
+
+
+adminUser: halkeye@gmail.com
+
+persistence:
+  enabled: false
+  accessModes:
+    - ReadWriteMany
+  size: 1Gi
+  storageClassName: linstor
+
+dashboards:
+  default:
+    helm-exporter:
+      gnetId: 9367
+      revision: 2
+    prometheus:
+      gnetId: 3662
+      revision: 2
+      datasource: Prometheus
+    node-exporter-full:
+      gnetId: 1860
+      revision: 14
+      #url: https://grafana.com/grafana/dashboards/9367
+    jenkins-performance:
+      gnetId: 9524
+      revision: 1
+    # https://grafana.com/grafana/dashboards/315
+    # need a scrape config
+    kubernetes-cluster-monitoring-315:
+      gnetId: 315
+      revision: 3
+      datasource: Prometheus
+    kubernetes-cluster-monitoring-1621:
+      gnetId: 1621
+      revision: 1
+      datasource: Prometheus
+    bind:
+      gnetId: 1666
+      revision: 1
+      datasource: Prometheus
+
+plugins:
+  - grafana-clock-panel
+  - grafana-simple-json-datasource
+  - cloudflare-app
+  - briangann-gauge-panel
+  - jdbranham-diagram-panel
+  - mtanda-google-calendar-datasource
+  - grafana-kubernetes-app
+  - camptocamp-prometheus-alertmanager-datasource
+
+dashboardProviders:
+  dashboardproviders.yaml:
+    apiVersion: 1
+    providers:
+      - name: 'default'
+        orgId: 1
+        folder: ''
+        type: file
+        disableDeletion: false
+        editable: true
+        options:
+          path: /var/lib/grafana/dashboards/default
+
+datasources:
+  datasources.yaml:
+    apiVersion: 1
+    datasources:
+      - name: Prometheus
+        type: prometheus
+        url: http://prometheus-server.monitoring.svc.cluster.local
+        access: proxy
+        isDefault: true
+
+env:
+  GF_DEFAULT_INSTANCE_NAME: grafana-8595bd8566-fxgn7
+  GF_SERVER_ROOT_URL: https://stats.gavinmogan.com
+  GF_AWS_PROFILES: default
+  GF_AUTH_ANONYMOUS_ENABLED: "false"
+  GF_AUTH_DISABLE_LOGIN_FORM: "true"
+  GF_AUTH_DISABLE_SIGNOUT_MENU: "true"
+  GF_AUTH_BASIC_ENABLED: "false"
+  GF_AUTH_PROXY_ENABLED: "true"
+  GF_AUTH_PROXY_HEADER_NAME: X-Vouch-User
+  GF_AUTH_PROXY_HEADER_PROPERTY: email
+  GF_AUTH_PROXY_AUTO_SIGN_UP: "true"
+  GF_USERS_ALLOW_SIGN_UP: "false"
+  GF_USERS_AUTO_ASSIGN_ORG: "true"
+  GF_USERS_AUTO_ASSIGN_ORG_ROLE: Viewer

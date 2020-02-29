@@ -1,0 +1,5 @@
+releases:
+  - name: thelounge
+    chart: halkeye/thelounge
+    values:
+      - thelounge.yaml

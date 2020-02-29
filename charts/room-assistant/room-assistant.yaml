@@ -1,0 +1,9 @@
+roomAssistant:
+  auto_discovery: true
+  room: "Home"
+  ble_whitelist:
+    - 2f234454cf6d4a0fadf2f4911ba9ffa6.*
+    # versa maybe
+    - f051ea0e707f.*
+    # SHIELD
+    - 7c7f7750ab1b.*

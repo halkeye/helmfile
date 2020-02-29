@@ -1,0 +1,6 @@
+releases:
+  - name: metrics-server
+    chart: stable/metrics-server
+    namespace: kube-system
+    values:
+      - metrics-server.yaml

@@ -1,0 +1,8 @@
+releases:
+  - name: nfs-client-provisioner
+    chart: stable/nfs-client-provisioner
+    namespace: kube-system
+    values:
+      - nfs-client-provisioner.yaml
+    secrets:
+      - ../../secrets/nfs-client-provisioner.yaml

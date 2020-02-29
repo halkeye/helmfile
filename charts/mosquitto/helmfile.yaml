@@ -1,0 +1,6 @@
+releases:
+  - name: mosquitto
+    namespace: mosquitto
+    chart: halkeye/mosquitto
+    values:
+      - mosquitto.yaml
