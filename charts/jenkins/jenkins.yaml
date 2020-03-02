@@ -1,0 +1,43 @@
+---
+persistence:
+  enabled: true
+  storageClass: linstor
+
+agent:
+  volumes:
+    - type: HostPath
+      volumeName: docker-sock
+      hostPath: /var/run/docker.sock
+      mountPath: /var/run/docker.sock
+
+master:
+  jenkinsAdminEmail: jenkins@g4v.dev
+  serviceType: ClusterIP
+  image: "halkeye/jenkins"
+  tag: "latest"
+
+  ingress:
+    enabled: true
+    hostName: ci.g4v.dev
+    path: /
+    tls:
+      - secretName: ci-tls
+        hosts:
+          - ci.g4v.dev
+    annotations:
+      cert-manager.io/cluster-issuer: letsencrypt
+      kubernetes.io/ingress.class: nginx
+      kubernetes.io/tls-acme: "true"
+      nginx.ingress.kubernetes.io/proxy-body-size: 2000m
+
+  numExecutors: 0
+  overwriteConfig: false
+  overwritePlugins: false
+  installPlugins: false
+
+  runAsUser: 1000
+  fsGroup: 1000
+
+rbac:
+  create: true
+  readSecrets: true

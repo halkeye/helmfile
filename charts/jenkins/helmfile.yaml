@@ -1,0 +1,8 @@
+releases:
+  - name: jenkins
+    namespace: jenkins
+    chart: stable/jenkins
+    values:
+      - jenkins.yaml
+    secrets:
+      - ../../secrets/jenkins.yaml
