@@ -31,6 +31,7 @@ pihole:
     srv-host=_mqtt._tcp.gavinmogan.com,mqtt.gavinmogan.com,1883
     srv-host=_mqtt._tcp.dhcp.home,mqtt.gavinmogan.com,1883
     srv-host=_mqtt._tcp,mqtt.gavinmogan.com,1883
+    srv-host=_ldap._tcp.dhcp.home,nickfury.dhcp.home,32219
     #server=/dhcp.home/powerdns-tcp.powerdns.svc.cluster.local
     #server=/g4v.dev/powerdns-tcp.powerdns.svc.cluster.local
     #server=/home.gavinmogan.com/powerdns-tcp.powerdns.svc.cluster.local

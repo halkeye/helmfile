@@ -8,7 +8,7 @@ repositories:
 
 
 helmfiles:
-  - charts/*/helmfile.yaml
+  - helmfile.d/*/helmfile.yaml
 
 ## kubectl apply -f $HELM_CONFIG_DIR/pg-backup-cronJob.yaml
 ##kubectl apply -f $HELM_CONFIG_DIR/bazarr.yaml
