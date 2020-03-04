@@ -18,6 +18,21 @@ service:
 pihole:
   tz: America/Vancouver
   virtual_host: pihole.home.gavinmogan.com
+  # https://discourse.pi-hole.net/t/commonly-whitelisted-domains/212/16
+  whitelist:
+    # YouTube history
+    - s.youtube.com
+    - video-stats.l.google.com
+    # xbox live + achivements
+    - clientconfig.passport.net
+    - v10.events.data.microsoft.com
+    - v20.events.data.microsoft.com
+    - eu-v20.events.data.microsoft.com
+    - us-v20.events.data.microsoft.com
+    - continuum.dds.microsoft.com
+    - activity.windows.com
+    # geforce experience
+    - gfwsl.geforce.com
 
   customConfig: |
     rebind-domain-ok=/plex.direct/
