@@ -1,0 +1,23 @@
+releases:
+  - name: synapse
+    chart: halkeye/synapse
+    #chart: /home/halkeye/git/halkeye-helm-charts/synapse
+    namespace: matrix
+    values:
+      - ./synapse.yaml
+    #secrets:
+    #  - ../../secrets/synapse.yaml
+
+  - name: riot-im
+    chart: /home/halkeye/git/halkeye-helm-charts/riot-im
+    #chart: halkeye/riot-im
+    namespace: matrix
+    values:
+      - ./riot-im.yaml
+
+  - name: matrix-ircd
+    chart: /home/halkeye/git/halkeye-helm-charts/matrix-ircd
+    #chart: halkeye/matrix-ircd
+    namespace: matrix
+    values:
+      - ./matrix-ircd.yaml
