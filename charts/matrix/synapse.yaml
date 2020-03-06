@@ -27,20 +27,41 @@ homeserver:
     notif_from: "Your Friendly %(app)s homeserver <noreply@g4v.dev>"
     #app_name: my_branded_matrix_server
     client_base_url: "http://chat.g4v.dev"
-  #password_providers:
-  #    - module: "ldap_auth_provider.LdapAuthProvider"
-  #      config:
-  #        enabled: true
-  #        uri: "ldap://ldap.example.com:389"
-  #        start_tls: true
-  #        base: "ou=users,dc=example,dc=com"
-  #        attributes:
-  #           uid: "cn"
-  #           mail: "email"
-  #           name: "givenName"
-  #        #bind_dn:
-  #        #bind_password:
-  #        #filter: "(objectClass=posixAccount)"
+  saml2_config:
+    idp_redirect_url: "https://keycloak.g4v.dev/auth/realms/master/protocol/saml"
+    sp_config:
+      entityid: "matrix-g4v-dev"
+      description: "Matrix Server"
+      metadata:
+        remote:
+          - url: https://keycloak.g4v.dev/auth/realms/master/protocol/saml/descriptor
+      debug: 0
+      key_file: "/config/saml-key.pem"
+      cert_file: "/config/saml-cert.pem"
+      encryption_keypairs:
+        - key_file: "/config/saml-key.pem"
+          cert_file: "/config/saml-cert.pem"
+      attribute_map_dir: "/config/"
+      xmlsec_binary: "/usr/bin/xmlsec1"
+      name_form: "urn:oasis:names:tc:SAML:2.0:attrname-format:uri"
+      service:
+        sp:
+          name: "matrix-login"
+          endpoints:
+            single_sign_on_service:
+              - "https://matrix.g4v.dev/_matrix/saml2/authn_response"
+              - "urn:oasis:names:tc:SAML:2.0:bindings:HTTP-POST"
+            assertion_consumer_service:
+              - "https://matrix.g4v.dev/_matrix/saml2/authn_response"
+              - "urn:oasis:names:tc:SAML:2.0:bindings:HTTP-POST"
+            single_logout_service:
+              - "https://matrix.g4v.dev/_matrix/saml2/logout"
+              - "urn:oasis:names:tc:SAML:2.0:bindings:HTTP-POST"
+          required_attributes: ["uid", "mail"]
+          optional_attributes: ["displayName"]
+          sign_assertion: true
+          sign_response: true
+          allow_unsolicited: true
 
 dnsConfig:
   options:

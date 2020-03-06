@@ -1,12 +1,12 @@
 releases:
   - name: synapse
-    chart: halkeye/synapse
-    #chart: /home/halkeye/git/halkeye-helm-charts/synapse
+    #chart: halkeye/synapse
+    chart: /home/halkeye/git/halkeye-helm-charts/synapse
     namespace: matrix
     values:
       - ./synapse.yaml
-    #secrets:
-    #  - ../../secrets/synapse.yaml
+    secrets:
+      - ../../secrets/synapse.yaml
 
   - name: riot-im
     chart: /home/halkeye/git/halkeye-helm-charts/riot-im
