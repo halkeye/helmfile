@@ -15,8 +15,15 @@ service:
   type: LoadBalancer
   externalTrafficPolicy: Local
 
+dnsConfig:
+  options:
+    - name: ndots
+      value: "1"
+
 pihole:
   tz: America/Vancouver
+  #dns1: 172.16.10.1
+  #dns2: 172.16.10.1
   virtual_host: pihole.home.gavinmogan.com
   # https://discourse.pi-hole.net/t/commonly-whitelisted-domains/212/16
   whitelist:
@@ -34,7 +41,7 @@ pihole:
     # geforce experience
     - gfwsl.geforce.com
 
-  customConfig: |
+  customConfigOld: |
     rebind-domain-ok=/plex.direct/
     #domain=dhcp.home
     #expand-hosts
@@ -55,9 +62,9 @@ pihole:
     #server=/dhcp.home/172.16.10.202
     #server=/10.16.172.in-addr.arpa/172.16.10.202
     server=/dhcp.home/172.16.10.1
-    server=/g4v.dev/172.16.10.202
-    server=/home.gavinmogan.com/172.16.10.202
-    server=/odin.gavinmogan.com/172.16.10.202
+    server=/g4v.dev/172.16.10.203
+    server=/home.gavinmogan.com/172.16.10.203
+    server=/odin.gavinmogan.com/172.16.10.203
     server=/10.16.172.in-addr.arpa/172.16.10.1
     address=/theirc.gavinmogan.com/172.16.10.201
     address=/hab.gavinmogan.com/172.16.10.201
