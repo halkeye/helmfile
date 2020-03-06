@@ -1,0 +1,25 @@
+keycloak:
+  username: keycloak
+  extraEnv: |
+    - name: PROXY_ADDRESS_FORWARDING
+      value: "true"
+  ingress:
+    enabled: true
+    tls:
+      - secretName: keycloak-tls
+        hosts:
+          - keycloak.g4v.dev
+    hosts:
+      - keycloak.g4v.dev
+    annotations:
+      cert-manager.io/cluster-issuer: letsencrypt
+      kubernetes.io/ingress.class: nginx
+      kubernetes.io/tls-acme: "true"
+
+  persistence:
+    deployPostgres: false
+    dbVendor: postgres
+    dbUser: keycloak
+    dbName: keycloak
+    dbHost: postgresql.default.svc.cluster.local
+    dbPort: 5432

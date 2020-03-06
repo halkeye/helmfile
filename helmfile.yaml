@@ -5,10 +5,12 @@ repositories:
     url: https://halkeye.github.io/helm-charts
   - name: jetstack
     url: https://charts.jetstack.io
+  - name: codecentric
+    url: https://codecentric.github.io/helm-charts
 
 
 helmfiles:
-  - helmfile.d/*/helmfile.yaml
+  - charts/*/helmfile.yaml
 
 ## kubectl apply -f $HELM_CONFIG_DIR/pg-backup-cronJob.yaml
 ##kubectl apply -f $HELM_CONFIG_DIR/bazarr.yaml

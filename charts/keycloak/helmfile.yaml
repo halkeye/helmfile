@@ -1,0 +1,9 @@
+releases:
+  - name: keycloak
+    chart: codecentric/keycloak
+    namespace: keycloak
+    values:
+      - ./keycloak.yaml
+    secrets:
+      - ../../secrets/keycloak.yaml
+
