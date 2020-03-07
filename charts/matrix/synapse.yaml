@@ -63,6 +63,10 @@ homeserver:
           sign_response: true
           allow_unsolicited: true
 
+logconfig:
+  root:
+    level: ERROR
+    handlers: [console]
 dnsConfig:
   options:
     - name: ndots
