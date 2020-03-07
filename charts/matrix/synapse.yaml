@@ -71,3 +71,18 @@ dnsConfig:
   options:
     - name: ndots
       value: "1"
+extraConfigs:
+  map.py: |-
+    MAP = {
+      "identifier": "urn:oasis:names:tc:SAML:2.0:attrname-format:uri",
+      "fro": {
+          'uid': 'uid',
+          'displayName': 'displayName',
+          'mail': 'mail',
+      },
+      "to": {
+          'uid': 'uid',
+          'displayName': 'displayName',
+          'mail': 'mail',
+      }
+    }
