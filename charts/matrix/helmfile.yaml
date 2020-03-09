@@ -21,3 +21,12 @@ releases:
     namespace: matrix
     values:
       - ./matrix-ircd.yaml
+
+  - name: matrix-media-repo
+    #chart: /home/halkeye/git/halkeye-helm-charts/matrix-media-repo
+    chart: halkeye/matrix-media-repo
+    namespace: matrix
+    values:
+      - ./matrix-media-repo.yaml
+    secrets:
+      - ../../secrets/matrix-media-repo.yaml

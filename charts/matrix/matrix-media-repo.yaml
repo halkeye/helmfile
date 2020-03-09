@@ -1,0 +1,31 @@
+ingress:
+  enabled: true
+  tls:
+    - secretName: synapse-tls
+      hosts:
+        - matrix.g4v.dev
+  hosts:
+    - host: matrix.g4v.dev
+  annotations:
+    cert-manager.io/cluster-issuer: letsencrypt
+    kubernetes.io/ingress.class: nginx
+    kubernetes.io/tls-acme: "true"
+    nginx.ingress.kubernetes.io/proxy-body-size: "500m"
+
+strategy:
+  type: Recreate
+
+persistence:
+  enabled: true
+  storageClassName: linstor
+
+config:
+  homeservers:
+    - name: g4v.dev
+      csApi: "https://matrix.g4v.dev/"
+      backoffAt: 10
+    - name: matrix.g4v.dev
+      csApi: "https://matrix.g4v.dev/"
+      backoffAt: 10
+  admins:
+    - "@halkeye:g4v.dev"
