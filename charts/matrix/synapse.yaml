@@ -12,20 +12,19 @@ ingress:
     cert-manager.io/cluster-issuer: letsencrypt
     kubernetes.io/ingress.class: nginx
     kubernetes.io/tls-acme: "true"
-    nginx.ingress.kubernetes.io/proxy-body-size: "10m"
+    nginx.ingress.kubernetes.io/proxy-body-size: "500m"
 
-strategy:
-  type: Recreate
+cacheFactor: 5.0
 
 homeserver:
   server_name: "g4v.dev"
+  signing_key_path: "/config/signing.key"
   admin_contact: 'mailto:matrix@g4v.dev'
   enable_registration: false
   public_baseurl: https://matrix.g4v.dev/
   email:
     enable_notifs: false
     notif_from: "Your Friendly %(app)s homeserver <noreply@g4v.dev>"
-    #app_name: my_branded_matrix_server
     client_base_url: "http://chat.g4v.dev"
   saml2_config:
     idp_redirect_url: "https://keycloak.g4v.dev/auth/realms/master/protocol/saml"
@@ -67,10 +66,25 @@ logconfig:
   root:
     level: ERROR
     handlers: [console]
+  loggers:
+    synapse.appservice.api:
+      level: DEBUG
+    synapse.appservice:
+      level: DEBUG
+    synapse.config.appservice:
+      level: DEBUG
+    synapse.access.http.8008:
+      level: ERROR
+    synapse.federation.transport.server:
+      level: ERROR
+    synapse.metrics:
+      level: ERROR
+
 dnsConfig:
   options:
     - name: ndots
       value: "1"
+
 extraConfigs:
   map.py: |-
     MAP = {
