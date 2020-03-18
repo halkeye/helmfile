@@ -1,0 +1,76 @@
+config:
+  homeserver:
+    address: https://matrix.g4v.dev
+    domain: g4v.dev
+  appservice:
+    address: http://mautrix-whatsapp.matrix.svc.cluster.local:29318
+    database:
+      type: postgres
+      uri:
+      max_open_conns: 20
+      max_idle_conns: 2
+    provisioning:
+      prefix: /_matrix/provision/v1
+    id: whatsapp
+    bot:
+      username: whatsappbot
+      displayname: WhatsApp bridge bot
+      avatar: mxc://maunium.net/NeXNQarUbrlYBiPCpprYsRqr
+  bridge:
+    username_template: whatsapp_{{.}}
+    displayname_template: '{{if .Notify}}{{.Notify}}{{else}}{{.Jid}}{{end}} (WA)'
+    community_template: whatsapp_{{.Localpart}}={{.Server}}
+    connection_timeout: 20
+    login_qr_regen_count: 2
+    max_connection_attempts: 3
+    connection_retry_delay: -1
+    report_connection_retry: true
+    chat_list_wait: 30
+    portal_sync_wait: 600
+    call_notices:
+      start: true
+      end: true
+    initial_chat_sync_count: 10
+    initial_history_fill_count: 20
+    recovery_chat_sync_count: -1
+    recovery_history_backfill: true
+    sync_max_chat_age: 259200
+    sync_with_custom_puppets: true
+    login_shared_secret: ""
+    invite_own_puppet_for_backfilling: true
+    private_chat_portal_meta: false
+    allow_user_invite: false
+    command_prefix: '!wa'
+    permissions:
+      '*': 5
+      '@halkeye:g4v.dev': 100
+      g4v.dev: 10
+    relaybot:
+      enabled: false
+      management: ""
+      invites: []
+      message_formats:
+        m.audio: <b>{{ .Sender.Displayname }}</b> sent an audio file
+        m.emote: '* <b>{{ .Sender.Displayname }}</b> {{ .Message }}'
+        m.file: <b>{{ .Sender.Displayname }}</b> sent a file
+        m.image: <b>{{ .Sender.Displayname }}</b> sent an image
+        m.location: <b>{{ .Sender.Displayname }}</b> sent a location
+        m.notice: '<b>{{ .Sender.Displayname }}</b>: {{ .Message }}'
+        m.text: '<b>{{ .Sender.Displayname }}</b>: {{ .Message }}'
+        m.video: <b>{{ .Sender.Displayname }}</b> sent a video
+  logging:
+    directory: /logs
+    file_name_format: '{{.Date}}-{{.Index}}.log'
+    file_date_format: "2006-01-02"
+    file_mode: 384
+    timestamp_format: Jan _2, 2006 15:04:05
+    print_level: debug
+registration:
+  id: whatsapp
+  url: http://mautrix-whatsapp.matrix.svc.cluster.local:29318
+  sender_localpart: whatsappbot
+  rate_limited: false
+  namespaces:
+    users:
+    - regex: ^@whatsapp_[0-9]+:g4v.dev$
+      exclusive: true

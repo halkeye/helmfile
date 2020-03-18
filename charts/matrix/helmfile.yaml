@@ -1,7 +1,11 @@
+helmDefaults:
+  wait: true
+  cleanupOnFail: true
+
 releases:
   - name: synapse
-    #chart: halkeye/synapse
-    chart: /home/halkeye/git/halkeye-helm-charts/synapse
+    chart: halkeye/synapse
+    #chart: /home/halkeye/git/halkeye-helm-charts/synapse
     namespace: matrix
     values:
       - ./synapse.yaml
@@ -9,18 +13,36 @@ releases:
       - ../../secrets/synapse.yaml
 
   - name: riot-im
-    chart: /home/halkeye/git/halkeye-helm-charts/riot-im
-    #chart: halkeye/riot-im
+    #chart: /home/halkeye/git/halkeye-helm-charts/riot-im
+    chart: halkeye/riot-im
     namespace: matrix
     values:
       - ./riot-im.yaml
 
   - name: matrix-ircd
-    chart: /home/halkeye/git/halkeye-helm-charts/matrix-ircd
-    #chart: halkeye/matrix-ircd
+    #chart: /home/halkeye/git/halkeye-helm-charts/matrix-ircd
+    chart: halkeye/matrix-ircd
     namespace: matrix
     values:
       - ./matrix-ircd.yaml
+
+  - name: matrix-appservice-gitter
+    chart: /home/halkeye/git/halkeye-helm-charts/matrix-appservice-gitter
+    #chart: halkeye/matrix-appservice-gitter
+    namespace: matrix
+    values:
+      - ./matrix-appservice-gitter.yaml
+    secrets:
+      - ../../secrets/matrix-appservice-gitter.yaml
+
+  #- name: ma1sd
+  #  chart: /home/halkeye/git/halkeye-helm-charts/ma1sd
+  #  #chart: halkeye/ma1sd
+  #  namespace: matrix
+  #  values:
+  #    - ./ma1sd.yaml
+  #  secrets:
+  #    - ../../secrets/ma1sd.yaml
 
   - name: matrix-media-repo
     #chart: /home/halkeye/git/halkeye-helm-charts/matrix-media-repo
@@ -30,3 +52,29 @@ releases:
       - ./matrix-media-repo.yaml
     secrets:
       - ../../secrets/matrix-media-repo.yaml
+
+  #- name: mautrix-manager
+  #  chart: /home/halkeye/git/halkeye-helm-charts/mautrix-manager
+  #  namespace: matrix
+  #  values:
+  #    - ./mautrix-manager.yaml
+  #  secrets:
+  #    - ../../secrets/mautrix-manager.yaml
+  #
+  - name: mautrix-whatsapp
+    #chart: /home/halkeye/git/halkeye-helm-charts/mautrix-whatsapp
+    chart: halkeye/mautrix-whatsapp
+    namespace: matrix
+    values:
+      - ./mautrix-whatsapp.yaml
+    secrets:
+      - ../../secrets/mautrix-whatsapp.yaml
+
+  - name: mautrix-telegram
+    #chart: /home/halkeye/git/halkeye-helm-charts/mautrix-telegram
+    chart: halkeye/mautrix-telegram
+    namespace: matrix
+    values:
+      - ./mautrix-telegram.yaml
+    secrets:
+      - ../../secrets/mautrix-telegram.yaml

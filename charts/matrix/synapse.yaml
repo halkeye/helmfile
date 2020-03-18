@@ -22,10 +22,18 @@ homeserver:
   admin_contact: 'mailto:matrix@g4v.dev'
   enable_registration: false
   public_baseurl: https://matrix.g4v.dev/
+  app_service_config_files:
+    - /config/gitter-registration.yaml
+    - /config/instagram-registration.yaml
+    - /config/whatsapp-registration.yaml
+    - /config/telegram-registration.yaml
+  enable_group_creation: true
   email:
     enable_notifs: false
     notif_from: "Your Friendly %(app)s homeserver <noreply@g4v.dev>"
     client_base_url: "http://chat.g4v.dev"
+  password_config:
+    enabled: false
   saml2_config:
     idp_redirect_url: "https://keycloak.g4v.dev/auth/realms/master/protocol/saml"
     sp_config:
@@ -64,15 +72,11 @@ homeserver:
 
 logconfig:
   root:
-    level: ERROR
+    level: INFO
     handlers: [console]
   loggers:
-    synapse.appservice.api:
-      level: DEBUG
-    synapse.appservice:
-      level: DEBUG
-    synapse.config.appservice:
-      level: DEBUG
+    shared_secret_authenticator:
+      level: INFO
     synapse.access.http.8008:
       level: ERROR
     synapse.federation.transport.server:
@@ -86,6 +90,55 @@ dnsConfig:
       value: "1"
 
 extraConfigs:
+  instagram-registration.yaml:
+    id: instagram-puppet
+    namespaces:
+      users:
+        - exclusive: true
+          regex: '@puppet-instagram_.*'
+      rooms: []
+      aliases:
+        - exclusive: true
+          regex: '#puppet-instagram_.*'
+    protocols: []
+    rate_limited: false
+    sender_localpart: puppet-instagram
+    url: https://dev.gavinmogan.com
+  gitter-registration.yaml:
+    id: gitter
+    namespaces:
+      users:
+        - exclusive: true
+          regex: '@appservice-gitter_.*'
+      aliases:
+        - exclusive: true
+          regex: '#appservice-gitter_.*'
+      rooms: []
+    url: http://matrix-appservice-gitter.matrix.svc.cluster.local:5858
+    sender_localpart: appservice-gitter
+    rate_limited: true
+    protocols: null
+  whatsapp-registration.yaml:
+    id: whatsapp
+    url: http://mautrix-whatsapp.matrix.svc.cluster.local:29318
+    sender_localpart: whatsappbot
+    rate_limited: false
+    namespaces:
+      users:
+        - regex: ^@whatsapp_[0-9]+:g4v.dev$
+          exclusive: true
+  telegram-registration.yaml:
+    id: telegram
+    namespaces:
+        users:
+        - exclusive: true
+          regex: '@telegram_.+:g4v.dev'
+        aliases:
+        - exclusive: true
+          regex: '#telegram_.+:g4v.dev'
+    url: http://mautrix-telegram.matrix.svc.cluster.local:29317
+    sender_localpart: telegrambot
+    rate_limited: false
   map.py: |-
     MAP = {
       "identifier": "urn:oasis:names:tc:SAML:2.0:attrname-format:uri",

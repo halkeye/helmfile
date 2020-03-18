@@ -1,0 +1,26 @@
+config:
+  # gitter_api_key: secret
+  matrix_admin_room: "!xOLdmRfoMDaXHMfbov:g4v.dev"
+  matrix_homeserver: "https://matrix.g4v.dev"
+  matrix_external_url: "https://matrix.g4v.dev"
+  matrix_user_domain: "g4v.dev"
+  logging:
+    console: "debug"
+    files: {}
+
+registration:
+  #hs_token: secret
+  #as_token: secret
+  id: gitter
+  namespaces:
+    users:
+      - exclusive: true
+        regex: '@gitter_.*'
+    aliases:
+      - exclusive: true
+        regex: '#gitter_.*'
+    rooms: []
+  url: http://matrix-appservice-gitter.matrix.svc.cluster.local:5858
+  sender_localpart: gitter
+  rate_limited: true
+  protocols: null
