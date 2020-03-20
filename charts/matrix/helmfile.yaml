@@ -35,14 +35,14 @@ releases:
     secrets:
       - ../../secrets/matrix-appservice-gitter.yaml
 
-  #- name: ma1sd
-  #  chart: /home/halkeye/git/halkeye-helm-charts/ma1sd
-  #  #chart: halkeye/ma1sd
-  #  namespace: matrix
-  #  values:
-  #    - ./ma1sd.yaml
-  #  secrets:
-  #    - ../../secrets/ma1sd.yaml
+  - name: ma1sd
+    #chart: /home/halkeye/git/halkeye-helm-charts/ma1sd
+    chart: halkeye/ma1sd
+    namespace: matrix
+    values:
+      - ./ma1sd.yaml
+    secrets:
+      - ../../secrets/ma1sd.yaml
 
   - name: matrix-media-repo
     #chart: /home/halkeye/git/halkeye-helm-charts/matrix-media-repo

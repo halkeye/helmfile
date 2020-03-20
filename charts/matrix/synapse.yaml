@@ -28,6 +28,8 @@ homeserver:
     - /config/whatsapp-registration.yaml
     - /config/telegram-registration.yaml
   enable_group_creation: true
+  trusted_third_party_id_servers:
+    - matrix.g4v.dev
   email:
     enable_notifs: false
     notif_from: "Your Friendly %(app)s homeserver <noreply@g4v.dev>"
