@@ -36,6 +36,9 @@ homeserver:
     client_base_url: "http://chat.g4v.dev"
   password_config:
     enabled: false
+  sso:
+    client_whitelist:
+      - https://chat.g4v.dev
   saml2_config:
     idp_redirect_url: "https://keycloak.g4v.dev/auth/realms/master/protocol/saml"
     sp_config:
