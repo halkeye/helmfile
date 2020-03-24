@@ -1,11 +1,11 @@
 ingress:
   enabled: true
   tls:
-    - secretName: synapse-tls
+    - secretName: ma1sd-tls
       hosts:
-        - matrix.g4v.dev
+        - matrix-identity.g4v.dev
   hosts:
-    - host: matrix.g4v.dev
+    - host: matrix-identity.g4v.dev
   annotations:
     cert-manager.io/cluster-issuer: letsencrypt
     kubernetes.io/ingress.class: nginx
@@ -16,14 +16,26 @@ config:
     v1: true   # deprecated
     v2: true  # MSC2140 API v2. Disabled by default in order to preserve backward compatibility.
   server:
-    name: matrix.g4v.dev
-    publicUrl: https://matrix.g4v.dev
+    name: matrix-identity.g4v.dev
+    publicUrl: https://matrix-identity.g4v.dev
   storage:
     backend: postgresql
     provider:
       postgresql:
         database: '//postgresql.default.svc.cluster.local:5432/ma1sd'
         username: ma1sd
+  session:
+    policy:
+      validation:
+        enabled: false
+  dns:
+    overwrite:
+      homeserver:
+        client:
+          - name: 'g4v.dev'
+            value: 'http://synapse.matrix.svc.cluster.local:8008'
+          - name: 'matrix.g4v.dev'
+            value: 'http://synapse.matrix.svc.cluster.local:8008'
   forward:
     servers:
       - vector.im
@@ -40,26 +52,44 @@ config:
             host: "odin.dhcp.home"
             tls: 0
             port: 25
-    synapseSql:
-      #connection: //postgresql.default.svc.cluster.local/synapse?user=synapse&password=[redacted]
-      lookup:
-        # query for retrive 3PIDs for hashes.
-        query: 'select user_id as mxid, medium, address from user_threepids'
-    ldap:
-      enabled: true
-      lookup: true # hash lookup
-      connection:
-        host: openldap.openldap.svc.cluster.local
-        port: 389
-        bindDn: cn=admin,dc=gavinmogan,dc=com
-        # bindPassword: [redacted]
-        baseDNs:
-          - 'ou=users,dc=gavinmogan,dc=com'
-      attribute:
-        uid:
-          type: 'uid' # or mxid
-          value: 'uid'
-        name: 'displayName'
-        email: 'mail'
-      identity:
-        filter: '(objectClass=inetOrgPerson)'
+  synapseSql:
+    enabled: true # enable or disable the hash lookup MSC2140 (default is false)
+    type: postgresql
+    #connection: //postgresql.default.svc.cluster.local/synapse?user=synapse&password=[redacted]
+    lookup:
+      # query for retrive 3PIDs for hashes.
+      query: 'select user_id as mxid, medium, address from user_threepids'
+  hashing:
+    enabled: true # enable or disable the hash lookup MSC2140 (default is false)
+    pepperLength: 20 # length of the pepper value (default is 20)
+    rotationPolicy: per_requests # or `per_seconds` how often the hashes will be updating
+    hashStorageType: sql # or `in_memory` where the hashes will be stored
+    algorithms:
+      - sha256 # hash the 3PID and pepper.
+      - none   # the same as v1 bulk lookup
+    delay: 2m # how often hashes will be updated if rotation policy = per_seconds (default is 10s)
+    requests: 10 # how many lookup requests will be performed before updating hashes if rotation policy = per_requests (default is 10)
+  ldap:
+    enabled: true
+    lookup: true # hash lookup
+    connection:
+      host: openldap.openldap.svc.cluster.local
+      port: 389
+      bindDn: cn=admin,dc=gavinmogan,dc=com
+      # bindPassword: [redacted]
+      baseDNs:
+        - 'ou=users,dc=gavinmogan,dc=com'
+    attribute:
+      uid:
+        type: 'uid' # or mxid
+        value: 'uid'
+      name: 'displayName'
+      email:
+        - 'mail'
+      msisdn:
+        - 'telephoneNumber'
+        - 'phone'
+    identity:
+      filter: '(objectClass=inetOrgPerson)'
+  logging:
+    root: debug
