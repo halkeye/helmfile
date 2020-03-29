@@ -1,0 +1,38 @@
+ingress:
+  enabled: true
+  tls:
+    - secretName: printercam-tls
+      hosts:
+        - printercam.home.gavinmogan.com
+        - printercam.g4v.dev
+  hosts:
+    - host: printercam.g4v.dev
+      paths:
+        - /
+    - host: printercam.home.gavinmogan.com
+      paths:
+        - /
+  annotations:
+    cert-manager.io/cluster-issuer: letsencrypt
+    kubernetes.io/ingress.class: nginx
+    kubernetes.io/tls-acme: "true"
+
+affinity:
+  nodeAffinity:
+    requiredDuringSchedulingIgnoredDuringExecution:
+      nodeSelectorTerms:
+        - matchExpressions:
+          # Bus 001 Device 005: ID 046d:082d Logitech, Inc. HD Pro Webcam C920
+          - key: g4v.dev/usb.046d.082d
+            operator: In
+            values:
+              - "true"
+    preferredDuringSchedulingIgnoredDuringExecution:
+      - weight: 1
+        preference:
+          matchExpressions:
+            # Bus 001 Device 005: ID 046d:082d Logitech, Inc. HD Pro Webcam C920
+            - key: g4v.dev/usb.046d.082d
+              operator: In
+              values:
+                - "true"

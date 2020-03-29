@@ -1,0 +1,15 @@
+---
+helmDefaults:
+  cleanupOnFail: true
+  wait: true
+  timeout: 300
+  atomic: true
+
+releases:
+  - name: printercam
+    namespace: octoprint
+    chart: halkeye/mjpg-streamer
+    #chart: /home/halkeye/git/halkeye-helm-charts/mjpg-streamer
+    force: true
+    values:
+      - printercam.yaml
