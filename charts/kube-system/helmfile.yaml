@@ -1,0 +1,36 @@
+---
+helmDefaults:
+  cleanupOnFail: true
+  wait: true
+  timeout: 300
+  atomic: true
+
+releases:
+  - name: nfs-client-provisioner
+    namespace: kube-system
+    chart: stable/nfs-client-provisioner
+    values:
+      - nfs-client-provisioner.yaml
+    secrets:
+      - ../../secrets/nfs-client-provisioner.yaml
+  - name: metrics-server
+    namespace: kube-system
+    chart: stable/metrics-server
+    values:
+      - metrics-server.yaml
+  - name: nginx-ingress
+    namespace: kube-system
+    chart: stable/nginx-ingress
+    values:
+      - nginx-ingress.yaml
+    secrets:
+      - ../../secrets/nginx-ingress.yaml
+  - name: metallb
+    namespace: kube-system
+    chart: stable/metallb
+  - name: kube-janitor
+    namespace: kube-system
+    chart: incubator/kube-janitor
+  - name: docker-gc
+    namespace: kube-system
+    chart: halkeye/docker-gc

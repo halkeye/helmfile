@@ -1,4 +1,0 @@
-releases:
-  - name: kube-janitor
-    chart: incubator/kube-janitor
-    namespace: kube-system
