@@ -62,4 +62,4 @@ releases:
     values:
       - postfix.yaml
     secrets:
-      - secrets-postfix.yaml
+      - postfix-secrets.yaml
