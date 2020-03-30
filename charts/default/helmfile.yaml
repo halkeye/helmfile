@@ -56,3 +56,10 @@ releases:
     namespace: default
     values:
       - whoami.yaml
+  - name: postfix
+    chart: halkeye/postfix
+    namespace: default
+    values:
+      - postfix.yaml
+    secrets:
+      - secrets-postfix.yaml
