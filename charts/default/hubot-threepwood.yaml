@@ -1,7 +1,7 @@
 ---
 image:
   repository: halkeye/hubot
-  tag: 51a9746aeb6e6e733a718843628ab1f512e5178a
+  tag: v0.1.0
 name: Threepwood
 env:
   HUBOT_LOG_LEVEL: debug

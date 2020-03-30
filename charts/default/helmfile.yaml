@@ -1,0 +1,58 @@
+releases:
+  - name: hubot-threepwood
+    chart: halkeye/hubot
+    namespace: default
+    values:
+      - hubot-threepwood.yaml
+    secrets:
+      - ../../secrets/hubot-threepwood.yaml
+  - name: cops
+    chart: halkeye/cops
+    namespace: default
+    values:
+      - cops.yaml
+  - name: goplaxt
+    chart: halkeye/goplaxt
+    namespace: default
+    values:
+      - goplaxt.yaml
+    secrets:
+      - ../../secrets/goplaxt.yaml
+  - name: pgadmin
+    chart: halkeye/pgadmin
+    namespace: default
+    values:
+      - pgadmin.yaml
+    secrets:
+      - ../../secrets/pgadmin.yaml
+  - name: postgresql
+    chart: stable/postgresql
+    namespace: default
+    values:
+      - postgresql.yaml
+    secrets:
+      - ../../secrets/postgresql.yaml
+  - name: redis
+    chart: stable/redis
+    namespace: default
+    values:
+      - redis.yaml
+    secrets:
+      - ../../secrets/redis.yaml
+  - name: thelounge
+    chart: halkeye/thelounge
+    namespace: default
+    values:
+      - thelounge.yaml
+  - name: vouch
+    chart: halkeye/vouch
+    namespace: default
+    values:
+      - vouch.yaml
+    secrets:
+      - ../../secrets/vouch.yaml
+  - name: whoami
+    chart: halkeye/whoami
+    namespace: default
+    values:
+      - whoami.yaml
