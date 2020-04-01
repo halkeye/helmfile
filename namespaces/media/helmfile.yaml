@@ -1,0 +1,18 @@
+releases:
+  - name: media-cifs-secret
+    chart: ../charts/cifs-secret
+    namespace: media
+    secrets:
+      - cifs-secret.yaml
+
+  - name: cops
+    chart: halkeye/cops
+    namespace: media
+    values:
+      - cops.yaml
+
+  - name: ubooquity
+    chart: /home/halkeye/git/halkeye-helm-charts/ubooquity
+    namespace: media
+    values:
+      - ubooquity.yaml
