@@ -45,7 +45,7 @@ releases:
     values:
       - vouch.yaml
     secrets:
-      - ../../secrets/vouch.yaml
+      - vouch-secrets.yaml
   - name: whoami
     chart: halkeye/whoami
     namespace: default
