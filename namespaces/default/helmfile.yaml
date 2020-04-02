@@ -6,11 +6,6 @@ releases:
       - hubot-threepwood.yaml
     secrets:
       - ../../secrets/hubot-threepwood.yaml
-  - name: cops
-    chart: halkeye/cops
-    namespace: default
-    values:
-      - cops.yaml
   - name: goplaxt
     chart: halkeye/goplaxt
     namespace: default
