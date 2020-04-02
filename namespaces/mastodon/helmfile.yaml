@@ -1,0 +1,8 @@
+releases:
+  - name: mastodon-twitter-poster
+    chart: halkeye/mastodon-twitter-poster
+    namespace: mastodon
+    values:
+      - ./mastodon-twitter-poster.yaml
+    secrets:
+      - ./mastodon-twitter-poster-secret.yaml
