@@ -21,13 +21,6 @@ ingress:
       auth_request_set $auth_resp_err $upstream_http_x_vouch_err;
       auth_request_set $auth_resp_failcount $upstream_http_x_vouch_failcount;
 
-strategy:
-  type: Recreate
-
-persistence:
-  enabled: true
-  storageClassName: linstor
-
 puid: 1000
 guild: 1000
 timezone: "America/Vancouver"
@@ -43,18 +36,11 @@ extraVolumes:
         share: "/Comics"
       secretRef:
         name: media-cifs-secret
-  - name: smb-odin-books
-    flexVolume:
-      driver: "juliohm/cifs"
-      options:
-        opts: "uid=1000,gid=1000"
-        server: "odin"
-        share: "/Books"
-      secretRef:
-        name: media-cifs-secret
 
 extraVolumeMounts:
-  #- mountPath: /books
-  #  name: smb-odin-books
   - mountPath: /comics
     name: smb-odin-comics
+
+use_config: true
+config:
+  autoscanPeriod: 60
