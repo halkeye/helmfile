@@ -1,6 +1,6 @@
 releases:
   - name: media-cifs-secret
-    chart: ../charts/cifs-secret
+    chart: ../../charts/cifs-secret
     namespace: media
     secrets:
       - cifs-secret.yaml
