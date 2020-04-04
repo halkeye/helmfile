@@ -1,0 +1,39 @@
+apiVersion: batch/v1beta1
+kind: CronJob
+metadata:
+  name: {{ include "discord-gamedeals-bot.fullname" . }}
+  labels:
+{{ include "discord-gamedeals-bot.labels" . | indent 4 }}
+spec:
+  schedule: "15 */3 * * *"
+  concurrencyPolicy: Forbid
+  failedJobsHistoryLimit: 2
+  successfulJobsHistoryLimit: 2
+  jobTemplate:
+    spec:
+      template:
+        metadata:
+          labels:
+            app.kubernetes.io/name: {{ include "discord-gamedeals-bot.name" . }}
+            app.kubernetes.io/instance: {{ .Release.Name }}
+            component: "cron"
+        spec:
+          restartPolicy: Never
+        {{- with .Values.imagePullSecrets }}
+          imagePullSecrets:
+            {{- toYaml . | nindent 8 }}
+        {{- end }}
+          serviceAccountName: {{ template "discord-gamedeals-bot.serviceAccountName" . }}
+          securityContext:
+            {{- toYaml .Values.podSecurityContext | nindent 12 }}
+          containers:
+            - name: {{ .Chart.Name }}
+              securityContext:
+                {{- toYaml .Values.securityContext | nindent 16 }}
+              image: "{{ .Values.image.repository }}:{{ .Values.image.tag }}"
+              imagePullPolicy: {{ .Values.image.pullPolicy }}
+              envFrom:
+                - secretRef:
+                    name: {{ include "discord-gamedeals-bot.fullname" . }}
+              command: ["npm", "run", "start:notifier"]
+

@@ -1,0 +1,7 @@
+releases:
+  - name: gamedeals-bot
+    chart: ../../charts/discord-gamedeals-bot
+    namespace: discord-bots
+    secrets:
+      - gamedeals-bot-secrets.yaml
+
