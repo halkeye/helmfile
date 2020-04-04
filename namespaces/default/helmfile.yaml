@@ -1,11 +1,4 @@
 releases:
-  - name: hubot-threepwood
-    chart: halkeye/hubot
-    namespace: default
-    values:
-      - hubot-threepwood.yaml
-    secrets:
-      - ../../secrets/hubot-threepwood.yaml
   - name: goplaxt
     chart: halkeye/goplaxt
     namespace: default
