@@ -15,11 +15,6 @@ alertmanager:
       kubernetes.io/tls-acme: "true"
 
 extraScrapeConfigs: |
-  - job_name: 'bind_exporter'
-    scheme: https
-    metrics_path: '/metrics'
-    static_configs:
-      - targets: ['bind_exporter.odin.gavinmogan.com:443']
   - job_name: 'octoprint'
     scheme: https
     metrics_path: '/plugin/prometheus_exporter/metrics'

@@ -1,7 +1,0 @@
-releases:
-  - name: pgadmin
-    chart: halkeye/pgadmin
-    values:
-      - pgadmin.yaml
-    secrets:
-      - ../../secrets/pgadmin.yaml

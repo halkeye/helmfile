@@ -1,1 +1,21 @@
 # pretty much all of it is secrets :(
+service:
+    externalTrafficPolicy: Local
+    type: LoadBalancer
+    loadBalancerIP: 172.16.10.202
+    port: 53
+powerdns:
+    dnssec: true
+    postgres:
+        host: postgresql.default.svc.cluster.local
+        username: powerdns
+        database: powerdns
+    config:
+        master: "yes"
+        ### axfr support
+        allow-axfr-ips: 127.0.0.1 ::1 192.0.2.0/24 2001:db8::/64 10.244.0.20 172.16.10.1
+        disable-axfr: "no"
+        ### dnsupdates
+        dnsupdate: "yes"
+        allow-dnsupdate-from: 0.0.0.0/0
+        forward-dnsupdate: "yes"

@@ -1,3 +1,9 @@
+helmDefaults:
+  cleanupOnFail: true
+  wait: true
+  timeout: 300
+  atomic: true
+
 repositories:
   - name: stable
     url: https://kubernetes-charts.storage.googleapis.com
@@ -10,9 +16,10 @@ repositories:
 
 
 helmfiles:
-  - charts/*/helmfile.yaml
+  - namespaces/*/helmfile.yaml
 
-## kubectl apply -f $HELM_CONFIG_DIR/pg-backup-cronJob.yaml
+##kubectl apply -f $HELM_CONFIG_DIR/pg-backup-cronJob.yaml
+##kubectl apply -f $HELM_CONFIG_DIR/cops.yaml
 ##kubectl apply -f $HELM_CONFIG_DIR/bazarr.yaml
 ##kubectl apply -f $HELM_CONFIG_DIR/cifs-secret.yaml
 ##kubectl apply -f $HELM_CONFIG_DIR/lidarr.yaml

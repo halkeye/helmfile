@@ -28,9 +28,9 @@ releases:
   - name: metallb
     namespace: kube-system
     chart: stable/metallb
-  - name: kube-janitor
-    namespace: kube-system
-    chart: incubator/kube-janitor
+  #- name: kube-janitor
+  #  namespace: kube-system
+  #  chart: incubator/kube-janitor
   - name: docker-gc
     namespace: kube-system
     chart: halkeye/docker-gc

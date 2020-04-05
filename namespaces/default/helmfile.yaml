@@ -6,20 +6,6 @@ releases:
       - goplaxt.yaml
     secrets:
       - ../../secrets/goplaxt.yaml
-  - name: pgadmin
-    chart: halkeye/pgadmin
-    namespace: default
-    values:
-      - pgadmin.yaml
-    secrets:
-      - ../../secrets/pgadmin.yaml
-  - name: postgresql
-    chart: stable/postgresql
-    namespace: default
-    values:
-      - postgresql.yaml
-    secrets:
-      - ../../secrets/postgresql.yaml
   - name: redis
     chart: stable/redis
     namespace: default

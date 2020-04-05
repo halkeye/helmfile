@@ -32,6 +32,8 @@ persistence:
 
 dashboards:
   default:
+    synapse:
+      url: https://raw.githubusercontent.com/matrix-org/synapse/master/contrib/grafana/synapse.json
     helm-exporter:
       gnetId: 9367
       revision: 2

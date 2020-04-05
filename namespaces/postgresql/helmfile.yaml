@@ -5,3 +5,9 @@ releases:
       - postgresql.yaml
     secrets:
       - ../../secrets/postgresql.yaml
+  - name: pgadmin
+    chart: halkeye/pgadmin
+    values:
+      - pgadmin.yaml
+    secrets:
+      - ../../secrets/pgadmin.yaml
