@@ -1,7 +1,0 @@
-releases:
-  - name: goplaxt
-    chart: halkeye/goplaxt
-    #values:
-    #  - goplaxt.yaml
-    secrets:
-      - ../../secrets/goplaxt.yaml

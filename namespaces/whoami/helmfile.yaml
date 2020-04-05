@@ -1,6 +1,0 @@
-releases:
-  - name: whoami
-    chart: halkeye/whoami
-    namespace: default
-    values:
-      - whoami.yaml
