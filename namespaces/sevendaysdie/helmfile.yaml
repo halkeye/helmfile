@@ -1,8 +1,0 @@
-releases:
-  - name: sevendaysdie
-    chart: halkeye/sevendaysdie
-    namespace: sevendaysdie
-    values:
-      - 7daystodie.yaml
-    secrets:
-      - ../../secrets/7daystodie.yaml

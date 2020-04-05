@@ -1,0 +1,23 @@
+releases:
+  - name: sevendaysdie
+    chart: halkeye/sevendaysdie
+    namespace: sevendaysdie
+    values:
+      - 7daystodie.yaml
+    secrets:
+      - 7daystodie-secrets.yaml
+  - name: terraria
+    chart: halkeye/terraria
+    namespace: terraria
+    values:
+      - terraria.yaml
+    secrets:
+      - terraria-secrets.yaml
+  - name: dontstarvetogether
+    #chart: halkeye/dontstarvetogether
+    chart: /home/halkeye/git/halkeye-helm-charts/dontstarvetogether
+    namespace: games
+    values:
+      - dontstarvetogether.yaml
+    secrets:
+      - dontstarvetogether-secrets.yaml

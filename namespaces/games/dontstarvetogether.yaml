@@ -1,0 +1,16 @@
+config:
+  name: "Dont Starve With Halkeye"
+ 
+strategy:
+  type: Recreate
+
+service:
+  externalTrafficPolicy: Local
+  type: LoadBalancer
+  annotations:
+    external-dns.alpha.kubernetes.io/hostname: dst.g4v.dev
+    external-dns.alpha.kubernetes.io/ttl: "120"
+
+persistence:
+  enabled: true
+  storageClassName: linstor
