@@ -41,7 +41,7 @@ homeserver:
     client_base_url: "http://chat.g4v.dev"
   enable_media_repo: false
   password_config:
-    enabled: false
+    enabled: true
   sso:
     client_whitelist:
       - https://chat.g4v.dev
