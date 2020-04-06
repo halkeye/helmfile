@@ -1,6 +1,7 @@
 config:
   name: "Dont Starve With Halkeye"
- 
+  pause_when_empty: true
+
 strategy:
   type: Recreate
 
