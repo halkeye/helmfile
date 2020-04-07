@@ -1,0 +1,100 @@
+image:
+  tag: 10.5.3
+ingress:
+  enabled: true
+  #tls:
+  #  - secretName: jellyfin-tls
+  #    hosts:
+  #      - jellyfin.home.gavinmogan.com
+  hosts:
+    - jellyfin.home.gavinmogan.com
+  annotations:
+    cert-manager.io/cluster-issuer: letsencrypt
+    kubernetes.io/ingress.class: nginx
+    kubernetes.io/tls-acme: "true"
+
+strategy:
+  type: Recreate
+  rollingUpdate: null
+
+timezone: "America/Vancouver"
+persistence:
+  config:
+    enabled: true
+    storageClass: linstor
+    accessMode: ReadWriteOnce
+    size: 10Gi
+
+resources:
+  limits:
+    memory: 4900Mi
+  requests:
+    cpu: 35m
+    memory: 1500Mi
+
+extraVolumes:
+  - name: renderd129
+    hostPath:
+      path: /dev/dri/renderD129
+  - name: smb-odin-tv
+    flexVolume:
+      driver: "juliohm/cifs"
+      options:
+        opts: "uid=1000,gid=1000"
+        server: "odin"
+        share: "/tv"
+      secretRef:
+        name: media-cifs-secret
+  - name: smb-odin-movies
+    flexVolume:
+      driver: "juliohm/cifs"
+      options:
+        opts: "uid=1000,gid=1000"
+        server: "odin"
+        share: "/movies"
+      secretRef:
+        name: media-cifs-secret
+  - name: smb-odin-anime
+    flexVolume:
+      driver: "juliohm/cifs"
+      options:
+        opts: "uid=1000,gid=1000"
+        server: "odin"
+        share: "/anime"
+      secretRef:
+        name: media-cifs-secret
+  - name: smb-odin-music
+    flexVolume:
+      driver: "juliohm/cifs"
+      options:
+        opts: "uid=1000,gid=1000"
+        server: "odin"
+        share: "/music"
+      secretRef:
+        name: media-cifs-secret
+  - name: smb-odin-books
+    flexVolume:
+      driver: "juliohm/cifs"
+      options:
+        opts: "uid=1000,gid=1000"
+        server: "odin"
+        share: "/books"
+      secretRef:
+        name: media-cifs-secret
+
+extraVolumeMounts:
+  - mountPath: /dev/dri/renderD129
+    name: renderd129
+  - mountPath: /tv
+    name: smb-odin-tv
+  - mountPath: /movies
+    name: smb-odin-movies
+  - mountPath: /anime
+    name: smb-odin-anime
+  - mountPath: /music
+    name: smb-odin-music
+  - mountPath: /books
+    name: smb-odin-books
+
+securityContext:
+  privileged: true

@@ -1,0 +1,89 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: {{ include "zap2xml.fullname" . }}
+  labels:
+{{ include "zap2xml.labels" . | indent 4 }}
+spec:
+  replicas: {{ .Values.replicaCount }}
+  selector:
+    matchLabels:
+      app.kubernetes.io/name: {{ include "zap2xml.name" . }}
+      app.kubernetes.io/instance: {{ .Release.Name }}
+  template:
+    metadata:
+      labels:
+        app.kubernetes.io/name: {{ include "zap2xml.name" . }}
+        app.kubernetes.io/instance: {{ .Release.Name }}
+    spec:
+    {{- with .Values.imagePullSecrets }}
+      imagePullSecrets:
+        {{- toYaml . | nindent 8 }}
+    {{- end }}
+      serviceAccountName: {{ template "zap2xml.serviceAccountName" . }}
+      securityContext:
+        {{- toYaml .Values.podSecurityContext | nindent 8 }}
+      containers:
+        - name: generator
+          securityContext:
+            {{- toYaml .Values.securityContext | nindent 12 }}
+          image: "{{ .Values.generator.image.repository }}:{{ .Values.generator.image.tag }}"
+          imagePullPolicy: {{ .Values.generator.image.pullPolicy }}
+          command: ["/bin/sh"]
+          args:
+          - -c
+          - |
+            mkdir /config
+            wget -O /config/zap2xml.pl http://phatic.ml/?h=gc1ym2
+            chmod 755 /config/zap2xml.pl
+            sh /entry.sh
+          volumeMounts:
+            - name: data
+              mountPath: /data
+          env:
+            - { name: "USERNAME", value: {{ required "zap2it username" .Values.generator.username | quote }} }
+            - { name: "PASSWORD", value: {{ required "zap2it password" .Values.generator.password | quote }} }
+           {{- if .Values.generator.opt_args }}
+            - { name: "OPT_ARGS", value: {{ .Values.generator.opt_args | quote }} }
+           {{- end }}
+           {{- if .Values.generator.xmltv_filename }}
+            - { name: "XMLTV_FILENAME", value: {{ .Values.generator.xmltv_filename | quote }} }
+           {{- end }}
+           {{- if .Values.generator.sleeptime }}
+            - { name: "SLEEPTIME", value: {{ .Values.generator.sleeptime | quote }} }
+           {{- end }}
+        - name: server
+          image: "{{ .Values.server.image.repository }}:{{ .Values.server.image.tag }}"
+          imagePullPolicy: {{ .Values.server.image.pullPolicy }}
+          volumeMounts:
+            - name: data
+              mountPath: /usr/share/nginx/html
+          ports:
+            - name: http
+              containerPort: 80
+              protocol: TCP
+          #livenessProbe:
+          #  httpGet:
+          #    path: /
+          #    port: http
+          #readinessProbe:
+          #  httpGet:
+          #    path: /
+          #    port: http
+          resources:
+            {{- toYaml .Values.resources | nindent 12 }}
+      {{- with .Values.nodeSelector }}
+      nodeSelector:
+        {{- toYaml . | nindent 8 }}
+      {{- end }}
+    {{- with .Values.affinity }}
+      affinity:
+        {{- toYaml . | nindent 8 }}
+    {{- end }}
+    {{- with .Values.tolerations }}
+      tolerations:
+        {{- toYaml . | nindent 8 }}
+    {{- end }}
+      volumes:
+        - name: data
+          emptyDir: {}

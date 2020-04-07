@@ -1,0 +1,15 @@
+apiVersion: v1
+kind: Pod
+metadata:
+  name: "{{ include "zap2xml.fullname" . }}-test-connection"
+  labels:
+{{ include "zap2xml.labels" . | indent 4 }}
+  annotations:
+    "helm.sh/hook": test-success
+spec:
+  containers:
+    - name: wget
+      image: busybox
+      command: ['wget']
+      args:  ['{{ include "zap2xml.fullname" . }}:{{ .Values.service.port }}']
+  restartPolicy: Never

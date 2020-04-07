@@ -1,0 +1,16 @@
+apiVersion: v1
+kind: Service
+metadata:
+  name: {{ include "zap2xml.fullname" . }}
+  labels:
+{{ include "zap2xml.labels" . | indent 4 }}
+spec:
+  type: {{ .Values.service.type }}
+  ports:
+    - port: {{ .Values.service.port }}
+      targetPort: http
+      protocol: TCP
+      name: http
+  selector:
+    app.kubernetes.io/name: {{ include "zap2xml.name" . }}
+    app.kubernetes.io/instance: {{ .Release.Name }}

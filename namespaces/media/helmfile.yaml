@@ -1,3 +1,9 @@
+repositories:
+  - name: jellyfin
+    url: git+https://github.com/brianmcarey/jellyfin-helm@?ref=master
+  - name: halkeye
+    url: https://halkeye.github.io/helm-charts
+
 releases:
   - name: media-cifs-secret
     chart: ../../charts/cifs-secret
@@ -12,7 +18,19 @@ releases:
       - cops.yaml
 
   - name: ubooquity
-    chart: /home/halkeye/git/halkeye-helm-charts/ubooquity
+    chart: halkeye/ubooquity
     namespace: media
     values:
       - ubooquity.yaml
+
+  - name: jellyfin
+    chart: jellyfin/jellyfin
+    namespace: media
+    values:
+      - jellyfin.yaml
+
+  - name: zap2xml
+    chart: ../../charts/zap2xml
+    namespace: media
+    secrets:
+      - zap2xml-secret.yaml
