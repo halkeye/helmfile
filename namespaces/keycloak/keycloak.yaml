@@ -22,9 +22,3 @@ keycloak:
     dbName: keycloak
     dbHost: postgresql.default.svc.cluster.local
     dbPort: 5432
-
-  service:
-    annotations:
-      prometheus.io/path: /auth/realms/master/metrics
-      prometheus.io/port: "80"
-      prometheus.io/scrape: "true"
