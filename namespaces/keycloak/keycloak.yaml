@@ -1,8 +1,7 @@
 keycloak:
   username: keycloak
-  extraEnv: |
-    - name: PROXY_ADDRESS_FORWARDING
-      value: "true"
+  proxyAddressForwarding: true
+  extraArgs: "-Dkeycloak.profile.feature.docker=enabled"
   ingress:
     enabled: true
     tls:
@@ -23,3 +22,9 @@ keycloak:
     dbName: keycloak
     dbHost: postgresql.default.svc.cluster.local
     dbPort: 5432
+
+  service:
+    annotations:
+      prometheus.io/path: /auth/realms/master/metrics
+      prometheus.io/port: "80"
+      prometheus.io/scrape: "true"
