@@ -30,9 +30,18 @@ s3:
   regionEndpoint: https://minio.odin.gavinmogan.com/
   bucket: docker
   encrypt: false
+service:
+  annotations:
+    prometheus.io/path: /metrics
+    prometheus.io/port: "5001"
+    prometheus.io/scrape: "true"
 configData:
-  prometheus:
-    enabled: true
+  http:
+    debug:
+      addr: ":5001"
+      prometheus:
+        enabled: true
+        path: "/metrics"
   auth:
     token:
       realm: "https://docker-auth.g4v.dev/auth"
