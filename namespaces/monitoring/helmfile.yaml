@@ -1,0 +1,14 @@
+repositories:
+  - name: stable
+    url: https://kubernetes-charts.storage.googleapis.com
+  - name: sstarcher
+    url: https://shanestarcher.com/helm-charts/
+releases:
+  - name: prometheus
+    chart: stable/prometheus
+    namespace: monitoring
+    values:
+      - prometheus.yaml
+  - name: helm-exporter
+    chart: sstarcher/helm-exporter
+    namespace: monitoring

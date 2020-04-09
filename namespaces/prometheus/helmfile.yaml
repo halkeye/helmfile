@@ -1,6 +1,0 @@
-releases:
-  - name: prometheus
-    chart: stable/prometheus
-    namespace: monitoring
-    values:
-      - prometheus.yaml
