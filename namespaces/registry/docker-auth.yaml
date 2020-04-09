@@ -3,12 +3,12 @@
 ingress:
   enabled: true
   hosts:
-    - host: docker-auth.g4v.dev
+    - host: auth.r.g4v.dev
       paths: ['/']
   tls:
     - secretName: docker-auth-tls
       hosts:
-        - docker-auth.g4v.dev
+        - auth.r.g4v.dev
   annotations:
     cert-manager.io/cluster-issuer: letsencrypt
     kubernetes.io/ingress.class: nginx

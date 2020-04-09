@@ -44,7 +44,7 @@ configData:
         path: "/metrics"
   auth:
     token:
-      realm: "https://docker-auth.g4v.dev/auth"
+      realm: "https://auth.r.g4v.dev/auth"
       service: "Docker registry"
       issuer: "Acme auth server"
       autoredirect: false
