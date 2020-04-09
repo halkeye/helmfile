@@ -1,6 +1,8 @@
 repositories:
   - name: halkeye
     url: https://halkeye.github.io/helm-charts
+  - name: clair
+    url: git+https://github.com/quay/clair@local-dev/helm/clair?ref=master
 
 releases:
   - name: docker-registry
@@ -24,3 +26,9 @@ releases:
     namespace: registry
     values:
       - reg-server.yaml
+
+  - name: clair
+    chart: clair/clair
+    namespace: registry
+    values:
+      - clair.yaml
