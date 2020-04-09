@@ -34,6 +34,10 @@ dashboards:
   default:
     synapse:
       url: https://raw.githubusercontent.com/matrix-org/synapse/master/contrib/grafana/synapse.json
+    docker-registry:
+      gnetId: 9621
+      revision: 2
+      datasource: Prometheus
     helm-exporter:
       gnetId: 9367
       revision: 2
