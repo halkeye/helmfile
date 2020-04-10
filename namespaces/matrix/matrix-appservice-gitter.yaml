@@ -4,9 +4,14 @@ config:
   matrix_homeserver: "https://matrix.g4v.dev"
   matrix_external_url: "https://matrix.g4v.dev"
   matrix_user_domain: "g4v.dev"
+  name_mangling:
+    - pattern: "@irc_(.*):g4v.dev"
+      template: "$1 (Gitter)"
+  enable_portals: true
+  enable_metrics: true
+  alias_template: "gitter_${ROOM}"
   logging:
     console: "debug"
-    files: {}
 
 registration:
   #hs_token: secret
@@ -15,12 +20,12 @@ registration:
   namespaces:
     users:
       - exclusive: true
-        regex: '@gitter_.*'
+        regex: '@appservice-gitter_.*'
     aliases:
       - exclusive: true
-        regex: '#gitter_.*'
+        regex: '#appservice-gitter_.*'
     rooms: []
   url: http://matrix-appservice-gitter.matrix.svc.cluster.local:5858
-  sender_localpart: gitter
+  sender_localpart: appservice-gitter
   rate_limited: true
   protocols: null

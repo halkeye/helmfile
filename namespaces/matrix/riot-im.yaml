@@ -15,13 +15,13 @@ ingress:
     nginx.ingress.kubernetes.io/proxy-body-size: "10m"
 
 configjson:
-  default_server_name: "g4v.dev"
-  #default_server_config:
-  #  m.homeserver:
-  #    base_url: "https://matrix.g4v.dev"
-  #    server_name: "g4v.dev"
-  #  m.identity_server:
-  #    base_url: "https://matrix-identity.g4v.dev"
+  #default_server_name: "g4v.dev"
+  default_server_config:
+    m.homeserver:
+      base_url: "https://matrix.g4v.dev"
+      server_name: "g4v.dev"
+    m.identity_server:
+      base_url: "https://matrix-identity.g4v.dev"
   brand: "Gavin Chat"
   default_theme: "dark"
   integrations_ui_url: "https://dimension.matrix.g4v.dev/riot"

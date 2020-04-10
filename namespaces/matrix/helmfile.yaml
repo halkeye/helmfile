@@ -77,7 +77,7 @@ releases:
       - ./matrix-dimension-secret.yaml
 
   - name: mautrix-hangouts
-    chart:halkeye/mautrix-hangouts
+    chart: halkeye/mautrix-hangouts
     namespace: matrix
     values:
       - ./mautrix-hangouts.yaml
