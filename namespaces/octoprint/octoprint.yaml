@@ -12,6 +12,7 @@ ingress:
     cert-manager.io/cluster-issuer: letsencrypt
     kubernetes.io/ingress.class: nginx
     kubernetes.io/tls-acme: "true"
+    nginx.ingress.kubernetes.io/proxy-body-size: "0"
 
 affinity:
   nodeAffinity:
@@ -34,7 +35,6 @@ affinity:
                 - "true"
 
 podSecurityContext:
-  fsUser: 1000
   fsGroup: 20
 
 securityContext:
@@ -45,6 +45,7 @@ securityContext:
   #runAsNonRoot: true
   runAsUser: 1000
   runAsGroup: 20
+
 
 ## Persist configuration to a persistent volume
 persistence:
