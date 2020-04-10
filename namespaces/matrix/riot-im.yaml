@@ -24,6 +24,10 @@ configjson:
   #    base_url: "https://matrix-identity.g4v.dev"
   brand: "Gavin Chat"
   default_theme: "dark"
+  integrations_ui_url: "https://dimension.matrix.g4v.dev/riot"
+  integrations_rest_url: "https://dimension.matrix.g4v.dev/api/v1/scalar"
+  integrations_widgets_urls: ["https://dimension.matrix.g4v.dev/widgets"]
+  integrations_jitsi_widget_url: "https://dimension.matrix.g4v.dev/widgets/jitsi"
   settingDefaults:
     breadcrumbs: true
     custom_themes:

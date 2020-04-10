@@ -27,6 +27,7 @@ homeserver:
     - /config/instagram-registration.yaml
     - /config/whatsapp-registration.yaml
     - /config/telegram-registration.yaml
+    - /config/hangouts-registration.yaml
   enable_group_creation: true
   enable_3pid_lookup: true
   default_identity_server: https://matrix-identity.g4v.dev
@@ -150,6 +151,16 @@ extraConfigs:
           regex: '#telegram_.+:g4v.dev'
     url: http://mautrix-telegram.matrix.svc.cluster.local:29317
     sender_localpart: telegrambot
+    rate_limited: false
+  hangouts-registration.yaml:
+    id: hangouts
+    namespaces:
+      users:
+        - exclusive: true
+          regex: '@hangouts_.+:g4v.dev'
+          group_id: +hangouts:g4v.dev
+    url: http://mautrix-hangouts:29320
+    sender_localpart: hangoutsbot
     rate_limited: false
   map.py: |-
     MAP = {
