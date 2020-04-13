@@ -1,0 +1,72 @@
+apiVersion: batch/v1beta1
+kind: CronJob
+metadata:
+  name: {{ template "postgresql.master.fullname" . }}-cron-job
+  labels:
+    app: {{ template "postgresql.name" . }}
+    chart: {{ template "postgresql.chart" . }}
+    release: {{ .Release.Name | quote }}
+    heritage: {{ .Release.Service | quote }}
+spec:
+  schedule: {{ .Values.backup.schedule | quote }}
+  failedJobsHistoryLimit: {{ .Values.backup.failedJobsHistoryLimit }}
+  successfulJobsHistoryLimit: {{ .Values.backup.failedJobsHistoryLimit }}
+  jobTemplate:
+    spec:
+      template:
+        spec:
+          restartPolicy: OnFailure
+          initContainers:
+            - name: pgsql-backup
+              image: {{ template "postgresql.image" . }}
+              imagePullPolicy: "{{ .Values.image.pullPolicy }}"
+              {{- if .Values.resources }}
+              resources: {{- toYaml .Values.resources | nindent 12 }}
+              {{- end }}
+              {{- if .Values.securityContext.enabled }}
+              securityContext:
+                runAsUser: {{ .Values.securityContext.runAsUser }}
+              {{- end }}
+              command:
+                - "/bin/sh"
+              args:
+                - "-xec"
+                - |
+                  /opt/bitnami/postgresql/bin/pg_dumpall > /pg_backup/backupOn`date +%Y-%m-%d-%H-%M`.dump
+                  ls -lh /pg_backup/*
+                  [ -s /pg_backup/* ] || (echo "No files avilable"; exit 1)
+              env:
+                - name: PGHOST
+                  value: {{ template "postgresql.fullname" . }}
+                - name: PGUSER
+                  value: "postgres"
+                - name: PGPASSWORD
+                  valueFrom:
+                    secretKeyRef:
+                      name: {{ template "postgresql.secretName" . }}
+                      key: postgresql-password
+              volumeMounts:
+                - mountPath: "/pg_backup"
+                  name: backup-volume
+          containers:
+            - name: upload-to-minio
+              image: "{{ .Values.backup.image.repository }}:{{ .Values.backup.image.tag }}"
+              imagePullPolicy: "{{ .Values.backup.image.pullPolicy }}"
+              {{- if .Values.resources }}
+              resources: {{- toYaml .Values.resources | nindent 12 }}
+              {{- end }}
+              command:
+                - "/bin/sh"
+              args:
+                - "-xec"
+                - |
+                  [ -s /pg_backup/* ] || (echo "No files avilable"; exit 1)
+                  mc config host add minio {{ .Values.backup.minio.url | quote }} {{ .Values.backup.minio.accessKey | quote }}  {{.Values.backup.minio.secretKey | quote }}
+                  mc mb "minio/{{ .Values.backup.minio.bucket }}" || true
+                  mc cp /pg_backup/backupOn*.dump "minio/{{ .Values.backup.minio.bucket }}/"
+              volumeMounts:
+                - mountPath: "/pg_backup"
+                  name: backup-volume
+          volumes:
+            - name: backup-volume
+              emptyDir: {}

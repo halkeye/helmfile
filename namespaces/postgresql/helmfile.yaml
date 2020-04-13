@@ -1,13 +1,16 @@
 releases:
   - name: postgresql
-    chart: stable/postgresql
+    #chart: stable/postgresql
+    chart: ../../charts/postgresql
+    namespace: default
     values:
       - postgresql.yaml
     secrets:
-      - ../../secrets/postgresql.yaml
+      - postgresql-secret.yaml
   - name: pgadmin
     chart: halkeye/pgadmin
+    namespace: default
     values:
       - pgadmin.yaml
     secrets:
-      - ../../secrets/pgadmin.yaml
+      - pgadmin-secret.yaml

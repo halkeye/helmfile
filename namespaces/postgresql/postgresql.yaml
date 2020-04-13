@@ -1,6 +1,7 @@
-service:
-  type: NodePort
-persistence:
-  storageClass: "linstor"
-metrics:
-  enabled: true
+postgresql:
+  service:
+    type: NodePort
+  persistence:
+    storageClass: "linstor"
+  metrics:
+    enabled: true

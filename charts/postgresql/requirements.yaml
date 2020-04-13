@@ -1,0 +1,34 @@
+---
+dependencies:
+    - name: postgresql
+      repository: https://kubernetes-charts.storage.googleapis.com
+      version: 8.6.3
+      import-values:
+          # generated with yq read -j ~/git/helm/charts/stable/postgresql/values.yaml | jq -r '.|keys[]'
+          - child: replication
+            parent: replication
+          - child: image
+            parent: image
+          - child: securityContext
+            parent: securityContext
+          - child: global
+            parent: global
+          
+          #- {child: "global", parent: "global"}
+          #- {child: "image", parent: "image"}
+          #- {child: "ldap", parent: "ldap"}
+          #- {child: "livenessProbe", parent: "livenessProbe"}
+          #- {child: "master", parent: "master"}
+          #- {child: "metrics", parent: "metrics"}
+          #- {child: "networkPolicy", parent: "networkPolicy"}
+          #- {child: "persistence", parent: "persistence"}
+          #- {child: "readinessProbe", parent: "readinessProbe"}
+          #- {child: "replication", parent: "replication"}
+          #- {child: "resources", parent: "resources"}
+          #- {child: "securityContext", parent: "securityContext"}
+          #- {child: "service", parent: "service"}
+          #- {child: "serviceAccount", parent: "serviceAccount"}
+          #- {child: "shmVolume", parent: "shmVolume"}
+          #- {child: "slave", parent: "slave"}
+          #- {child: "updateStrategy", parent: "updateStrategy"}
+          #- {child: "volumePermissions", parent: "volumePermissions"}
