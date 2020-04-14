@@ -8,4 +8,4 @@ releases:
     values:
       - grafana.yaml
     secrets:
-      - ../../secrets/grafana.yaml
+      - grafana-secret.yaml

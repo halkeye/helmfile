@@ -41,6 +41,7 @@ dashboards:
     helm-exporter:
       gnetId: 9367
       revision: 2
+      datasource: Prometheus
     prometheus:
       gnetId: 3662
       revision: 2
@@ -48,23 +49,48 @@ dashboards:
     node-exporter-full:
       gnetId: 1860
       revision: 14
+      datasource: Prometheus
       #url: https://grafana.com/grafana/dashboards/9367
     jenkins-performance:
       gnetId: 9524
       revision: 1
+      datasource: Prometheus
     # https://grafana.com/grafana/dashboards/315
     # need a scrape config
     kubernetes-cluster-monitoring-315:
       gnetId: 315
       revision: 3
       datasource: Prometheus
-    kubernetes-cluster-monitoring-1621:
-      gnetId: 1621
+    nextcloud:
+      gnetId: 11033
       revision: 1
       datasource: Prometheus
-    bind:
-      gnetId: 1666
+    kubernetes-capacity:
+      gnetId: 5228
+      revision: 6
+      datasource: Prometheus
+    kubernetes-node-resource-consumption:
+      gnetId: 8739
+      revision: 3
+      datasource: Prometheus
+    kubernetes-cluster:
+      gnetId: 7249
       revision: 1
+      datasource: Prometheus
+    openvpn:
+      gnetId: 10562
+      revision: 1
+      datasource: Prometheus
+    postfix:
+      gnetId: 10013
+      revision: 2
+      datasource: Prometheus
+    cert-manager:
+      gnetId: 11001
+      revision: 1
+      datasource: Prometheus
+    ingress-nginx:
+      url: https://raw.githubusercontent.com/kubernetes/ingress-nginx/master/deploy/grafana/dashboards/nginx.json
       datasource: Prometheus
 
 plugins:
