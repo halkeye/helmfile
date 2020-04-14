@@ -1,4 +1,0 @@
-releases:
-  - name: prometheus-node-exporter
-    chart: stable/prometheus-node-exporter
-    namespace: monitoring

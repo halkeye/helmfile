@@ -12,3 +12,9 @@ releases:
   - name: helm-exporter
     chart: sstarcher/helm-exporter
     namespace: monitoring
+  - name: prometheus-node-exporter
+    chart: stable/prometheus-node-exporter
+    namespace: monitoring
+  - name: kube-state-metrics
+    chart: stable/kube-state-metrics
+    namespace: monitoring
