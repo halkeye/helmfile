@@ -5,4 +5,4 @@ releases:
     values:
       - jenkins.yaml
     secrets:
-      - ../../secrets/jenkins.yaml
+      - jenkins-secrets.yaml

@@ -2,12 +2,12 @@
 persistence:
   enabled: true
   storageClass: linstor
-  mounts:
-    - mountPath: /var/jenkins_home/plugins
-      name: plugin-dir
-  volumes:
-    - name: plugin-dir
-      emptyDir: {}
+  #mounts:
+  #  - mountPath: /var/jenkins_home/plugins
+  #    name: plugin-dir
+  #volumes:
+  #  - name: plugin-dir
+  #    emptyDir: {}
 
 agent:
   volumes:
@@ -24,8 +24,8 @@ master:
     prometheus.io/port: "8080"
     prometheus.io/scrape: "true"
   image: "halkeye/jenkins"
-  tag: "latest"
-  imagePullPolicy: "Always"
+  tag: "a26b99fac14c1c3fd282ea08b06fedd8c5da7922"
+  #imagePullPolicy: "Always"
 
   ingress:
     enabled: true
@@ -43,7 +43,7 @@ master:
 
   numExecutors: 0
   overwriteConfig: false
-  overwritePlugins: false
+  overwritePlugins: true
   installPlugins: false
 
   runAsUser: 1000
