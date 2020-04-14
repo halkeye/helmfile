@@ -6,6 +6,11 @@ controller:
     enabled: true
   metrics:
     enabled: true
+    port: 10254
+    service:
+      annotations:
+        prometheus.io/scrape: "true"
+        prometheus.io/port: "10254"
   config:
     # This is the important part
     use-forwarded-headers: "true"
