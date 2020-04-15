@@ -1,0 +1,12 @@
+config:
+  prometheus:
+    disable: false
+    report_errors: true
+
+  influxdb:
+    disable: true
+
+  unifi:
+    defaults:
+      user: "unifi-poller"
+      url: "https://unifi.home.gavinmogan.com"

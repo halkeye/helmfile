@@ -5,4 +5,11 @@ releases:
     values:
       - unifi.yaml
     secrets:
-      - ../../secrets/unifi.yaml
+      - unifi-secrets.yaml
+  - name: unifi-poller
+    chart: /home/halkeye/git/halkeye-helm-charts/unifi-poller
+    namespace: unifi
+    values:
+      - unifi-poller.yaml
+    secrets:
+      - unifi-poller-secrets.yaml
