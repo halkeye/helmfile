@@ -1,3 +1,7 @@
+repositories:
+  - name: halkeye
+    url: https://halkeye.github.io/helm-charts
+
 releases:
   - name: nzbhydra2
     chart: halkeye/nzbhydra2

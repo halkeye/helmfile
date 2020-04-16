@@ -1,3 +1,9 @@
+repositories:
+  - name: halkeye
+    url: https://halkeye.github.io/helm-charts
+  - name: stable
+    url: https://kubernetes-charts.storage.googleapis.com
+
 releases:
   - name: unifi
     chart: stable/unifi
