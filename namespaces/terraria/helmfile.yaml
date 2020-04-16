@@ -1,8 +1,0 @@
-releases:
-  - name: terraria
-    chart: halkeye/terraria
-    namespace: terraria
-    values:
-      - terraria.yaml
-    secrets:
-      - ../../secrets/terraria.yaml
