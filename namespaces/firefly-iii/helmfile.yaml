@@ -8,4 +8,4 @@ releases:
     values:
       - firefly-iii.yaml
     secrets:
-      - ../../secrets/firefly-iii.yaml
+      - firefly-iii-secrets.yaml
