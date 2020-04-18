@@ -1,0 +1,47 @@
+apiVersion: v1
+kind: Service
+metadata:
+  name: {{ include "powerdns-recursor.fullname" . }}-udp
+  annotations:
+    metallb.universe.tf/allow-shared-ip: {{ include "powerdns-recursor.fullname" . }}
+  labels:
+{{ include "powerdns-recursor.labels" . | indent 4 }}
+spec:
+  type: {{ .Values.service.type }}
+  {{ if .Values.service.loadBalancerIP }}
+  loadBalancerIP: {{ .Values.service.loadBalancerIP }}
+  {{ end }}
+{{- if (.Values.service.externalTrafficPolicy) }}
+  externalTrafficPolicy: "{{ .Values.service.externalTrafficPolicy }}"
+{{- end }}
+  ports:
+    - name: dns-udp
+      port: 53
+      protocol: UDP
+  selector:
+    app.kubernetes.io/name: {{ include "powerdns-recursor.name" . }}
+    app.kubernetes.io/instance: {{ .Release.Name }}
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: {{ include "powerdns-recursor.fullname" . }}-tcp
+  annotations:
+    metallb.universe.tf/allow-shared-ip: {{ include "powerdns-recursor.fullname" . }}
+  labels:
+{{ include "powerdns-recursor.labels" . | indent 4 }}
+spec:
+  type: {{ .Values.service.type }}
+  {{ if .Values.service.loadBalancerIP }}
+  loadBalancerIP: {{ .Values.service.loadBalancerIP }}
+  {{ end }}
+{{- if (.Values.service.externalTrafficPolicy) }}
+  externalTrafficPolicy: "{{ .Values.service.externalTrafficPolicy }}"
+{{- end }}
+  ports:
+    - name: dns-tcp
+      port: 53
+      protocol: TCP
+  selector:
+    app.kubernetes.io/name: {{ include "powerdns-recursor.name" . }}
+    app.kubernetes.io/instance: {{ .Release.Name }}
