@@ -1,0 +1,32 @@
+repositories:
+  - name: halkeye
+    url: https://halkeye.github.io/helm-charts
+  - name: billimek
+    url: https://billimek.com/billimek-charts/
+releases:
+  - name: powerdns
+    chart: halkeye/powerdns
+    values:
+      - powerdns.yaml
+    namespace: dns
+    secrets:
+      - powerdns-secrets.yaml
+  - name: powerdnsadmin
+    chart: halkeye/powerdnsadmin
+    values:
+      - powerdnsadmin.yaml
+    namespace: dns
+    secrets:
+      - powerdnsadmin-secrets.yaml
+  - name: powerdns-recursor
+    chart: ../../charts/powerdns-recursor
+    values:
+      - powerdns-recursor.yaml
+    namespace: dns
+  - name: blocky
+    chart: billimek/blocky
+    namespace: dns
+    values:
+      - blocky.yaml
+    secrets:
+      - blocky-secrets.yaml
