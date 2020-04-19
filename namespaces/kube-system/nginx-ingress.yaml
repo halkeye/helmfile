@@ -16,3 +16,12 @@ controller:
     use-forwarded-headers: "true"
   service:
     externalTrafficPolicy: Local
+
+service:
+  ports:
+    znc: 7000
+  targetPorts:
+    znc: znc
+
+tcp:
+  7000: "irc/znc:7000"
