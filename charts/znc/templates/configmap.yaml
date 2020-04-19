@@ -1,0 +1,51 @@
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: {{ include "znc.fullname" . }}
+  labels:
+    {{- include "znc.labels" . | nindent 4 }}
+data:
+  znc.conf: |-
+    Version = 1.7.5
+    {{- if gt (len .Values.ingress.tls) 0 }}
+    SSLCertFile = /certs/tls.crt
+    #SSLDHParamFile = /znc-data/dhparam.pem
+    SSLKeyFile = /certs/tls.key
+    {{- end }}
+    <Listener l>
+      Port = 7000
+      IPv4 = true
+      IPv6 = true
+      {{- if gt (len .Values.ingress.tls) 0 }}
+      SSL = true
+      {{- else }}
+      SSL = false
+      {{- end }}
+    </Listener>
+    // LoadModule = webadmin
+
+    {{- range $id, $user := .Values.config.users }}
+    <User {{ $id }}>
+      Pass       = {{ $user.pass }}
+      Admin      = {{ $user.admin }}
+      Nick       = {{ $user.nick }}
+      AltNick    = {{ $user.alt_nick }}
+      Ident      = {{ $user.ident }}
+      {{- range $user.load_module }}
+      LoadModule = {{ . }}
+      {{- end }}
+
+      {{- range $id, $network := $user.networks }}
+      <Network {{ $id }}>
+        {{- range .load_module }}
+        LoadModule = {{ . }}
+        {{- end }}
+        Server     = {{ $network.server }}
+        {{- range $id, $chan :=  $network.channels }}
+        <Chan {{ $id }}>
+        </Chan>
+        {{- end }}
+      </Network>
+      {{- end }}
+    </User>
+    {{- end }}

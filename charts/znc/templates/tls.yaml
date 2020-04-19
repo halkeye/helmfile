@@ -1,0 +1,8 @@
+#{{- range .Values.ingress.tls }}
+#---
+#apiVersion: v1
+#kind: Secret
+#type: kubernetes.io/tls
+#metadata:
+#  name: {{ .secretName }}
+#{{- end }}

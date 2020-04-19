@@ -1,0 +1,104 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: {{ include "znc.fullname" . }}
+  labels:
+    {{- include "znc.labels" . | nindent 4 }}
+spec:
+  replicas: {{ .Values.replicaCount }}
+{{- if .Values.strategy }}
+  strategy:
+{{ toYaml .Values.strategy | indent 4 }}
+{{ if eq .Values.strategy.type "Recreate" }}
+    rollingUpdate: null
+{{- end }}
+{{- end }}
+  selector:
+    matchLabels:
+      {{- include "znc.selectorLabels" . | nindent 6 }}
+  template:
+    metadata:
+      annotations:
+        checksum/configmap: {{ include (print $.Template.BasePath "/configmap.yaml") . | sha256sum }}
+      labels:
+        {{- include "znc.selectorLabels" . | nindent 8 }}
+    spec:
+    {{- if .Values.dnsConfig }}
+      dnsConfig:
+        {{- toYaml .Values.dnsConfig | nindent 8 }}
+    {{- end }}
+    {{- with .Values.imagePullSecrets }}
+      imagePullSecrets:
+        {{- toYaml . | nindent 8 }}
+    {{- end }}
+      serviceAccountName: {{ include "znc.serviceAccountName" . }}
+      securityContext:
+        {{- toYaml .Values.podSecurityContext | nindent 8 }}
+      initContainers:
+        - name: prepare-env
+          image: alpine:3.11.5
+          command: ['sh']
+          args:
+            - -xec
+            - |-
+              mkdir -p /znc-data/configs/
+              cp /configmap/znc.conf /znc-data/configs/znc.conf
+              test -e /znc-data/dhparam.pem || (apk add --no-cache openssl; openssl dhparam -out /znc-data/dhparam.pem 4096)
+          volumeMounts:
+            - mountPath: "/znc-data"
+              name: data
+            - name: configmap
+              mountPath: /configmap
+      containers:
+        - name: {{ .Chart.Name }}
+          securityContext:
+            {{- toYaml .Values.securityContext | nindent 12 }}
+          image: "{{ .Values.image.repository }}:{{ tpl .Values.image.tag . }}"
+          imagePullPolicy: {{ .Values.image.pullPolicy }}
+          volumeMounts:
+            - mountPath: "/znc-data"
+              name: data
+            - mountPath: "/certs"
+              name: certs
+          ports:
+            - name: irc
+              containerPort: 7000
+              protocol: TCP
+          livenessProbe:
+            tcpSocket:
+              port: irc
+          readinessProbe:
+            tcpSocket:
+              port: irc
+          resources:
+            {{- toYaml .Values.resources | nindent 12 }}
+      {{- with .Values.nodeSelector }}
+      nodeSelector:
+        {{- toYaml . | nindent 8 }}
+      {{- end }}
+    {{- with .Values.affinity }}
+      affinity:
+        {{- toYaml . | nindent 8 }}
+    {{- end }}
+    {{- with .Values.tolerations }}
+      tolerations:
+        {{- toYaml . | nindent 8 }}
+    {{- end }}
+      volumes:
+        - name: data
+          {{- if .Values.persistence.enabled }}
+          persistentVolumeClaim:
+            claimName: {{ .Values.persistence.existingClaim | default (include "znc.fullname" .) }}
+          {{- else }}
+          emptyDir: {}
+          {{- end }}
+        - name: configmap
+          configMap:
+            name: {{ include "znc.fullname" . }}
+        - name: certs
+          {{- if gt (len .Values.ingress.tls) 0 }}
+          secret:
+            secretName: {{ (index .Values.ingress.tls 0).secretName }}
+          {{- else }}
+          emptyDir: {}
+          {{- end }}
