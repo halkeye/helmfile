@@ -18,8 +18,7 @@ releases:
     secrets:
       - terraria-secrets.yaml
   - name: dontstarvetogether
-    #chart: halkeye/dontstarvetogether
-    chart: /home/halkeye/git/halkeye-helm-charts/dontstarvetogether
+    chart: halkeye/dontstarvetogether
     namespace: games
     values:
       - dontstarvetogether.yaml
