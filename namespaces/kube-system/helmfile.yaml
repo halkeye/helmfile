@@ -12,7 +12,7 @@ releases:
     values:
       - nfs-client-provisioner.yaml
     secrets:
-      - ../../secrets/nfs-client-provisioner.yaml
+      - nfs-client-provisioner-secrets.yaml
   - name: metrics-server
     namespace: kube-system
     chart: stable/metrics-server
@@ -24,7 +24,7 @@ releases:
     values:
       - nginx-ingress.yaml
     secrets:
-      - ../../secrets/nginx-ingress.yaml
+      - nginx-ingress-secrets.yaml
   - name: metallb
     namespace: kube-system
     chart: stable/metallb
