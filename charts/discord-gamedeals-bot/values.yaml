@@ -6,9 +6,10 @@ replicaCount: 1
 
 image:
   repository: halkeye/discord-gamedeals-bot
-  tag: latest
-  #pullPolicy: IfNotPresent
-  pullPolicy: Always
+  #tag: latest
+  #pullPolicy: Always
+  tag: v1.3.0
+  pullPolicy: IfNotPresent
 
 imagePullSecrets: []
 nameOverride: ""
@@ -72,3 +73,6 @@ database_url:
 admin_user_id: "105880217595211776"
 discord_client_id:
 bot_token:
+log_level: "debug"
+reddit_limit: 10
+reddit_lookup_mode: 'hot'

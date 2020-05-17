@@ -4,4 +4,3 @@ releases:
     namespace: discord-bots
     secrets:
       - gamedeals-bot-secrets.yaml
-
