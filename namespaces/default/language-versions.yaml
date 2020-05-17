@@ -1,0 +1,17 @@
+image:
+  repository: halkeye/language-versions
+  tag: e19e0ea66fcda131a95acfa532cbb75358a6ed99
+
+ingress:
+  enabled: true
+  hosts:
+    - host: language-versions.g4v.dev
+      paths: ['/']
+  tls:
+    - secretName: language-versions-tls
+      hosts:
+        - language-versions.g4v.dev
+  annotations:
+    cert-manager.io/cluster-issuer: letsencrypt
+    kubernetes.io/ingress.class: nginx
+    kubernetes.io/tls-acme: "true"

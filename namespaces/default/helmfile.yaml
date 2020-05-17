@@ -41,3 +41,10 @@ releases:
       - postfix.yaml
     secrets:
       - postfix-secrets.yaml
+  - name: language-versions
+    chart: ../../charts/language-versions
+    namespace: default
+    values:
+      - language-versions.yaml
+    secrets:
+      - language-versions-secrets.yaml
