@@ -22,6 +22,7 @@ serviceUDP:
 config:
   customDNS:
     mapping:
+      test: 127.0.0.1
       theirc.gavinmogan.com: 172.16.10.201
       dev.gavinmogan.com: 172.16.10.201
       hab.gavinmogan.com: 172.16.10.201
