@@ -1,5 +1,10 @@
 replicaCount: 1
 
+image:
+  repository: halkeye/terraria
+  tag: 9190b4f2abc7766342828ea13431dd9d814cb6b0
+  pullPolicy: Always
+
 persistence:
   enabled: true
   storageClassName: linstor
@@ -9,6 +14,9 @@ rest:
   enabled: true
 
 terraria:
+  tty: true
+  stdin: true
+  args: ["-world", "/world/Halkeyes_Journey_Server.wld"]
   service:
     externalTrafficPolicy: Local
     type: LoadBalancer
@@ -20,3 +28,10 @@ terraria:
     SpawnProtection: false
     ServerName: 'Halkeye Server'
     TileKillThreshold: 200
+
+podSecurityContext:
+  fsGroup: 1000
+
+securityContext:
+  runAsUser: 1000
+  runAsGroup: 1000
