@@ -34,3 +34,9 @@ releases:
     namespace: media
     secrets:
       - zap2xml-secret.yaml
+
+  - name: nzbhydra2
+    chart: halkeye/nzbhydra2
+    namespace: nzbhydra2
+    values:
+      - nzbhydra2.yaml
