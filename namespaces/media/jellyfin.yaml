@@ -2,12 +2,14 @@ image:
   tag: 10.5.3
 ingress:
   enabled: true
-  #tls:
-  #  - secretName: jellyfin-tls
-  #    hosts:
-  #      - jellyfin.home.gavinmogan.com
+  tls:
+    - secretName: jellyfin-tls
+      hosts:
+        - jellyfin.home.gavinmogan.com
+        - media.g4v.dev
   hosts:
     - jellyfin.home.gavinmogan.com
+    - media.g4v.dev
   annotations:
     cert-manager.io/cluster-issuer: letsencrypt
     kubernetes.io/ingress.class: nginx
@@ -27,15 +29,13 @@ persistence:
 
 resources:
   limits:
+    gpu.intel.com/i915: 1
     memory: 4900Mi
   requests:
     cpu: 35m
     memory: 1500Mi
 
 extraVolumes:
-  - name: renderd129
-    hostPath:
-      path: /dev/dri/renderD129
   - name: smb-odin-tv
     flexVolume:
       driver: "juliohm/cifs"
@@ -83,8 +83,6 @@ extraVolumes:
         name: media-cifs-secret
 
 extraVolumeMounts:
-  - mountPath: /dev/dri/renderD129
-    name: renderd129
   - mountPath: /tv
     name: smb-odin-tv
   - mountPath: /movies
@@ -96,5 +94,5 @@ extraVolumeMounts:
   - mountPath: /books
     name: smb-odin-books
 
-securityContext:
-  privileged: true
+#securityContext:
+#  privileged: true

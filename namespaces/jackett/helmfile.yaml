@@ -1,6 +1,0 @@
-releases:
-  - name: jackett
-    chart: halkeye/jackett
-    namespace: jackett
-    values:
-      - jackett.yaml

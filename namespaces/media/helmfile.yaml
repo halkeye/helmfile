@@ -40,3 +40,9 @@ releases:
     namespace: nzbhydra2
     values:
       - nzbhydra2.yaml
+
+  - name: jackett
+    chart: halkeye/jackett
+    namespace: jackett
+    values:
+      - jackett.yaml
