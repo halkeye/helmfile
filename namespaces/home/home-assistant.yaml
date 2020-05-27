@@ -1,0 +1,33 @@
+---
+image:
+  repository: homeassistant/home-assistant
+  tag: 0.110.3
+
+ingress:
+  enabled: true
+  hosts:
+    - home.g4v.dev
+  tls:
+    - secretName: homeassistant-tls
+      hosts:
+        - home.g4v.dev
+  annotations:
+    nginx.ingress.kubernetes.io/proxy-body-size: "0"
+    cert-manager.io/cluster-issuer: letsencrypt
+    kubernetes.io/ingress.class: nginx
+    kubernetes.io/tls-acme: "true"
+
+persistence:
+  enabled: true
+  storageClass: "linstor"
+
+# kubectl create secret generic --namespace home-assistant git-creds --from-file=id_rsa=homeassistant_rsa --from-file=known_hosts=known_hosts --from-file=id_rsa.pub=homeassistant_rsa.pub
+
+#git:
+#  enabled: "true"
+#  repo: "git@github.com:halkeye/homeassistant-config.git"
+#  secret: git-creds
+#  command:
+#    - sh
+#    - -c
+#    - '[ "$(ls /config)" ] || git clone -b k8s --recurse-submodules -j4 git@github.com:halkeye/homeassistant-config.git /config'

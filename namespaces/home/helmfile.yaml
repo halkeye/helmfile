@@ -1,0 +1,21 @@
+repositories:
+  - name: halkeye
+    url: https://halkeye.github.io/helm-charts
+  - name: stable
+    url: https://kubernetes-charts.storage.googleapis.com
+
+releases:
+  - name: home-assistant
+    chart: stable/home-assistant
+    namespace: home
+    values:
+      - home-assistant.yaml
+    #secrets:
+    #  - homeassistant-secrets.yaml
+  - name: room-assistant
+    namespace: home
+    chart: halkeye/room-assistant
+    values:
+      - room-assistant.yaml
+    secrets:
+      - room-assistant-secrets.yaml
