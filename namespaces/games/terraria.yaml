@@ -2,7 +2,7 @@ replicaCount: 1
 
 image:
   repository: halkeye/terraria
-  tag: 9190b4f2abc7766342828ea13431dd9d814cb6b0
+  tag: 7c75ffc5b1d836517be2bd7f7e2d7678cfdbe65a
   pullPolicy: Always
 
 persistence:
