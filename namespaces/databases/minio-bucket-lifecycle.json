@@ -1,0 +1,11 @@
+{
+    "Rules": [
+        {
+            "Expiration": {
+                "Days": 90
+            },
+            "ID": "Delete backups after 90 days",
+            "Status": "Enabled"
+        }
+    ]
+}

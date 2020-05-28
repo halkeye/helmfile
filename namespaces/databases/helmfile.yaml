@@ -1,6 +1,18 @@
+repositories:
+  - name: stable
+    url: https://kubernetes-charts.storage.googleapis.com
+  - name: halkeye
+    url: https://halkeye.github.io/helm-charts
+
 releases:
+  - name: redis
+    chart: stable/redis
+    namespace: default
+    values:
+      - redis.yaml
+    secrets:
+      - ../../secrets/redis.yaml
   - name: postgresql
-    #chart: stable/postgresql
     chart: ../../charts/postgresql
     namespace: default
     values:
