@@ -14,8 +14,6 @@ ingress:
 
 config:
   host: "https://rpg-schedule.discord.g4v.dev"
-  donate: ""
+  donate: "https://www.patreon.com/rpg_schedule"
   invite: "https://discordapp.com/oauth2/authorize?client_id=715817678476148786&scope=bot&permissions=92224"
   auth_url: "https://discord.com/api/oauth2/authorize?client_id=715817678476148786&redirect_uri=https%3A%2F%2Frpg-schedule.discord.g4v.dev%2Flogin&response_type=code&scope=identify%20guilds"
-  patreon_api_access_token: ""
-  patreon_campaign_id: ""
