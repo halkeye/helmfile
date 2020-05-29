@@ -1,0 +1,21 @@
+ingress:
+  enabled: true
+  hosts:
+    - host: rpg-schedule.discord.g4v.dev
+      paths: ['/']
+  tls:
+    - secretName: discord-rpg-schedule-tls
+      hosts:
+        - rpg-schedule.discord.g4v.dev
+  annotations:
+    cert-manager.io/cluster-issuer: letsencrypt
+    kubernetes.io/ingress.class: nginx
+    kubernetes.io/tls-acme: "true"
+
+config:
+  host: "rpg-schedule.discord.g4v.dev"
+  donate: ""
+  invite: "/"
+  auth_url: "/"
+  patreon_api_access_token: ""
+  patreon_campaign_id: ""

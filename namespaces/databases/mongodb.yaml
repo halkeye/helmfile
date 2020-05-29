@@ -1,9 +1,14 @@
-persistentVolume:
+persistence:
   enabled: true
   storageClass: linstor
-  accessModes:
-    - ReadWriteOnce
-  size: 10Gi
-  annotations: {}
+
+#persistentVolume:
+#  enabled: true
+#  storageClass: linstor
+#  accessModes:
+#    - ReadWriteOnce
+#  size: 10Gi
+#  annotations: {}
+#
 metrics:
   enabled: true

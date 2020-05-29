@@ -1,6 +1,8 @@
 repositories:
   - name: stable
     url: https://kubernetes-charts.storage.googleapis.com
+  - name: bitnami
+    url: https://charts.bitnami.com/bitnami
   - name: halkeye
     url: https://halkeye.github.io/helm-charts
 
@@ -27,8 +29,9 @@ releases:
     secrets:
       - pgadmin-secret.yaml
   - name: mongodb
-    version: 3.15.1
-    chart: stable/mongodb-replicaset
+    chart: bitnami/mongodb
     namespace: databases
     values:
       - mongodb.yaml
+    secrets:
+      - mongodb-secrets.yaml

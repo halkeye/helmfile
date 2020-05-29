@@ -1,0 +1,92 @@
+# Default values for discord-rpg-schedule.
+# This is a YAML-formatted file.
+# Declare variables to be passed into your templates.
+
+replicaCount: 1
+
+image:
+  repository: halkeye/discord-rpg-schedule
+  tag: latest
+  pullPolicy: Always
+
+imagePullSecrets: []
+nameOverride: ""
+fullnameOverride: ""
+
+serviceAccount:
+  # Specifies whether a service account should be created
+  create: true
+  # The name of the service account to use.
+  # If not set and create is true, a name is generated using the fullname template
+  name:
+
+podSecurityContext: {}
+  # fsGroup: 2000
+
+securityContext: {}
+  # capabilities:
+  #   drop:
+  #   - ALL
+  # readOnlyRootFilesystem: true
+  # runAsNonRoot: true
+  # runAsUser: 1000
+
+service:
+  type: ClusterIP
+  port: 3000
+
+ingress:
+  enabled: false
+  annotations: {}
+    # kubernetes.io/ingress.class: nginx
+    # kubernetes.io/tls-acme: "true"
+  hosts:
+    - host: chart-example.local
+      paths: []
+
+  tls: []
+  #  - secretName: chart-example-tls
+  #    hosts:
+  #      - chart-example.local
+
+resources: {}
+  # We usually recommend not to specify default resources and to leave this as a conscious
+  # choice for the user. This also increases chances charts run on environments with little
+  # resources, such as Minikube. If you do want to specify resources, uncomment the following
+  # lines, adjust them as necessary, and remove the curly braces after 'resources:'.
+  # limits:
+  #   cpu: 100m
+  #   memory: 128Mi
+  # requests:
+  #   cpu: 100m
+  #   memory: 128Mi
+
+nodeSelector: {}
+
+tolerations: []
+
+affinity: {}
+
+config:
+  # config.host -- host for web frontend
+  host: ""
+  mongodb_url: ""
+  # config.token -- discord bot token
+  token: ""
+  # config.client_id -- discord
+  client_id: ""
+  # config.client_secret -- discord
+  client_secret: ""
+  # config.donate -- donation url
+  donate: ""
+  # config.github -- url github url
+  github: "https://github.com/sillvva/rpg-schedule"
+  # config.invite -- discord oauth2 redirect to /invite page, use identify/guilds perms
+  invite: ""
+  # config.auth_url -- discord oauth2 redirect to /login page, use identify/guilds perms
+  auth_url: ""
+  rescheduling: true
+  reminders: true
+  maintenance: false
+  patreon_api_access_token: ""
+  patreon_campaign_id: ""
