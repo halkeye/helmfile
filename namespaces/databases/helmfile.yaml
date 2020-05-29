@@ -26,3 +26,9 @@ releases:
       - pgadmin.yaml
     secrets:
       - pgadmin-secret.yaml
+  - name: mongodb
+    version: 3.15.1
+    chart: stable/mongodb-replicaset
+    namespace: databases
+    values:
+      - mongodb.yaml
