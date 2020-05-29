@@ -1,0 +1,16 @@
+apiVersion: v1
+kind: Service
+metadata:
+  name: {{ include "discord-rpg-schedule.fullname" . }}
+  labels:
+    {{- include "discord-rpg-schedule.labels" . | nindent 4 }}
+spec:
+  type: {{ .Values.service.type }}
+  ports:
+    - port: {{ .Values.service.port }}
+      targetPort: http
+      protocol: TCP
+      name: http
+  selector:
+    app.kubernetes.io/name: {{ include "discord-rpg-schedule.name" . }}
+    app.kubernetes.io/instance: {{ .Release.Name }}
