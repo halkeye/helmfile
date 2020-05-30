@@ -1,3 +1,7 @@
+repositories:
+  - name: halkeye
+    url: https://halkeye.github.io/helm-charts
+
 releases:
   - name: gamedeals-bot
     chart: ../../charts/discord-gamedeals-bot
@@ -11,3 +15,10 @@ releases:
       - discord-rpg-schedule.yaml
     secrets:
       - discord-rpg-schedule-secrets.yaml
+  - name: discord-streamers
+    chart: halkeye/discord-streamers
+    namespace: discord-streamers
+    values:
+      - discord-streamers.yaml
+    secrets:
+      - discord-streamers-secrets.yaml
