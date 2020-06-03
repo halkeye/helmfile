@@ -1,8 +1,0 @@
-releases:
-  - name: irslackd
-    namespace: irslackd
-    chart: halkeye/irslackd
-    values:
-      - irslackd.yaml
-    secrets:
-      - irslackd-secrets.yaml
