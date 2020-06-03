@@ -1,8 +1,0 @@
-//releases:
-  - name: pihole
-    namespace: pihole
-    chart: halkeye/pihole
-    values:
-      - pihole.yaml
-    secrets:
-      - pihole-secrets.yaml
