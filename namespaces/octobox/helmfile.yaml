@@ -4,4 +4,4 @@ releases:
     values:
       - octobox.yaml
     secrets:
-      - ../../secrets/octobox.yaml
+      - octobox-secrets.yaml
