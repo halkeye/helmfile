@@ -1,8 +1,0 @@
-releases:
-  - name: octobox
-    chart: halkeye/octobox
-    namespace: default
-    values:
-      - octobox.yaml
-    secrets:
-      - octobox-secrets.yaml
