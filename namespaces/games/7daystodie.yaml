@@ -1,3 +1,5 @@
+replicaCount: 0
+
 persistence:
   enabled: true
   storageClassName: "linstor"
