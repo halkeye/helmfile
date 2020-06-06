@@ -1,5 +1,5 @@
 image:
-  tag: 5.12.66
+  tag: 5.12.72
 timezone: America/Vancouver
 ingress:
   enabled: true
