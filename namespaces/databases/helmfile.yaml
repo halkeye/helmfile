@@ -35,3 +35,10 @@ releases:
       - mongodb.yaml
     secrets:
       - mongodb-secrets.yaml
+  - name: redis
+    chart: stable/redis
+    namespace: default
+    values:
+      - redis.yaml
+    secrets:
+      - redis-secrets.yaml

@@ -10,13 +10,6 @@ releases:
       - goplaxt.yaml
     secrets:
       - ../../secrets/goplaxt.yaml
-  - name: redis
-    chart: stable/redis
-    namespace: default
-    values:
-      - redis.yaml
-    secrets:
-      - ../../secrets/redis.yaml
   - name: thelounge
     chart: halkeye/thelounge
     namespace: default
