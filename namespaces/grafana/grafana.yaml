@@ -77,10 +77,6 @@ dashboards:
       gnetId: 7249
       revision: 1
       datasource: Prometheus
-    openvpn:
-      gnetId: 10562
-      revision: 1
-      datasource: Prometheus
     postfix:
       gnetId: 10013
       revision: 2
