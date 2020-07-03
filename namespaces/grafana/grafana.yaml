@@ -94,11 +94,11 @@ dashboards:
       datasource: Prometheus
     unifi-usw:
       gnetId: 11312
-      revision: 7
+      revision: 8
       datasource: Prometheus
     unifi-clients:
       gnetId: 11315
-      revision: 7
+      revision: 8
       datasource: Prometheus
     unifi-sites:
       gnetId: 11311
@@ -106,11 +106,11 @@ dashboards:
       datasource: Prometheus
     unifi-uap-insights:
       gnetId: 11314
-      revision: 8
+      revision: 9
       datasource: Prometheus
     unifi-usg-insights:
       gnetId: 11313
-      revision: 7
+      revision: 8
       datasource: Prometheus
     blocky:
       url: https://raw.githubusercontent.com/0xERR0R/blocky/master/docs/blocky-grafana.json
