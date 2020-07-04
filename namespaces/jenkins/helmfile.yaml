@@ -9,3 +9,8 @@ releases:
       - jenkins.yaml
     secrets:
       - jenkins-secrets.yaml
+  - name: jenkins-pvc
+    namespace: jenkins
+    chart: ../../charts/cifs-pvc
+    secrets:
+      - jenkins-pvc-secrets.yaml

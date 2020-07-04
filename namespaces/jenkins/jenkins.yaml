@@ -2,7 +2,8 @@
 persistence:
   enabled: true
   storageClass: linstor
-  #mounts:
+  existingClaim: 'jenkins-pvc-cifs-pvc'
+ #mounts:
   #  - mountPath: /var/jenkins_home/plugins
   #    name: plugin-dir
   #volumes:
@@ -12,7 +13,7 @@ persistence:
 agent:
   volumes:
     - type: HostPath
-      volumeName: docker-sock
+      #volumeName: docker-sock
       hostPath: /var/run/docker.sock
       mountPath: /var/run/docker.sock
 
@@ -24,7 +25,7 @@ master:
     prometheus.io/port: "8080"
     prometheus.io/scrape: "true"
   image: "halkeye/jenkins"
-  tag: "302e3da337b7eb1a60a768d9ff24f52f62213efd"
+  tag: "81599132ac99969b4b7dfe2dae4b72733366966a"
 
   ingress:
     enabled: true
@@ -47,6 +48,12 @@ master:
 
   runAsUser: 1000
   fsGroup: 1000
+
+  JCasC:
+    enabled: false
+  sidecars:
+    configAutoReload:
+      enabled: false
 
 rbac:
   create: true

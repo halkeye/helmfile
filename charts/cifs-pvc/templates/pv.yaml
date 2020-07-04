@@ -1,0 +1,19 @@
+apiVersion: v1
+kind: PersistentVolume
+metadata:
+  name: {{ include "cifs-pvc.fullname" . }}
+  labels:
+{{ include "cifs-pvc.labels" . | indent 4 }}
+spec:
+  capacity:
+    storage: {{ .Values.pvc.resources.requests.storage }}
+  accessModes:
+    {{ .Values.pvc.accessModes | toYaml | nindent 4 }}
+  flexVolume:
+    driver: juliohm/cifs
+    options:
+      opts: uid={{ .Values.pv.uid }},gid={{ .Values.pv.gid }}
+      server: {{ .Values.pv.server | quote }}
+      share: {{ required "PV Share is required" .Values.pv.share | quote }}
+    secretRef:
+      name: {{ include "cifs-pvc.fullname" . }}

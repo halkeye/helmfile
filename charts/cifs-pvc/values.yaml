@@ -1,0 +1,22 @@
+# Default values for cifs-secret.
+# This is a YAML-formatted file.
+# Declare variables to be passed into your templates.
+
+nameOverride: ""
+fullnameOverride: ""
+
+username: ""
+password: ""
+
+pv:
+    uid: 1000
+    gid: 1000
+    server: "odin"
+    share: 'foo'
+
+pvc:
+  accessModes:
+    - ReadWriteMany
+  resources:
+    requests:
+      storage: 10Gi

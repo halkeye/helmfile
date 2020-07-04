@@ -1,0 +1,13 @@
+---
+kind: PersistentVolumeClaim
+apiVersion: v1
+metadata:
+  name: {{ include "cifs-pvc.fullname" . }}
+  labels:
+{{ include "cifs-pvc.labels" . | indent 4 }}
+spec:
+  accessModes:
+{{ .Values.pvc.accessModes | toYaml | nindent 4 }}
+  resources:
+    requests:
+      storage: {{ .Values.pvc.resources.requests.storage }}
