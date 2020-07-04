@@ -27,8 +27,8 @@ releases:
     values:
       - reg-server.yaml
 
-  - name: clair
-    chart: clair/clair
-    namespace: registry
-    values:
-      - clair.yaml
+  #- name: clair
+  #  chart: clair/clair
+  #  namespace: registry
+  #  values:
+  #    - clair.yaml
