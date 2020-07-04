@@ -8,13 +8,13 @@ releases:
     namespace: discord-bots
     secrets:
       - gamedeals-bot-secrets.yaml
-  - name: discord-rpg-schedule
-    chart: ../../charts/discord-rpg-schedule
-    namespace: discord-bots
-    values:
-      - discord-rpg-schedule.yaml
-    secrets:
-      - discord-rpg-schedule-secrets.yaml
+  #- name: discord-rpg-schedule
+  #  chart: ../../charts/discord-rpg-schedule
+  #  namespace: discord-bots
+  #  values:
+  #    - discord-rpg-schedule.yaml
+  #  secrets:
+  #    - discord-rpg-schedule-secrets.yaml
   - name: discord-streamers
     chart: halkeye/discord-streamers
     namespace: discord-streamers
