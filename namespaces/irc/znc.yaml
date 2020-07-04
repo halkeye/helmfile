@@ -20,6 +20,18 @@ config:
             '#jenkins-infra': {}
             '#jenkins': {}
             '#vouch': {}
+        twitch:
+          load_module:
+            - simple_away
+            - sasl
+            #- nickserv
+          server: 'irc.chat.twitch.tv +6697'
+          channels:
+            '#chiyeuk': {}
+            '#keikomoondragon': {}
+            '#shemiroth': {}
+            '#threeternity': {}
+            '#togashiazrael': {}
 
 persistence:
   enabled: true
