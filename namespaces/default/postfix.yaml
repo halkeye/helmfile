@@ -1,6 +1,11 @@
 postfix:
-    relay_host: '[smtp.mailgun.org]:587'
-    relay_myhostname: home.gavinmogan.com
-    relay_username: k8s@gavinmogan.com
+  relay_host: '[smtp.mailgun.org]:587'
+  relay_myhostname: home.gavinmogan.com
+  relay_username: k8s@gavinmogan.com
+metrics:
+  enabled: true
 service:
-    type: NodePort
+  type: LoadBalancer
+  annotations:
+    external-dns.alpha.kubernetes.io/hostname: mail.int.g4v.dev
+    external-dns.alpha.kubernetes.io/ttl: "120"
