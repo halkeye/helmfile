@@ -133,6 +133,12 @@ datasources:
         url: http://prometheus-server.monitoring.svc.cluster.local
         access: proxy
         isDefault: true
+      - name: Loki
+        type: loki
+        access: proxy
+        url: http://loki.loki.svc.cluster.local:3100
+        jsonData:
+          editable: false
 
 env:
   GF_DEFAULT_INSTANCE_NAME: grafana-8595bd8566-fxgn7

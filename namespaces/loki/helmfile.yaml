@@ -1,0 +1,18 @@
+repositories:
+  - name: loki
+    url: https://grafana.github.io/loki/charts
+releases:
+  - name: loki
+    chart: loki/loki
+    namespace: loki
+    values:
+      - loki.yaml
+    #secrets:
+    #  - loki-secrets.yaml
+  - name: promtail
+    chart: loki/promtail
+    namespace: loki
+    values:
+      - promtail.yaml
+    #secrets:
+    #  - promtail-secrets.yaml
