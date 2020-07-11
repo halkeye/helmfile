@@ -1,5 +1,19 @@
-apiVersion: v1
-appVersion: "1.0"
-description: Chart for PostgreSQL, an object-relational database management system (ORDBMS) with an emphasis on extensibility and on standards-compliance.
+apiVersion: v2
 name: postgresql
-version: 0.0.1
+description: Chart for PostgreSQL, an object-relational database management system (ORDBMS) with an emphasis on extensibility and on standards-compliance.
+type: application
+version: 0.1.0
+appVersion: 11.8.0
+dependencies:
+    - name: postgresql
+      repository: https://charts.bitnami.com
+      version: 8.10.14
+      import-values:
+        - child: replication
+          parent: replication
+        - child: image
+          parent: image
+        - child: securityContext
+          parent: securityContext
+        - child: global
+          parent: global

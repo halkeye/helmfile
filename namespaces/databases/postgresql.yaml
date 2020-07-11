@@ -5,3 +5,7 @@ postgresql:
     storageClass: "linstor"
   metrics:
     enabled: true
+resources:
+  requests:
+    memory: 4073Mi
+    cpu: 250m

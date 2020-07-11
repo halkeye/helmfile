@@ -1,7 +1,7 @@
 apiVersion: batch/v1beta1
 kind: CronJob
 metadata:
-  name: {{ template "postgresql.master.fullname" . }}-cron-job
+  name: {{ template "postgresql.fullname" . }}-cron-job
   labels:
     app: {{ template "postgresql.name" . }}
     chart: {{ template "postgresql.chart" . }}
@@ -20,8 +20,8 @@ spec:
             - name: pgsql-backup
               image: {{ template "postgresql.image" . }}
               imagePullPolicy: "{{ .Values.image.pullPolicy }}"
-              {{- if .Values.resources }}
-              resources: {{- toYaml .Values.resources | nindent 12 }}
+              {{- if .Values.backup.resources }}
+              resources: {{- toYaml .Values.backup.resources | nindent 12 }}
               {{- end }}
               {{- if .Values.securityContext.enabled }}
               securityContext:
@@ -52,8 +52,8 @@ spec:
             - name: upload-to-minio
               image: "{{ .Values.backup.image.repository }}:{{ .Values.backup.image.tag }}"
               imagePullPolicy: "{{ .Values.backup.image.pullPolicy }}"
-              {{- if .Values.resources }}
-              resources: {{- toYaml .Values.resources | nindent 12 }}
+              {{- if .Values.backup.resources }}
+              resources: {{- toYaml .Values.backup.resources | nindent 12 }}
               {{- end }}
               command:
                 - "/bin/sh"

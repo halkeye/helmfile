@@ -1,10 +1,12 @@
 repositories:
   - name: stable
     url: https://kubernetes-charts.storage.googleapis.com
-  - name: bitnami
-    url: https://charts.bitnami.com/bitnami
   - name: halkeye
     url: https://halkeye.github.io/helm-charts
+  - name: influxdata
+    url: https://helm.influxdata.com/
+  - name: bitnami
+    url: https://charts.bitnami.com/
 
 releases:
   - name: redis
@@ -13,7 +15,7 @@ releases:
     values:
       - redis.yaml
     secrets:
-      - ../../secrets/redis.yaml
+      - redis-secrets.yaml
   - name: postgresql
     chart: ../../charts/postgresql
     namespace: default
@@ -28,17 +30,15 @@ releases:
       - pgadmin.yaml
     secrets:
       - pgadmin-secret.yaml
-  - name: mongodb
-    chart: bitnami/mongodb
+  - name: influxdb
+    chart: influxdata/influxdb
     namespace: databases
     values:
-      - mongodb.yaml
-    secrets:
-      - mongodb-secrets.yaml
-  - name: redis
-    chart: stable/redis
-    namespace: default
-    values:
-      - redis.yaml
-    secrets:
-      - redis-secrets.yaml
+      - influxdb.yaml
+  #- name: mongodb
+  #  chart: bitnami/mongodb
+  #  namespace: databases
+  #  values:
+  #    - mongodb.yaml
+  #  secrets:
+  #    - mongodb-secrets.yaml
