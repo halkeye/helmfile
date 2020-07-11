@@ -23,11 +23,11 @@ releases:
     values:
       - ubooquity.yaml
 
-  - name: jellyfin
-    chart: jellyfin/jellyfin
-    namespace: media
-    values:
-      - jellyfin.yaml
+  #- name: jellyfin
+  #  chart: jellyfin/jellyfin
+  #  namespace: media
+  #  values:
+  #    - jellyfin.yaml
 
   - name: zap2xml
     chart: ../../charts/zap2xml

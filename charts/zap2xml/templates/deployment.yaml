@@ -34,7 +34,7 @@ spec:
           - -c
           - |
             mkdir /config
-            wget -O /config/zap2xml.pl http://phatic.ml/?h=gc1ym2
+            wget -O /config/zap2xml.pl https://raw.githubusercontent.com/shuaiscott/zap2xml/master/zap2xml.pl
             chmod 755 /config/zap2xml.pl
             sh /entry.sh
           volumeMounts:
