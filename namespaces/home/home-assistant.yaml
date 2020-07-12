@@ -1,7 +1,31 @@
 ---
 image:
   repository: homeassistant/home-assistant
-  tag: 0.110.3
+  tag: 0.112.0
+
+
+extraEnv:
+  TZ: America/Vancouver
+
+monitoring:
+  enabled: false
+
+vscode:
+  enabled: enabled
+  ingress:
+    enabled: enabled
+    hosts:
+      - hassconfig.home.gavinmogan.com
+    tls:
+      - secretName: homeassistant-vscode-tls
+        hosts:
+          - hassconfig.home.gavinmogan.com
+    annotations:
+      nginx.ingress.kubernetes.io/proxy-body-size: "0"
+      cert-manager.io/cluster-issuer: letsencrypt
+      kubernetes.io/ingress.class: nginx
+      kubernetes.io/tls-acme: "true"
+
 
 ingress:
   enabled: true
