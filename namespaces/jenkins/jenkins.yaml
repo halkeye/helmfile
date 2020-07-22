@@ -2,7 +2,7 @@
 persistence:
   enabled: true
   storageClass: linstor
-  existingClaim: 'jenkins-pvc-cifs-pvc'
+  #existingClaim: 'jenkins-pvc-cifs-pvc'
  #mounts:
   #  - mountPath: /var/jenkins_home/plugins
   #    name: plugin-dir
@@ -25,7 +25,7 @@ master:
     prometheus.io/port: "8080"
     prometheus.io/scrape: "true"
   image: "halkeye/jenkins"
-  tag: "81599132ac99969b4b7dfe2dae4b72733366966a"
+  tag: "0ed3bab04c6398b3eecf26e4e6f6074b1bc97151"
 
   ingress:
     enabled: true
