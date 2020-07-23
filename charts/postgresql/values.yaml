@@ -8,3 +8,4 @@ backup:
     tag: RELEASE.2020-04-04T05-28-55Z
     pullPolicy: IfNotPresent
   minio: {}
+  s3: {}

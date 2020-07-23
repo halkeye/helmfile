@@ -6,7 +6,7 @@ version: 0.1.0
 appVersion: 11.8.0
 dependencies:
     - name: postgresql
-      repository: https://charts.bitnami.com
+      repository: https://charts.bitnami.com/bitnami
       version: 8.10.14
       import-values:
         - child: replication

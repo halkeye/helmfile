@@ -6,7 +6,7 @@ repositories:
   - name: influxdata
     url: https://helm.influxdata.com/
   - name: bitnami
-    url: https://charts.bitnami.com/
+    url: https://charts.bitnami.com/bitnami
 
 releases:
   - name: redis

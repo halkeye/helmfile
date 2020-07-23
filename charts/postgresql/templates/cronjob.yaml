@@ -32,9 +32,11 @@ spec:
               args:
                 - "-xec"
                 - |
-                  /opt/bitnami/postgresql/bin/pg_dumpall > /pg_backup/backupOn`date +%Y-%m-%d-%H-%M`.dump
-                  ls -lh /pg_backup/*
-                  [ -s /pg_backup/* ] || (echo "No files avilable"; exit 1)
+                  FILENAME=/pg_backup/backupOn`date +%Y-%m-%d-%H-%M`.dump
+                  /opt/bitnami/postgresql/bin/pg_dumpall > $FILENAME
+                  gzip $FILENAME
+                  ls -lh $FILENAME.gz
+                  [ -s $FILENAME.gz ] || (echo "No files avilable"; exit 1)
               env:
                 - name: PGHOST
                   value: {{ template "postgresql.fullname" . }}
@@ -63,7 +65,7 @@ spec:
                   [ -s /pg_backup/* ] || (echo "No files avilable"; exit 1)
                   mc config host add minio {{ .Values.backup.minio.url | quote }} {{ .Values.backup.minio.accessKey | quote }}  {{.Values.backup.minio.secretKey | quote }}
                   mc mb "minio/{{ .Values.backup.minio.bucket }}" || true
-                  mc cp /pg_backup/backupOn*.dump "minio/{{ .Values.backup.minio.bucket }}/"
+                  mc cp /pg_backup/backupOn* "minio/{{ .Values.backup.minio.bucket }}/"
               volumeMounts:
                 - mountPath: "/pg_backup"
                   name: backup-volume
