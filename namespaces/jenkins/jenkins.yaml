@@ -18,6 +18,16 @@ agent:
       mountPath: /var/run/docker.sock
 
 master:
+  affinity:
+    podAntiAffinity:
+      requiredDuringSchedulingIgnoredDuringExecution:
+        - labelSelector:
+            matchExpressions:
+            - key: app.kubernetes.io/name
+              operator: In
+              values: 
+              - jenkins
+          topologyKey: "kubernetes.io/hostname"
   jenkinsAdminEmail: jenkins@g4v.dev
   serviceType: ClusterIP
   serviceAnnotations:
@@ -25,7 +35,7 @@ master:
     prometheus.io/port: "8080"
     prometheus.io/scrape: "true"
   image: "halkeye/jenkins"
-  tag: "a32762c9601f3cb51c4995953fadd0f4f447216d"
+  tag: "d855b53a67fee71e6ac0e9dc089aed3df876656f"
 
   ingress:
     enabled: true
