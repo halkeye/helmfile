@@ -25,7 +25,7 @@ master:
     prometheus.io/port: "8080"
     prometheus.io/scrape: "true"
   image: "halkeye/jenkins"
-  tag: "0ed3bab04c6398b3eecf26e4e6f6074b1bc97151"
+  tag: "a32762c9601f3cb51c4995953fadd0f4f447216d"
 
   ingress:
     enabled: true
