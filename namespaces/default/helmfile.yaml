@@ -9,7 +9,7 @@ releases:
     values:
       - goplaxt.yaml
     secrets:
-      - ../../secrets/goplaxt.yaml
+      - goplaxt-secrets.yaml
   - name: thelounge
     chart: halkeye/thelounge
     namespace: default
