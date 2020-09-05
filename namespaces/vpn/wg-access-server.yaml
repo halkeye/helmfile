@@ -1,0 +1,41 @@
+---
+config:
+  loglevel: "debug"
+  wireguard:
+    externalHost: "vpn.g4v.dev"
+  vpn:
+    rules:
+      allowedNetworks:
+        - 0.0.0.0/0
+  dns:
+    enabled: true
+    port: 53
+    upstream:
+      - '172.16.10.212'
+  auth:
+    oidc:
+      name: "wg-access-server"
+      issuer: "https://keycloak.g4v.dev/auth/realms/master"
+      clientID: "wireguard"
+      redirectURL: "https://admin-vpn.g4v.dev/oidc-finish"
+wireguard:
+  service:
+    externalTrafficPolicy: Local
+    type: LoadBalancer
+    loadBalancerIP: 172.16.10.211
+    annotations:
+      external-dns.alpha.kubernetes.io/hostname: vpn.g4v.dev
+      external-dns.alpha.kubernetes.io/ttl: "120"
+persistence:
+  enabled: false
+  storageClass: linstor
+ingress:
+  enabled: true
+  hosts: ["admin-vpn.g4v.dev"]
+  annotations:
+    cert-manager.io/cluster-issuer: letsencrypt
+    kubernetes.io/ingress.class: nginx
+    kubernetes.io/tls-acme: "true"
+  tls:
+    - hosts: ["admin-vpn.g4v.dev"]
+      secretName: "tls-wg-access-server"

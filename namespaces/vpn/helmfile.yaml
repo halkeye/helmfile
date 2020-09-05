@@ -1,0 +1,11 @@
+repositories:
+  - name: wg-access-server
+    url: https://place1.github.io/wg-access-server
+releases:
+  - name: wg-access-server
+    chart: wg-access-server/wg-access-server
+    namespace: vpn
+    values:
+      - wg-access-server.yaml
+    secrets:
+      - wg-access-server-secrets.yaml
