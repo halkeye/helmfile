@@ -18,7 +18,7 @@ cacheFactor: 5.0
 
 homeserver:
   server_name: "g4v.dev"
-  signing_key_path: "/config/signing.key"
+  signing_key_path: "/data/signing.key"
   admin_contact: 'mailto:matrix@g4v.dev'
   enable_registration: false
   public_baseurl: https://matrix.g4v.dev/
@@ -30,12 +30,12 @@ homeserver:
     - /config/hangouts-registration.yaml
   enable_group_creation: true
   enable_3pid_lookup: true
-  default_identity_server: https://matrix-identity.g4v.dev
+  #default_identity_server: https://matrix-identity.g4v.dev
   trusted_third_party_id_servers:
     - matrix.g4v.dev
-  account_threepid_delegates:
-    email: https://matrix-identity.g4v.dev
-    msisdn: https://matrix-identity.g4v.dev
+  #account_threepid_delegates:
+  #  email: https://matrix-identity.g4v.dev
+  #  msisdn: https://matrix-identity.g4v.dev
   email:
     enable_notifs: false
     notif_from: "Your Friendly %(app)s homeserver <noreply@g4v.dev>"
