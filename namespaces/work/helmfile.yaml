@@ -1,0 +1,11 @@
+repositories:
+  - name: halkeye
+    url: https://halkeye.github.io/helm-charts
+releases:
+  - name: thunderdome-planning-poker
+    namespace: work
+    chart: halkeye/thunderdome-planning-poker
+    values:
+      - thunderdome-planning-poker.yaml
+    secrets:
+      - thunderdome-planning-poker-secrets.yaml

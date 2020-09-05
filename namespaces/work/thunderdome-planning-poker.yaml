@@ -1,0 +1,28 @@
+---
+ingress:
+  enabled: true
+  hosts:
+    - host: thunderdome.work.g4v.dev
+      paths: ['/']
+  tls:
+    - secretName: thunderdome-planning-poker-tls
+      hosts:
+        - thunderdome.work.g4v.dev
+  annotations:
+    cert-manager.io/cluster-issuer: letsencrypt
+    kubernetes.io/ingress.class: nginx
+    kubernetes.io/tls-acme: "true"
+
+config:
+  app_domain: https://thunderdome.work.g4v.dev
+  database:
+    host: "postgresql.default.svc.cluster.local"
+    port: 5432
+    user: "thunderdome-planning-poker"
+    name: "thunderdome-planning-poker"
+  smtp:
+    host: odin.dhcp.home
+    port: 25
+    secure: false
+    identity:
+    sender: "No Reply <no-reply@g4v.dev>"
