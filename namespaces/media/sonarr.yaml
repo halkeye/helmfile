@@ -1,12 +1,18 @@
 ---
+timezone: 'America/Vancouver'
+
+exportarr:
+  enabled: false
+  apikey: ''
+
 ingress:
   enabled: true
   hosts:
-    - nzbhydra2.home.gavinmogan.com
+    - sonarr.home.gavinmogan.com
   tls:
-    - secretName: nzbhydra-tls
+    - secretName: sonarr-tls
       hosts:
-        - nzbhydra2.home.gavinmogan.com
+        - sonarr.home.gavinmogan.com
   annotations:
     cert-manager.io/cluster-issuer: letsencrypt
     kubernetes.io/ingress.class: nginx
@@ -15,7 +21,10 @@ ingress:
 persistence:
   config:
     enabled: true
-    size: 8Gi
+    storageClass: linstor
+
+  media:
+    enabled: false
     storageClass: linstor
 
 resources:

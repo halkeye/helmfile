@@ -3,6 +3,8 @@ repositories:
     url: git+https://github.com/brianmcarey/jellyfin-helm@?ref=master
   - name: halkeye
     url: https://halkeye.github.io/helm-charts
+  - name: k8s-at-home
+    url: https://k8s-at-home.com/charts/
 
 releases:
   - name: media-cifs-secret
@@ -10,6 +12,42 @@ releases:
     namespace: media
     secrets:
       - cifs-secret.yaml
+
+  - name: radarr-storage-movies
+    namespace: media
+    chart: ../../charts/cifs-pvc
+    secrets:
+      - cifs-pvc-secrets.yaml
+    values:
+      - pv:
+          share: /movies
+
+  - name: radarr-storage-anime-movies
+    namespace: media
+    chart: ../../charts/cifs-pvc
+    secrets:
+      - cifs-pvc-secrets.yaml
+    values:
+      - pv:
+          share: /AnimeMovies
+
+  - name: radarr-storage-comedian-specials
+    namespace: media
+    chart: ../../charts/cifs-pvc
+    secrets:
+      - cifs-pvc-secrets.yaml
+    values:
+      - pv:
+          share: /ComedianSpecials
+
+  - name: radarr-downloads
+    namespace: media
+    chart: ../../charts/cifs-pvc
+    secrets:
+      - cifs-pvc-secrets.yaml
+    values:
+      - pv:
+          share: /downloads/Movies
 
   - name: cops
     chart: halkeye/cops
@@ -36,8 +74,8 @@ releases:
       - zap2xml-secret.yaml
 
   - name: nzbhydra2
-    chart: halkeye/nzbhydra2
-    namespace: nzbhydra2
+    chart: k8s-at-home/nzbhydra2
+    namespace: media
     values:
       - nzbhydra2.yaml
 
@@ -46,3 +84,15 @@ releases:
     namespace: jackett
     values:
       - jackett.yaml
+
+  - name: radarr
+    chart: k8s-at-home/radarr
+    namespace: media
+    values:
+      - radarr.yaml
+
+  - name: sonarr
+    chart: k8s-at-home/sonarr
+    namespace: media
+    values:
+      - sonarr.yaml
