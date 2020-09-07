@@ -1,12 +1,12 @@
 repositories:
   - name: halkeye
     url: https://halkeye.github.io/helm-charts
-  - name: billimek
-    url: https://billimek.com/billimek-charts
+  - name: k8s-at-home
+    url: https://k8s-at-home.com/charts/
 
 releases:
   - name: home-assistant
-    chart: billimek/home-assistant
+    chart: k8s-at-home/home-assistant
     namespace: home
     values:
       - home-assistant.yaml
@@ -19,3 +19,8 @@ releases:
       - room-assistant.yaml
     secrets:
       - room-assistant-secrets.yaml
+  - name: esphome
+    namespace: home
+    chart: k8s-at-home/esphome
+    values:
+      - esphome.yaml

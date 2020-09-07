@@ -1,0 +1,38 @@
+---
+timezone: 'America/Vancouver'
+
+image:
+  tag: 1.15.0b4
+
+puid: 1000
+guid: 1000
+
+exportarr:
+  enabled: false
+  apikey: ''
+
+ingress:
+  enabled: true
+  hosts:
+    - esphome.home.gavinmogan.com
+  tls:
+    - secretName: esphome-tls
+      hosts:
+        - esphome.home.gavinmogan.com
+  annotations:
+    cert-manager.io/cluster-issuer: letsencrypt
+    kubernetes.io/ingress.class: nginx
+    kubernetes.io/tls-acme: "true"
+    nginx.ingress.kubernetes.io/proxy-body-size: "500m"
+
+persistence:
+  enabled: true
+  storageClass: linstor
+
+resources:
+  limits:
+    cpu: 500m
+    memory: 1024Mi
+  requests:
+    cpu: 100m
+    memory: 128Mi
