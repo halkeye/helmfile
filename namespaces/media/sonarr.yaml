@@ -1,6 +1,9 @@
 ---
 timezone: 'America/Vancouver'
 
+puid: 1000
+guid: 1000
+
 exportarr:
   enabled: false
   apikey: ''
@@ -17,6 +20,7 @@ ingress:
     cert-manager.io/cluster-issuer: letsencrypt
     kubernetes.io/ingress.class: nginx
     kubernetes.io/tls-acme: "true"
+    nginx.ingress.kubernetes.io/proxy-body-size: "500m"
 
 persistence:
   config:
@@ -26,6 +30,20 @@ persistence:
   media:
     enabled: false
     storageClass: linstor
+
+  extraExistingClaimMounts:
+    - name: tv
+      mountPath: /storage/Videos/TV
+      existingClaim: sonarr-storage-tv-cifs-pvc
+    - name: anime
+      mountPath: /storage/Videos/Anime
+      existingClaim: sonarr-storage-anime-cifs-pvc
+    - name: webseries
+      mountPath: /storage/Videos/Webseries
+      existingClaim: sonarr-storage-webseries-cifs-pvc
+    - name: downloads
+      mountPath: /media/storage/downloads/TV
+      existingClaim: sonarr-downloads-cifs-pvc
 
 resources:
   limits:

@@ -49,6 +49,43 @@ releases:
       - pv:
           share: /downloads/Movies
 
+
+  - name: sonarr-storage-tv
+    namespace: media
+    chart: ../../charts/cifs-pvc
+    secrets:
+      - cifs-pvc-secrets.yaml
+    values:
+      - pv:
+          share: /TV
+
+  - name: sonarr-storage-anime
+    namespace: media
+    chart: ../../charts/cifs-pvc
+    secrets:
+      - cifs-pvc-secrets.yaml
+    values:
+      - pv:
+          share: /Anime
+
+  - name: sonarr-storage-webseries
+    namespace: media
+    chart: ../../charts/cifs-pvc
+    secrets:
+      - cifs-pvc-secrets.yaml
+    values:
+      - pv:
+          share: /Webseries
+
+  - name: sonarr-downloads
+    namespace: media
+    chart: ../../charts/cifs-pvc
+    secrets:
+      - cifs-pvc-secrets.yaml
+    values:
+      - pv:
+          share: /downloads/TV
+
   - name: cops
     chart: halkeye/cops
     namespace: media
