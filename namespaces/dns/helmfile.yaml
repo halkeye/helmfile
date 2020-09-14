@@ -1,8 +1,8 @@
 repositories:
   - name: halkeye
     url: https://halkeye.github.io/helm-charts
-  - name: billimek
-    url: https://billimek.com/billimek-charts/
+  - name: k8s-at-home
+    url: https://k8s-at-home.com/charts/
 releases:
   - name: powerdns
     chart: halkeye/powerdns
@@ -24,7 +24,7 @@ releases:
       - powerdns-recursor.yaml
     namespace: dns
   - name: blocky
-    chart: billimek/blocky
+    chart: k8s-at-home/blocky
     namespace: dns
     values:
       - blocky.yaml
