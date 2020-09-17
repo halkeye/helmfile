@@ -13,6 +13,15 @@ releases:
     secrets:
       - cifs-secret.yaml
 
+  - name: comics
+    namespace: media
+    chart: ../../charts/cifs-pvc
+    secrets:
+      - cifs-pvc-secrets.yaml
+    values:
+      - pv:
+          share: /comics
+
   - name: radarr-storage-movies
     namespace: media
     chart: ../../charts/cifs-pvc
@@ -122,14 +131,29 @@ releases:
     values:
       - jackett.yaml
 
-  - name: radarr
-    chart: k8s-at-home/radarr
-    namespace: media
-    values:
-      - radarr.yaml
+#  - name: radarr
+#    chart: k8s-at-home/radarr
+#    namespace: media
+#    values:
+#      - radarr.yaml
+#
+#  - name: sonarr
+#    chart: k8s-at-home/sonarr
+#    namespace: media
+#    values:
+#      - sonarr.yaml
 
-  - name: sonarr
-    chart: k8s-at-home/sonarr
-    namespace: media
-    values:
-      - sonarr.yaml
+#  - name: mylar-downloads
+#    namespace: media
+#    chart: ../../charts/cifs-pvc
+#    secrets:
+#      - cifs-pvc-secrets.yaml
+#    values:
+#      - pv:
+#          share: /downloads/Comics
+#
+#  - name: mylar3
+#    chart: /home/halkeye/git/halkeye-helm-charts/mylar3
+#    namespace: media
+#    values:
+#      - mylar3.yaml

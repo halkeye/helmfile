@@ -1,0 +1,41 @@
+---
+
+config:
+  timezone: 'America/Vancouver'
+  puid: 1000
+  guid: 1000
+
+ingress:
+  enabled: true
+  hosts:
+    - mylar.home.gavinmogan.com
+  tls:
+    - secretName: mylar-tls
+      hosts:
+        - mylar.home.gavinmogan.com
+  annotations:
+    cert-manager.io/cluster-issuer: letsencrypt
+    kubernetes.io/ingress.class: nginx
+    kubernetes.io/tls-acme: "true"
+    nginx.ingress.kubernetes.io/proxy-body-size: "500m"
+
+persistence:
+  config:
+    enabled: true
+    storageClassName: linstor
+
+  extraExistingClaimMounts:
+    - name: comics
+      mountPath: /comics
+      existingClaim: comics-cifs-pvc
+    - name: downloads
+      mountPath: /media/storage/downloads/Comics
+      existingClaim: mylar-downloads-cifs-pvc
+
+resources:
+  limits:
+    cpu: 500m
+    memory: 1024Mi
+  requests:
+    cpu: 100m
+    memory: 128Mi
