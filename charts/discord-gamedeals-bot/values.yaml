@@ -6,7 +6,7 @@ replicaCount: 1
 
 image:
   repository: halkeye/discord-gamedeals-bot
-  tag: v1.5.3
+  tag: v1.5.4
   pullPolicy: IfNotPresent
 
 imagePullSecrets: []
