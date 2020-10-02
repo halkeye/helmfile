@@ -10,3 +10,8 @@ config:
     defaults:
       user: "unifi-poller"
       url: "https://unifi.home.gavinmogan.com"
+pod:
+  annotations:
+    prometheus.io/path: /metrics
+    prometheus.io/port: "9130"
+    prometheus.io/scrape: "true"
