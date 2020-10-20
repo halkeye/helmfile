@@ -24,3 +24,8 @@ releases:
     chart: k8s-at-home/esphome
     values:
       - esphome.yaml
+  - name: ozwdaemon
+    namespace: home
+    chart: halkeye/ozwdaemon
+    values:
+      - ozwdaemon.yaml
