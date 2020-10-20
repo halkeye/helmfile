@@ -15,7 +15,7 @@ releases:
       - ./synapse-secret.yaml
 
   - name: riot-im
-    chart: halkeye/riot-im
+    chart: halkeye/element-im
     namespace: matrix
     values:
       - ./riot-im.yaml
