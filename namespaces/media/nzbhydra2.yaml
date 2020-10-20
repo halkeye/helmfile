@@ -2,15 +2,16 @@
 ingress:
   enabled: true
   hosts:
-    - nzbhydra2.home.gavinmogan.com
+    - nzbhydra.home.gavinmogan.com
   tls:
     - secretName: nzbhydra-tls
       hosts:
-        - nzbhydra2.home.gavinmogan.com
+        - nzbhydra.home.gavinmogan.com
   annotations:
     cert-manager.io/cluster-issuer: letsencrypt
     kubernetes.io/ingress.class: nginx
     kubernetes.io/tls-acme: "true"
+    nginx.ingress.kubernetes.io/proxy-body-size: "0"
 
 persistence:
   config:
@@ -20,8 +21,12 @@ persistence:
 
 resources:
   limits:
-    cpu: 500m
+    cpu: 1000m
     memory: 1024Mi
   requests:
     cpu: 100m
     memory: 128Mi
+
+image:
+  repository: linuxserver/nzbhydra2
+  tag: v3.1.0-ls18
