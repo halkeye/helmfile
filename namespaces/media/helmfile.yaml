@@ -7,93 +7,92 @@ repositories:
     url: https://k8s-at-home.com/charts/
 
 releases:
-  - name: media-cifs-secret
-    chart: ../../charts/cifs-secret
-    namespace: media
-    secrets:
-      - cifs-secret.yaml
-
   - name: comics
     namespace: media
-    chart: ../../charts/cifs-pvc
-    secrets:
-      - cifs-pvc-secrets.yaml
+    chart: ../../charts/nfs-pvc
     values:
       - pv:
-          share: /comics
+          share: /storage/Comics
 
-  - name: radarr-storage-movies
+  - name: books
     namespace: media
-    chart: ../../charts/cifs-pvc
-    secrets:
-      - cifs-pvc-secrets.yaml
+    chart: ../../charts/nfs-pvc
     values:
       - pv:
-          share: /movies
+          share: /storage/Books
 
-  - name: radarr-storage-anime-movies
-    namespace: media
-    chart: ../../charts/cifs-pvc
-    secrets:
-      - cifs-pvc-secrets.yaml
-    values:
-      - pv:
-          share: /AnimeMovies
+  #- name: radarr-storage-movies
+  #  namespace: media
+  #  chart: ../../charts/cifs-pvc
+  #  secrets:
+  #    - cifs-pvc-secrets.yaml
+  #  values:
+  #    - pv:
+  #        share: /movies
 
-  - name: radarr-storage-comedian-specials
-    namespace: media
-    chart: ../../charts/cifs-pvc
-    secrets:
-      - cifs-pvc-secrets.yaml
-    values:
-      - pv:
-          share: /ComedianSpecials
+  #- name: radarr-storage-anime-movies
+  #  namespace: media
+  #  chart: ../../charts/cifs-pvc
+  #  secrets:
+  #    - cifs-pvc-secrets.yaml
+  #  values:
+  #    - pv:
+  #        share: /AnimeMovies
 
-  - name: radarr-downloads
-    namespace: media
-    chart: ../../charts/cifs-pvc
-    secrets:
-      - cifs-pvc-secrets.yaml
-    values:
-      - pv:
-          share: /downloads/Movies
+  #- name: radarr-storage-comedian-specials
+  #  namespace: media
+  #  chart: ../../charts/cifs-pvc
+  #  secrets:
+  #    - cifs-pvc-secrets.yaml
+  #  values:
+  #    - pv:
+  #        share: /ComedianSpecials
+
+  #- name: radarr-downloads
+  #  namespace: media
+  #  chart: ../../charts/cifs-pvc
+  #  secrets:
+  #    - cifs-pvc-secrets.yaml
+  #  values:
+  #    - pv:
+  #        share: /downloads/Movies
 
 
-  - name: sonarr-storage-tv
-    namespace: media
-    chart: ../../charts/cifs-pvc
-    secrets:
-      - cifs-pvc-secrets.yaml
-    values:
-      - pv:
-          share: /TV
+  #- name: sonarr-storage-tv
+  #  namespace: media
+  #  chart: ../../charts/cifs-pvc
+  #  secrets:
+  #    - cifs-pvc-secrets.yaml
+  #  values:
+  #    - pv:
+  #        share: /TV
 
-  - name: sonarr-storage-anime
-    namespace: media
-    chart: ../../charts/cifs-pvc
-    secrets:
-      - cifs-pvc-secrets.yaml
-    values:
-      - pv:
-          share: /Anime
+  #- name: sonarr-storage-anime
+  #  namespace: media
+  #  chart: ../../charts/cifs-pvc
+  #  secrets:
+  #    - cifs-pvc-secrets.yaml
+  #  values:
+  #    - pv:
+  #        share: /Anime
 
-  - name: sonarr-storage-webseries
-    namespace: media
-    chart: ../../charts/cifs-pvc
-    secrets:
-      - cifs-pvc-secrets.yaml
-    values:
-      - pv:
-          share: /Webseries
+  #- name: sonarr-storage-webseries
+  #  namespace: media
+  #  chart: ../../charts/cifs-pvc
+  #  secrets:
+  #    - cifs-pvc-secrets.yaml
+  #  values:
+  #    - pv:
+  #        share: /Webseries
 
-  - name: sonarr-downloads
-    namespace: media
-    chart: ../../charts/cifs-pvc
-    secrets:
-      - cifs-pvc-secrets.yaml
-    values:
-      - pv:
-          share: /downloads/TV
+  #- name: sonarr-downloads
+  #  namespace: media
+  #  chart: ../../charts/cifs-pvc
+  #  secrets:
+  #    - cifs-pvc-secrets.yaml
+  #  values:
+  #    - pv:
+  #        share: /downloads/TV
 
   - name: cops
     chart: halkeye/cops

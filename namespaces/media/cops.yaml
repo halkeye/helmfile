@@ -23,8 +23,8 @@ ingress:
 
 extraVolumes:
   - name: books
-    hostPath:
-      path: /smb/odin/Books
+    persistentVolumeClaim:
+      claimName: books-nfs-pvc
 
 extraVolumeMounts:
   - mountPath: /books

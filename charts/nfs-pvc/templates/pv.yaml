@@ -1,0 +1,14 @@
+apiVersion: v1
+kind: PersistentVolume
+metadata:
+  name: {{ include "nfs-pvc.fullname" . }}
+  labels:
+{{ include "nfs-pvc.labels" . | indent 4 }}
+spec:
+  capacity:
+    storage: {{ .Values.pvc.resources.requests.storage }}
+  accessModes:
+    {{ .Values.pvc.accessModes | toYaml | nindent 4 }}
+  nfs:
+    server: {{ required "PV server is required" .Values.pv.server | quote }}
+    path: {{ required "PV Share is required" .Values.pv.share | quote }}

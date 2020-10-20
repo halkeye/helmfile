@@ -27,19 +27,13 @@ timezone: "America/Vancouver"
 maxmem: "1024"
 
 extraVolumes:
-  - name: smb-odin-comics
-    flexVolume:
-      driver: "juliohm/cifs"
-      options:
-        opts: "uid=1000,gid=1000"
-        server: "odin"
-        share: "/Comics"
-      secretRef:
-        name: media-cifs-secret
+  - name: comics
+    persistentVolumeClaim:
+      claimName: comics-nfs-pvc
 
 extraVolumeMounts:
   - mountPath: /comics
-    name: smb-odin-comics
+    name: comics
 
 use_config: true
 config:
