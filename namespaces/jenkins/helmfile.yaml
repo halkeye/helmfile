@@ -1,10 +1,10 @@
 repositories:
-  - name: stable
-    url: https://kubernetes-charts.storage.googleapis.com
+  - name: jenkins
+    url: https://charts.jenkins.io
 releases:
   - name: jenkins
     namespace: jenkins
-    chart: stable/jenkins
+    chart: jenkins/jenkins
     values:
       - jenkins.yaml
     secrets:

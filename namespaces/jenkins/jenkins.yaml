@@ -34,8 +34,8 @@ master:
     prometheus.io/path: /prometheus
     prometheus.io/port: "8080"
     prometheus.io/scrape: "true"
-  image: "halkeye/jenkins"
-  tag: "d7f103cfcbf636089a82612f7a9bcfbbd752540e"
+  image: halkeye/jenkins
+  tag: 33228a57c161d8c9c6fcd03d090e7f
 
   ingress:
     enabled: true
