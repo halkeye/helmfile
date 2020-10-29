@@ -1,14 +1,6 @@
 ---
 persistence:
   enabled: true
-  storageClass: linstor
-  #existingClaim: 'jenkins-pvc-cifs-pvc'
- #mounts:
-  #  - mountPath: /var/jenkins_home/plugins
-  #    name: plugin-dir
-  #volumes:
-  #  - name: plugin-dir
-  #    emptyDir: {}
 
 agent:
   volumes:
@@ -18,6 +10,8 @@ agent:
       mountPath: /var/run/docker.sock
 
 master:
+  healthProbeReadinessFailureThreshold: 90
+  healthProbeLivenessFailureThreshold: 90
   affinity:
     podAntiAffinity:
       requiredDuringSchedulingIgnoredDuringExecution:
@@ -25,8 +19,8 @@ master:
             matchExpressions:
             - key: app.kubernetes.io/name
               operator: In
-              values: 
-              - jenkins
+              values:
+                - jenkins
           topologyKey: "kubernetes.io/hostname"
   jenkinsAdminEmail: jenkins@g4v.dev
   serviceType: ClusterIP
@@ -35,7 +29,7 @@ master:
     prometheus.io/port: "8080"
     prometheus.io/scrape: "true"
   image: halkeye/jenkins
-  tag: 33228a57c161d8c9c6fcd03d090e7f
+  tag: "7837bb"
 
   ingress:
     enabled: true
@@ -68,3 +62,4 @@ master:
 rbac:
   create: true
   readSecrets: true
+
