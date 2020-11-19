@@ -1,0 +1,54 @@
+---
+common:
+  ingress:
+    enabled: true
+    hosts:
+      - host: torrents.home.gavinmogan.com
+        paths:
+          - path: /
+    tls:
+      - secretName: qbittorrent-tls
+        hosts:
+          - torrents.home.gavinmogan.com
+    annotations:
+      cert-manager.io/cluster-issuer: letsencrypt
+      kubernetes.io/ingress.class: nginx
+      kubernetes.io/tls-acme: "true"
+      nginx.ingress.kubernetes.io/proxy-body-size: "0"
+
+env:
+  TZ: America/Vancouver
+  PUID: 1000
+  PGID: 1000
+
+resources:
+  limits:
+    cpu: 1000m
+    memory: 1024Mi
+  requests:
+    cpu: 100m
+    memory: 128Mi
+
+persistence:
+  config:
+    enabled: true
+    size: 8Gi
+    storageClass: linstor
+  downloads:
+    enabled: true
+    existingClaim: torrents-nfs-pvc
+    mountPath: /downloads
+
+#persistence:
+#  config:
+#    enabled: true
+#    emptyDir: false
+#    storageClass: "linstor"
+
+additionalVolumes:
+  - name: qbittorrent-scripts
+    emptyDir: {}
+
+additionalVolumeMounts:
+  - mountPath: /config/custom-cont-init.d
+    name: qbittorrent-scripts

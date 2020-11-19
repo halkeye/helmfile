@@ -21,6 +21,13 @@ releases:
       - pv:
           share: /storage/Books
 
+  - name: torrents
+    namespace: media
+    chart: ../../charts/nfs-pvc
+    values:
+      - pv:
+          share: /storage/storage/downloads
+
   #- name: radarr-storage-movies
   #  namespace: media
   #  chart: ../../charts/cifs-pvc
@@ -123,6 +130,12 @@ releases:
     namespace: media
     values:
       - nzbhydra2.yaml
+
+  - name: qbittorrent
+    chart: k8s-at-home/qbittorrent
+    namespace: media
+    values:
+      - qbittorrent.yaml
 
   - name: jackett
     chart: halkeye/jackett
