@@ -3,8 +3,8 @@ repositories:
     url: https://kubernetes-charts.storage.googleapis.com
   - name: halkeye
     url: https://halkeye.github.io/helm-charts
-  - name: influxdata
-    url: https://helm.influxdata.com/
+  #- name: influxdata
+  #  url: https://helm.influxdata.com/
   - name: bitnami
     url: https://charts.bitnami.com/bitnami
 
@@ -30,11 +30,11 @@ releases:
       - pgadmin.yaml
     secrets:
       - pgadmin-secret.yaml
-  - name: influxdb
-    chart: influxdata/influxdb
-    namespace: databases
-    values:
-      - influxdb.yaml
+  #- name: influxdb
+  #  chart: influxdata/influxdb
+  #  namespace: databases
+  #  values:
+  #    - influxdb.yaml
   #- name: mongodb
   #  chart: bitnami/mongodb
   #  namespace: databases
