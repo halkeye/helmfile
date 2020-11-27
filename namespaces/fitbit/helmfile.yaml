@@ -1,0 +1,6 @@
+#releases:
+#  - name: fitbit-api-explorer
+#    chart: /home/halkeye/git/halkeye-helm-charts/fitbit-api-explorer
+#    namespace: fitbit
+#    values:
+#      - ./fitbit.yaml
