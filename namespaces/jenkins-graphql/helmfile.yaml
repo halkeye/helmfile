@@ -1,0 +1,12 @@
+repositories:
+  - name: jenkins
+    url: https://charts.jenkins.io
+releases:
+  - name: graphql-jenkins
+    namespace: graphql-jenkins
+    #chart: /home/halkeye/git/jenkinsci/helm-charts/charts/jenkins
+    chart: jenkins/jenkins
+    values:
+      - jenkins-graphql.yaml
+    secrets:
+      - jenkins-graphql-secrets.yaml

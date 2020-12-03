@@ -24,17 +24,19 @@ ingress:
     nginx.ingress.kubernetes.io/proxy-body-size: "0"
     nginx.ingress.kubernetes.io/proxy-read-timeout: "600"
     nginx.ingress.kubernetes.io/proxy-send-timeout: "600"
+image:
+  tag: 2.5.2
 storage: s3
 s3:
-  region: us-east-1
-  regionEndpoint: https://minio.odin.gavinmogan.com/
-  bucket: docker
-  encrypt: false
 service:
   annotations:
     prometheus.io/path: /metrics
     prometheus.io/port: "5001"
     prometheus.io/scrape: "true"
+  region: sfo2
+  regionEndpoint: https://sfo2.digitaloceanspaces.com
+  secure: true
+  bucket: g4v-registry
 configData:
   http:
     debug:
@@ -49,14 +51,9 @@ configData:
       issuer: "Acme auth server"
       autoredirect: false
       rootcertbundle: "/opt/certs/docker-auth.pem"
+  proxy:
+    remoteurl: https://registry-1.docker.io
   storage:
-    s3:
-      region: us-east-1
-      regionEndpoint: https://minio.odin.gavinmogan.com/
-      bucket: docker
-      v4auth: true
-      chunksize: 5242880
-      rootdirectory: /
     delete:
       enabled: true
     maintenance:

@@ -1,0 +1,98 @@
+---
+persistence:
+  enabled: true
+  storageClass: linstor
+
+master:
+  jenkinsAdminEmail: "graphql-jenkins@g4v.dev"
+  serviceType: ClusterIP
+  enableXmlConfig: false
+  javaOpts: "-Djenkins.model.Jenkins.SHOW_STACK_TRACE=true"
+
+  ingress:
+    enabled: true
+    hostName: graphql-jenkins.g4v.dev
+    path: /
+    tls:
+      - secretName: graphql-jenkins-tls
+        hosts:
+          - graphql-jenkins.g4v.dev
+    annotations:
+      cert-manager.io/cluster-issuer: letsencrypt
+      kubernetes.io/ingress.class: nginx
+      kubernetes.io/tls-acme: "true"
+      nginx.ingress.kubernetes.io/proxy-body-size: 2000m
+      nginx.ingress.kubernetes.io/enable-cors: "true"
+      nginx.ingress.kubernetes.io/cors-allow-methods: "PUT, GET, POST, OPTIONS"
+      nginx.ingress.kubernetes.io/cors-allow-origin: "https://dev.gavinmogan.com/"
+      nginx.ingress.kubernetes.io/cors-allow-credentials: "true"
+
+  JCasC:
+    enabled: true
+    configScripts:
+      config: |
+        jenkins:
+          securityRealm:
+            github:
+              githubWebUri: "https://github.com"
+              githubApiUri: "https://api.github.com"
+              clientID: "${GITHUB_CLIENT_ID}"
+              clientSecret: "${GITHUB_CLIENT_SECRET}"
+              oauthScopes: "read:org,user:email"
+          authorizationStrategy:
+            projectMatrix:
+              permissions:
+                - "Job/Discover:anonymous"
+                - "Job/Read:anonymous"
+                - "Job/Build:authenticated"
+                - "Job/Workspace:authenticated"
+                - "Overall/Read:anonymous"
+                - "Overall/SystemRead:authenticated"
+                - "Overall/Administer:halkeye"
+        unclassified:
+          gitHubPluginConfig:
+            hookUrl: "https://graphql-jenkins.g4v.dev/github-webhook/"
+          githubPullRequests:
+            publishedURL: "https://graphql-jenkins.g4v.dev"
+          mailer:
+            replyToAddress: "graphql-jenkins@g4v.dev"
+            smtpHost: "${SMTP_SERVER}"
+            smtpPort: "25"
+        credentials:
+          system:
+            domainCredentials:
+              - credentials:
+                  - usernamePassword:
+                      scope: SYSTEM
+                      id: github
+                      username: halkeye
+                      password: ${CREDENTIALS_GITHUB}
+
+  sidecars:
+    configAutoReload:
+      enabled: false
+
+  # for demo purposes, don't try and use k8s, just simple local jobs
+  numExecutors: 1
+  overwriteConfig: true
+  overwritePlugins: true
+
+  # - graphql-server:custom::https://files.odin.gavinmogan.com/graphql-server.hpi
+  installPlugins:
+    - configuration-as-code
+    - credentials-binding
+    - email-ext
+    - git
+    - github-branch-source
+    - github-oauth
+    - github-pullrequest
+    - graphql-server:incrementals;io.jenkins.plugins;0.0.6-rc460.3094d5d2559e
+    - kubernetes
+    - markdown-formatter
+    - matrix-auth
+    - pipeline-multibranch-defaults
+    - workflow-aggregator
+    - workflow-job
+
+  runAsUser: 1000
+  fsGroup: 1000
