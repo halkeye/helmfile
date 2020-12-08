@@ -19,3 +19,5 @@ powerdns:
         dnsupdate: "yes"
         allow-dnsupdate-from: 0.0.0.0/0
         forward-dnsupdate: "yes"
+        ## loglevel
+        loglevel: 6

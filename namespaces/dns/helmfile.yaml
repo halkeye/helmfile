@@ -5,7 +5,8 @@ repositories:
     url: https://k8s-at-home.com/charts/
 releases:
   - name: powerdns
-    chart: halkeye/powerdns
+    #chart: halkeye/powerdns
+    chart: /home/halkeye/git/halkeye-helm-charts/powerdns
     values:
       - powerdns.yaml
     namespace: dns

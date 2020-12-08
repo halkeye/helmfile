@@ -14,3 +14,15 @@ zones:
   home.gavinmogan.com: 172.16.10.202
   odin.gavinmogan.com: 172.16.10.202
   10.16.172.in-addr.arpa: 172.16.10.202
+
+replicas: 2
+affinity:
+  podAntiAffinity:
+    requiredDuringSchedulingIgnoredDuringExecution:
+      - labelSelector:
+          matchExpressions:
+          - key: app.kubernetes.io/name
+            operator: In
+            values:
+            - powerdns-recursor
+        topologyKey: "kubernetes.io/hostname"
