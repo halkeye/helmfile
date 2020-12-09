@@ -17,7 +17,10 @@ strategy:
 
 persistence:
   enabled: true
-  storageClassName: linstor
+  #storageClassName: linstor
+  storageClassName: longhorn
+  accessModes:
+    - ReadWriteOnce
 
 config:
   homeservers:

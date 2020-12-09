@@ -20,21 +20,6 @@ releases:
     values:
       - ./riot-im.yaml
 
-  - name: matrix-ircd
-    chart: halkeye/matrix-ircd
-    namespace: matrix
-    values:
-      - ./matrix-ircd.yaml
-
-  - name: matrix-appservice-gitter
-    chart: /home/halkeye/git/halkeye-helm-charts/matrix-appservice-gitter
-    #chart: halkeye/matrix-appservice-gitter
-    namespace: matrix
-    values:
-      - ./matrix-appservice-gitter.yaml
-    secrets:
-      - ./matrix-appservice-gitter-secret.yaml
-
   - name: matrix-media-repo
     chart: halkeye/matrix-media-repo
     namespace: matrix

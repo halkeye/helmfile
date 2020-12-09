@@ -23,7 +23,6 @@ homeserver:
   enable_registration: false
   public_baseurl: https://matrix.g4v.dev/
   app_service_config_files:
-    - /config/gitter-registration.yaml
     - /config/instagram-registration.yaml
     - /config/whatsapp-registration.yaml
     - /config/telegram-registration.yaml
@@ -117,20 +116,6 @@ extraConfigs:
     rate_limited: false
     sender_localpart: puppet-instagram
     url: https://dev.gavinmogan.com
-  gitter-registration.yaml:
-    id: gitter
-    namespaces:
-      users:
-        - exclusive: true
-          regex: '@appservice-gitter_.*'
-      aliases:
-        - exclusive: true
-          regex: '#appservice-gitter_.*'
-      rooms: []
-    url: http://matrix-appservice-gitter.matrix.svc.cluster.local:5858
-    sender_localpart: appservice-gitter
-    rate_limited: true
-    protocols: null
   whatsapp-registration.yaml:
     id: whatsapp
     url: http://mautrix-whatsapp.matrix.svc.cluster.local:29318
