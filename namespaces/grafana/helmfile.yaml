@@ -1,9 +1,9 @@
 repositories:
-  - name: stable
-    url: https://kubernetes-charts.storage.googleapis.com
+  - name: grafana
+    url: https://grafana.github.io/helm-charts
 releases:
   - name: grafana
-    chart: stable/grafana
+    chart: grafana/grafana
     namespace: grafana
     values:
       - grafana.yaml
