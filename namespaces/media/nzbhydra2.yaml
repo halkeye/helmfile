@@ -27,7 +27,8 @@ persistence:
   config:
     enabled: true
     size: 8Gi
-    storageClass: linstor
+    storageClass: longhorn
+    accessMode: ReadWriteOnce
 
 resources:
   limits:
@@ -39,4 +40,4 @@ resources:
 
 image:
   repository: linuxserver/nzbhydra2
-  tag: version-v3.4.3
+  tag: version-v3.6.0
