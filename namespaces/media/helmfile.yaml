@@ -107,6 +107,15 @@ releases:
     values:
       - cops.yaml
 
+  - name: tautulli
+    #chart: halkeye/tautulli
+    chart: /home/halkeye/git/halkeye-helm-charts/tautulli
+    namespace: media
+    values:
+      - tautulli.yaml
+    secrets:
+      - tautulli-secrets.yaml
+
   - name: ubooquity
     chart: halkeye/ubooquity
     namespace: media
