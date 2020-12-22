@@ -6,13 +6,6 @@ helmDefaults:
   atomic: true
 
 releases:
-  - name: nfs-client-provisioner
-    namespace: kube-system
-    chart: stable/nfs-client-provisioner
-    values:
-      - nfs-client-provisioner.yaml
-    secrets:
-      - nfs-client-provisioner-secrets.yaml
   - name: metrics-server
     namespace: kube-system
     chart: stable/metrics-server
