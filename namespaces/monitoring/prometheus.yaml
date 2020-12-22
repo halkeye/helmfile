@@ -1,6 +1,6 @@
 alertmanager:
   persistentVolume:
-    storageClass: linstor
+    storageClass: longhorn
   ingress:
     enabled: true
     hosts:
@@ -22,7 +22,7 @@ extraScrapeConfigs: |
       - targets: ['raspberrypi.dhcp.home:9243']
 server:
   persistentVolume:
-    storageClass: linstor
+    storageClass: longhorn
   ingress:
     enabled: true
     hosts:
@@ -38,7 +38,7 @@ server:
 
 pushgateway:
   persistentVolume:
-    storageClass: linstor
+    storageClass: longhorn
   ingress:
     enabled: true
     hosts:
