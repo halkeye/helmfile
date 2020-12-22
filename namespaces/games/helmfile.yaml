@@ -2,22 +2,21 @@ repositories:
   - name: halkeye
     url: https://halkeye.github.io/helm-charts
 
-releases:
-  - name: sevendaysdie
-    chart: halkeye/sevendaysdie
-    namespace: sevendaysdie
-    values:
-      - 7daystodie.yaml
-    secrets:
-      - 7daystodie-secrets.yaml
-  - name: terraria
-    chart: halkeye/terraria
-    #chart: /home/halkeye/git/halkeye-helm-charts/terraria
-    namespace: games
-    values:
-      - terraria.yaml
-    secrets:
-      - terraria-secrets.yaml
+releases: []
+  #- name: sevendaysdie
+  #  chart: halkeye/sevendaysdie
+  #  namespace: sevendaysdie
+  #  values:
+  #    - 7daystodie.yaml
+  #  secrets:
+  #    - 7daystodie-secrets.yaml
+  #- name: terraria
+  #  chart: halkeye/terraria
+  #  namespace: games
+  #  values:
+  #    - terraria.yaml
+  #  secrets:
+  #    - terraria-secrets.yaml
   #- name: dontstarvetogether
   #  chart: halkeye/dontstarvetogether
   #  namespace: games
