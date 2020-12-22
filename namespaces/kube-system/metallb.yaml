@@ -1,0 +1,20 @@
+configInline:
+  peers:
+  - peer-address: 172.16.10.1
+    peer-asn: 64512
+    my-asn: 64513
+  address-pools:
+  - name: my-ip-space
+    protocol: layer2
+    addresses:
+    - 172.16.10.201-172.16.10.220
+  
+  #peers:
+  #- peer-address: 172.16.10.1
+  #  peer-asn: 64512
+  #  my-asn: 64513
+  #address-pools:
+  #- name: default
+  #  protocol: bgp
+  #  addresses:
+  #  - 172.16.10.201-172.16.10.220

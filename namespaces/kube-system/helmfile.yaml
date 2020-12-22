@@ -5,19 +5,34 @@ helmDefaults:
   timeout: 300
   atomic: true
 
+repositories:
+  - name: bitnami
+    url: https://charts.bitnami.com/bitnami
+  - name: nginx
+    url: https://helm.nginx.com/stable
+
 releases:
   - name: metrics-server
     namespace: kube-system
-    chart: stable/metrics-server
+    chart: bitnami/metrics-server
     values:
       - metrics-server.yaml
   - name: nginx-ingress
     namespace: kube-system
-    chart: stable/nginx-ingress
+    chart: nginx/nginx-ingress
     values:
       - nginx-ingress.yaml
     secrets:
       - nginx-ingress-secrets.yaml
   - name: metallb
     namespace: kube-system
-    chart: stable/metallb
+    chart: bitnami/metallb
+    values:
+      - metallb.yaml
+  - name: external-dns
+    namespace: kube-system
+    chart: bitnami/external-dns
+    values:
+      - external-dns.yaml
+    secrets:
+      - external-dns-secrets.yaml
