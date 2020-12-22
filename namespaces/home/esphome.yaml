@@ -2,19 +2,17 @@
 timezone: 'America/Vancouver'
 
 image:
-  tag: 1.15.0b4
+  tag: 1.15.3
 
 puid: 1000
 guid: 1000
 
-exportarr:
-  enabled: false
-  apikey: ''
-
 ingress:
   enabled: true
   hosts:
-    - esphome.home.gavinmogan.com
+    - host: esphome.home.gavinmogan.com
+      paths:
+        - path: /
   tls:
     - secretName: esphome-tls
       hosts:
@@ -26,8 +24,9 @@ ingress:
     nginx.ingress.kubernetes.io/proxy-body-size: "500m"
 
 persistence:
-  enabled: true
-  storageClass: linstor
+  config:
+    enabled: true
+    storageClass: longhorn
 
 resources:
   limits:

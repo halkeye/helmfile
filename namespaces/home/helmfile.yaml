@@ -8,6 +8,7 @@ releases:
   - name: home-assistant
     chart: k8s-at-home/home-assistant
     namespace: home
+    version: 5.1.1
     values:
       - home-assistant.yaml
     #secrets:
@@ -21,6 +22,7 @@ releases:
       - room-assistant-secrets.yaml
   - name: esphome
     namespace: home
+    version: 4.2.1
     chart: k8s-at-home/esphome
     values:
       - esphome.yaml

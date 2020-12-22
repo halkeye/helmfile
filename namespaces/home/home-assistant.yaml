@@ -1,7 +1,7 @@
 ---
 image:
   repository: homeassistant/home-assistant
-  tag: 0.115.6
+  tag: 2020.12.1
 
 extraEnv:
   TZ: America/Vancouver
@@ -9,12 +9,14 @@ extraEnv:
 monitoring:
   enabled: false
 
-vscode:
+codeserver:
   enabled: enabled
   ingress:
     enabled: enabled
     hosts:
-      - hassconfig.home.gavinmogan.com
+      - host: hassconfig.home.gavinmogan.com
+        paths:
+          - path: /
     tls:
       - secretName: homeassistant-vscode-tls
         hosts:
@@ -29,7 +31,9 @@ vscode:
 ingress:
   enabled: true
   hosts:
-    - home.g4v.dev
+    - host: home.g4v.dev
+      paths:
+        - path: /
   tls:
     - secretName: homeassistant-tls
       hosts:
@@ -41,16 +45,6 @@ ingress:
     kubernetes.io/tls-acme: "true"
 
 persistence:
-  enabled: true
-  storageClass: "linstor"
-
-# kubectl create secret generic --namespace home-assistant git-creds --from-file=id_rsa=homeassistant_rsa --from-file=known_hosts=known_hosts --from-file=id_rsa.pub=homeassistant_rsa.pub
-
-#git:
-#  enabled: "true"
-#  repo: "git@github.com:halkeye/homeassistant-config.git"
-#  secret: git-creds
-#  command:
-#    - sh
-#    - -c
-#    - '[ "$(ls /config)" ] || git clone -b k8s --recurse-submodules -j4 git@github.com:halkeye/homeassistant-config.git /config'
+  config:
+    enabled: true
+    storageClass: "longhorn"
