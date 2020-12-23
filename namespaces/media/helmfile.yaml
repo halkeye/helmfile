@@ -1,6 +1,4 @@
 repositories:
-  - name: jellyfin
-    url: git+https://github.com/brianmcarey/jellyfin-helm@?ref=master
   - name: halkeye
     url: https://halkeye.github.io/helm-charts
   - name: k8s-at-home
@@ -28,88 +26,16 @@ releases:
       - pv:
           share: /storage/storage/downloads
 
-  #- name: radarr-storage-movies
-  #  namespace: media
-  #  chart: ../../charts/cifs-pvc
-  #  secrets:
-  #    - cifs-pvc-secrets.yaml
-  #  values:
-  #    - pv:
-  #        share: /movies
-
-  #- name: radarr-storage-anime-movies
-  #  namespace: media
-  #  chart: ../../charts/cifs-pvc
-  #  secrets:
-  #    - cifs-pvc-secrets.yaml
-  #  values:
-  #    - pv:
-  #        share: /AnimeMovies
-
-  #- name: radarr-storage-comedian-specials
-  #  namespace: media
-  #  chart: ../../charts/cifs-pvc
-  #  secrets:
-  #    - cifs-pvc-secrets.yaml
-  #  values:
-  #    - pv:
-  #        share: /ComedianSpecials
-
-  #- name: radarr-downloads
-  #  namespace: media
-  #  chart: ../../charts/cifs-pvc
-  #  secrets:
-  #    - cifs-pvc-secrets.yaml
-  #  values:
-  #    - pv:
-  #        share: /downloads/Movies
-
-
-  #- name: sonarr-storage-tv
-  #  namespace: media
-  #  chart: ../../charts/cifs-pvc
-  #  secrets:
-  #    - cifs-pvc-secrets.yaml
-  #  values:
-  #    - pv:
-  #        share: /TV
-
-  #- name: sonarr-storage-anime
-  #  namespace: media
-  #  chart: ../../charts/cifs-pvc
-  #  secrets:
-  #    - cifs-pvc-secrets.yaml
-  #  values:
-  #    - pv:
-  #        share: /Anime
-
-  #- name: sonarr-storage-webseries
-  #  namespace: media
-  #  chart: ../../charts/cifs-pvc
-  #  secrets:
-  #    - cifs-pvc-secrets.yaml
-  #  values:
-  #    - pv:
-  #        share: /Webseries
-
-  #- name: sonarr-downloads
-  #  namespace: media
-  #  chart: ../../charts/cifs-pvc
-  #  secrets:
-  #    - cifs-pvc-secrets.yaml
-  #  values:
-  #    - pv:
-  #        share: /downloads/TV
-
   - name: cops
     chart: halkeye/cops
+    #chart: /home/halkeye/git/halkeye-helm-charts/cops
     namespace: media
     values:
       - cops.yaml
 
   - name: tautulli
-    #chart: halkeye/tautulli
-    chart: /home/halkeye/git/halkeye-helm-charts/tautulli
+    chart: halkeye/tautulli
+    #chart: /home/halkeye/git/halkeye-helm-charts/tautulli
     namespace: media
     values:
       - tautulli.yaml
@@ -121,12 +47,6 @@ releases:
     namespace: media
     values:
       - ubooquity.yaml
-
-  #- name: jellyfin
-  #  chart: jellyfin/jellyfin
-  #  namespace: media
-  #  values:
-  #    - jellyfin.yaml
 
   - name: zap2xml
     chart: ../../charts/zap2xml
@@ -166,15 +86,26 @@ releases:
 
 #  - name: mylar-downloads
 #    namespace: media
-#    chart: ../../charts/cifs-pvc
-#    secrets:
-#      - cifs-pvc-secrets.yaml
+#    chart: ../../charts/nfs-pvc
 #    values:
 #      - pv:
-#          share: /downloads/Comics
+#          share: /storage/storage/downloads/Comics
 #
 #  - name: mylar3
 #    chart: /home/halkeye/git/halkeye-helm-charts/mylar3
 #    namespace: media
 #    values:
 #      - mylar3.yaml
+#
+#  - name: comics-downloads
+#    namespace: media
+#    chart: ../../charts/nfs-pvc
+#    values:
+#      - pv:
+#          share: /storage/storage/downloads/Comics
+#
+#  - name: readarr
+#    chart: /home/halkeye/git/halkeye-helm-charts/readarr
+#    namespace: media
+#    values:
+#      - readarr.yaml

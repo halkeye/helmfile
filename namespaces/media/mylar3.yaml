@@ -27,10 +27,10 @@ persistence:
   extraExistingClaimMounts:
     - name: comics
       mountPath: /comics
-      existingClaim: comics-cifs-pvc
+      existingClaim: comics-nfs-pvc
     - name: downloads
-      mountPath: /media/storage/downloads/Comics
-      existingClaim: mylar-downloads-cifs-pvc
+      mountPath: /storage/storage/downloads/Comics
+      existingClaim: mylar-downloads-nfs-pvc
 
 resources:
   limits:
