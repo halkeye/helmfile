@@ -8,8 +8,8 @@ helmDefaults:
 repositories:
   - name: bitnami
     url: https://charts.bitnami.com/bitnami
-  - name: nginx
-    url: https://helm.nginx.com/stable
+  - name: ingress-nginx
+    url: https://kubernetes.github.io/ingress-nginx
 
 releases:
   - name: metrics-server
@@ -19,7 +19,7 @@ releases:
       - metrics-server.yaml
   - name: nginx-ingress
     namespace: kube-system
-    chart: nginx/nginx-ingress
+    chart: ingress-nginx/ingress-nginx
     values:
       - nginx-ingress.yaml
     secrets:
