@@ -161,3 +161,10 @@ extraConfigs:
           'mail': 'mail',
       }
     }
+
+#persistence:
+#  enabled: true
+#  storageClassName: longhorn
+#  accessModes:
+#    - ReadWriteOnce
+#  size: 10Gi

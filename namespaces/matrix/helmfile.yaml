@@ -7,21 +7,23 @@ helmDefaults:
 
 releases:
   - name: synapse
-    chart: halkeye/synapse
+    chart: /home/halkeye/git/halkeye-helm-charts/synapse
+    #chart: halkeye/synapse
     namespace: matrix
     values:
       - ./synapse.yaml
     secrets:
       - ./synapse-secret.yaml
 
-  - name: riot-im
+  - name: element-im
     chart: halkeye/element-im
     namespace: matrix
     values:
-      - ./riot-im.yaml
+      - ./element-im.yaml
 
   - name: matrix-media-repo
-    chart: halkeye/matrix-media-repo
+    #chart: halkeye/matrix-media-repo
+    chart: /home/halkeye/git/halkeye-helm-charts/matrix-media-repo
     namespace: matrix
     values:
       - ./matrix-media-repo.yaml
@@ -43,14 +45,6 @@ releases:
       - ./mautrix-telegram.yaml
     secrets:
       - ./mautrix-telegram-secret.yaml
-
-  - name: matrix-dimension
-    chart: halkeye/matrix-dimension
-    namespace: matrix
-    values:
-      - ./matrix-dimension.yaml
-    secrets:
-      - ./matrix-dimension-secret.yaml
 
   - name: mautrix-hangouts
     chart: halkeye/mautrix-hangouts
