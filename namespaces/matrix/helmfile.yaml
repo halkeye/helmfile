@@ -15,11 +15,11 @@ releases:
     secrets:
       - ./synapse-secret.yaml
 
-  - name: element-im
-    chart: halkeye/element-im
+  - name: element-web
+    chart: halkeye/element-web
     namespace: matrix
     values:
-      - ./element-im.yaml
+      - ./element-web.yaml
 
   - name: matrix-media-repo
     #chart: halkeye/matrix-media-repo
