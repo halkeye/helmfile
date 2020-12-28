@@ -1,0 +1,25 @@
+config:
+  homeserver:
+    address: https://matrix.g4v.dev
+    domain: g4v.dev
+  appservice:
+    community_id: "signal:g4v.dev"
+    as_token: ""
+    hs_token: ""
+  bridge:
+    community_template: "signal_{localpart}={server}"
+    permissions:
+      "g4v.dev": "user"
+      "@halkeye:g4v.dev": "admin"
+    allow_contact_list_name_updates: true
+    displayname_preference:
+      - full_name
+      - first_name
+      - phone
+
+registration:
+  namespaces:
+    users:
+      - exclusive: true
+        regex: '@signal_.+:g4v.dev'
+        group_id: +signal:g4v.dev

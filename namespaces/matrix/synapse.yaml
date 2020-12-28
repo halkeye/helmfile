@@ -27,6 +27,7 @@ homeserver:
     - /config/whatsapp-registration.yaml
     - /config/telegram-registration.yaml
     - /config/hangouts-registration.yaml
+    - /config/signal-registration.yaml
   enable_group_creation: true
   enable_3pid_lookup: true
   #default_identity_server: https://matrix-identity.g4v.dev
@@ -146,6 +147,16 @@ extraConfigs:
           group_id: +hangouts:g4v.dev
     url: http://mautrix-hangouts:29320
     sender_localpart: hangoutsbot
+    rate_limited: false
+  signal-registration.yaml:
+    id: signal
+    namespaces:
+      users:
+        - exclusive: true
+          regex: '@signal_.+:g4v.dev'
+          group_id: +signal:g4v.dev
+    url: http://mautrix-signal:29328
+    sender_localpart: signalbot
     rate_limited: false
   map.py: |-
     MAP = {

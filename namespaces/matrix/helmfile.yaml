@@ -53,3 +53,12 @@ releases:
       - ./mautrix-hangouts.yaml
     secrets:
       - ./mautrix-hangouts-secret.yaml
+
+  - name: mautrix-signal
+    chart: halkeye/mautrix-signal
+    #chart: /home/halkeye/git/halkeye-helm-charts/mautrix-signal
+    namespace: matrix
+    values:
+      - ./mautrix-signal.yaml
+    secrets:
+      - ./mautrix-signal-secret.yaml
