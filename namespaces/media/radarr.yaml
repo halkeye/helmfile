@@ -25,11 +25,11 @@ ingress:
 persistence:
   config:
     enabled: true
-    storageClass: linstor
+    storageClass: longhorn
 
   media:
     enabled: false
-    storageClass: linstor
+    storageClass: longhorn
 
   extraExistingClaimMounts:
     - name: movies

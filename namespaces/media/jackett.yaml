@@ -14,5 +14,5 @@ ingress:
 persistence:
   enabled: true
   accessModes:
-    - ReadWriteMany
-  storageClassName: linstor
+    - ReadWriteOnce
+  storageClassName: longhorn

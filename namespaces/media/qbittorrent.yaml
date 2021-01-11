@@ -33,7 +33,7 @@ persistence:
   config:
     enabled: true
     size: 8Gi
-    storageClass: linstor
+    storageClass: longhorn
   downloads:
     enabled: true
     existingClaim: torrents-nfs-pvc
@@ -43,7 +43,7 @@ persistence:
 #  config:
 #    enabled: true
 #    emptyDir: false
-#    storageClass: "linstor"
+#    storageClass: "longhorn"
 
 additionalVolumes:
   - name: qbittorrent-scripts

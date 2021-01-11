@@ -68,7 +68,7 @@ releases:
 
   - name: jackett
     chart: halkeye/jackett
-    namespace: jackett
+    namespace: media
     values:
       - jackett.yaml
 

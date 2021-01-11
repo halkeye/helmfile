@@ -40,4 +40,4 @@ resources:
 
 image:
   repository: linuxserver/nzbhydra2
-  tag: version-v3.8.0
+  tag: version-v3.9.0
