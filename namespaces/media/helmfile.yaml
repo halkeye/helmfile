@@ -19,6 +19,13 @@ releases:
       - pv:
           share: /storage/Books
 
+  - name: videos
+    namespace: media
+    chart: ../../charts/nfs-pvc
+    values:
+      - pv:
+          share: /storage/Videos
+
   - name: torrents
     namespace: media
     chart: ../../charts/nfs-pvc
@@ -71,6 +78,12 @@ releases:
     namespace: media
     values:
       - jackett.yaml
+
+  - name: bazarr
+    chart: k8s-at-home/bazarr
+    namespace: media
+    values:
+      - bazarr.yaml
 
 #  - name: radarr
 #    chart: k8s-at-home/radarr

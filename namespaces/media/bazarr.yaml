@@ -1,0 +1,52 @@
+---
+common:
+  ingress:
+    enabled: true
+    hosts:
+      - host: bazarr.home.gavinmogan.com
+        paths:
+          - path: /
+    tls:
+      - secretName: bazarr-tls
+        hosts:
+          - bazarr.home.gavinmogan.com
+    annotations:
+      cert-manager.io/cluster-issuer: letsencrypt
+      kubernetes.io/ingress.class: nginx
+      kubernetes.io/tls-acme: "true"
+      nginx.ingress.kubernetes.io/proxy-body-size: "500m"
+
+env:
+  TZ: America/Vancouver
+  PUID: 1000
+  PGID: 1000
+
+
+persistence:
+  config:
+    enabled: true
+    storageClass: longhorn
+  media:
+    enabled: false
+    storageClass: longhorn
+
+additionalVolumes:
+  - name: videos
+    persistentVolumeClaim:
+      claimName: videos-nfs-pvc
+additionalVolumeMounts:
+  - name: videos
+    mountPath: /storage/Videos
+
+resources:
+  limits:
+    cpu: 500m
+    memory: 1024Mi
+  requests:
+    cpu: 100m
+    memory: 128Mi
+
+image:
+  repository: linuxserver/bazarr
+  pullPolicy: IfNotPresent
+  tag: version-v0.9.0.8
