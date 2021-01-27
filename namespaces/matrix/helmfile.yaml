@@ -16,7 +16,8 @@ releases:
       - ./synapse-secret.yaml
 
   - name: element-web
-    chart: halkeye/element-web
+    #chart: halkeye/element-web
+    chart: /home/halkeye/git/halkeye-helm-charts/riot-im
     namespace: matrix
     values:
       - ./element-web.yaml
