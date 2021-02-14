@@ -1,0 +1,17 @@
+config:
+  homeserver:
+    address: https://matrix.g4v.dev
+    domain: g4v.dev
+  appservice:
+    community_id: "instagram:g4v.dev"
+  bridge:
+    permissions:
+      "g4v.dev": "user"
+      "@halkeye:g4v.dev": "admin"
+
+registration:
+  namespaces:
+    users:
+      - exclusive: true
+        regex: '@signal_.+:g4v.dev'
+        group_id: +signal:g4v.dev

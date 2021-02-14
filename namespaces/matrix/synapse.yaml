@@ -23,9 +23,10 @@ homeserver:
   enable_registration: false
   public_baseurl: https://matrix.g4v.dev/
   app_service_config_files:
-    - /config/instagram-registration.yaml
     - /config/whatsapp-registration.yaml
     - /config/telegram-registration.yaml
+    - /config/instagram-registration.yaml
+    - /config/twitter-registration.yaml
     - /config/hangouts-registration.yaml
     - /config/signal-registration.yaml
   enable_group_creation: true
@@ -103,20 +104,6 @@ dnsConfig:
       value: "1"
 
 extraConfigs:
-  instagram-registration.yaml:
-    id: instagram-puppet
-    namespaces:
-      users:
-        - exclusive: true
-          regex: '@puppet-instagram_.*'
-      rooms: []
-      aliases:
-        - exclusive: true
-          regex: '#puppet-instagram_.*'
-    protocols: []
-    rate_limited: false
-    sender_localpart: puppet-instagram
-    url: https://dev.gavinmogan.com
   whatsapp-registration.yaml:
     id: whatsapp
     url: http://mautrix-whatsapp.matrix.svc.cluster.local:29318
@@ -137,6 +124,30 @@ extraConfigs:
           regex: '#telegram_.+:g4v.dev'
     url: http://mautrix-telegram.matrix.svc.cluster.local:29317
     sender_localpart: telegrambot
+    rate_limited: false
+  instagram-registration.yaml:
+    id: instagram
+    namespaces:
+      users:
+        - exclusive: true
+          regex: '@instagram_.+:g4v.dev'
+      aliases:
+        - exclusive: true
+          regex: '#instagram_.+:g4v.dev'
+    url: http://mautrix-instagram.matrix.svc.cluster.local:29328
+    sender_localpart: instagrambot
+    rate_limited: false
+  twitter-registration.yaml:
+    id: twitter
+    namespaces:
+      users:
+        - exclusive: true
+          regex: '@twitter_.+:g4v.dev'
+      aliases:
+        - exclusive: true
+          regex: '#twitter_.+:g4v.dev'
+    url: http://mautrix-twitter.matrix.svc.cluster.local:29328
+    sender_localpart: twitterbot
     rate_limited: false
   hangouts-registration.yaml:
     id: hangouts
