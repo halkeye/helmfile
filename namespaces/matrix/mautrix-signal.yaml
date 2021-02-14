@@ -23,3 +23,9 @@ registration:
       - exclusive: true
         regex: '@signal_.+:g4v.dev'
         group_id: +signal:g4v.dev
+
+image:
+  mautrixSignal:
+    repository: dock.mau.dev/tulir/mautrix-signal
+    tag: latest
+    pullPolicy: Always

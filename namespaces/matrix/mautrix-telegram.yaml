@@ -3,6 +3,11 @@ config:
     permissions:
       '@halkeye:g4v.dev': admin
       '@alexleekt:g4v.dev': full
+    animated_sticker:
+      target: webm
+    permissions:
+      g4v.dev: user
+      '@halkeye:g4v.dev': admin
 # Homeserver details
   homeserver:
       # The address that this appservice can use to connect to the homeserver.
