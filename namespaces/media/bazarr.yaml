@@ -1,20 +1,19 @@
 ---
-common:
-  ingress:
-    enabled: true
-    hosts:
-      - host: bazarr.home.gavinmogan.com
-        paths:
-          - path: /
-    tls:
-      - secretName: bazarr-tls
-        hosts:
-          - bazarr.home.gavinmogan.com
-    annotations:
-      cert-manager.io/cluster-issuer: letsencrypt
-      kubernetes.io/ingress.class: nginx
-      kubernetes.io/tls-acme: "true"
-      nginx.ingress.kubernetes.io/proxy-body-size: "500m"
+ingress:
+  enabled: true
+  hosts:
+    - host: bazarr.home.gavinmogan.com
+      paths:
+        - path: /
+  tls:
+    - secretName: bazarr-tls
+      hosts:
+        - bazarr.home.gavinmogan.com
+  annotations:
+    cert-manager.io/cluster-issuer: letsencrypt
+    kubernetes.io/ingress.class: nginx
+    kubernetes.io/tls-acme: "true"
+    nginx.ingress.kubernetes.io/proxy-body-size: "500m"
 
 env:
   TZ: America/Vancouver

@@ -1,20 +1,19 @@
 ---
-common:
-  ingress:
-    enabled: true
-    hosts:
-      - host: torrents.home.gavinmogan.com
-        paths:
-          - path: /
-    tls:
-      - secretName: qbittorrent-tls
-        hosts:
-          - torrents.home.gavinmogan.com
-    annotations:
-      cert-manager.io/cluster-issuer: letsencrypt
-      kubernetes.io/ingress.class: nginx
-      kubernetes.io/tls-acme: "true"
-      nginx.ingress.kubernetes.io/proxy-body-size: "0"
+ingress:
+  enabled: true
+  hosts:
+    - host: torrents.home.gavinmogan.com
+      paths:
+        - path: /
+  tls:
+    - secretName: qbittorrent-tls
+      hosts:
+        - torrents.home.gavinmogan.com
+  annotations:
+    cert-manager.io/cluster-issuer: letsencrypt
+    kubernetes.io/ingress.class: nginx
+    kubernetes.io/tls-acme: "true"
+    nginx.ingress.kubernetes.io/proxy-body-size: "0"
 
 env:
   TZ: America/Vancouver
