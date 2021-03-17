@@ -16,6 +16,14 @@ ingress:
 
 cacheFactor: 5.0
 
+probes:
+  liveness:
+    failureThreshold: 15
+    periodSeconds: 30
+  readiness:
+    failureThreshold: 15
+    periodSeconds: 30
+
 homeserver:
   server_name: "g4v.dev"
   signing_key_path: "/data/signing.key"
