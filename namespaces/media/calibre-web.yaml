@@ -1,0 +1,49 @@
+---
+image:
+  tag: version-0.6.11
+
+ingress:
+  enabled: true
+  hosts:
+    - host: books2.g4v.dev
+      paths:
+        - path: /
+  tls:
+    - secretName: calibre-web-tls
+      hosts:
+        - books2.g4v.dev
+  annotations:
+    cert-manager.io/cluster-issuer: letsencrypt
+    kubernetes.io/ingress.class: nginx
+    kubernetes.io/tls-acme: "true"
+    nginx.ingress.kubernetes.io/proxy-body-size: "500m"
+    nginx.ingress.kubernetes.io/auth-signin: "https://vouch.g4v.dev/login?url=$scheme://$http_host$request_uri&vouch-failcount=$auth_resp_failcount&X-Vouch-Token=$auth_resp_jwt&error=$auth_resp_err"
+    nginx.ingress.kubernetes.io/auth-url: https://vouch.g4v.dev
+    nginx.ingress.kubernetes.io/auth-response-headers: X-Vouch-User
+    nginx.ingress.kubernetes.io/auth-snippet: |
+      # these return values are used by the @error401 call
+      auth_request_set $auth_resp_jwt $upstream_http_x_vouch_jwt;
+      auth_request_set $auth_resp_err $upstream_http_x_vouch_err;
+      auth_request_set $auth_resp_failcount $upstream_http_x_vouch_failcount;
+
+env:
+  TZ: America/Vancouver
+  PUID: 1000
+  PGID: 1000
+
+persistence:
+  config:
+    enabled: true
+    storageClass: longhorn
+  books:
+    enabled: true
+    mountPath: /books
+    existingClaim: books-nfs-pvc
+
+resources:
+  limits:
+    cpu: 500m
+    memory: 1024Mi
+  requests:
+    cpu: 100m
+    memory: 128Mi

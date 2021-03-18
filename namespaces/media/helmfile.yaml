@@ -85,6 +85,12 @@ releases:
     values:
       - bazarr.yaml
 
+  - name: calibre-web
+    chart: k8s-at-home/calibre-web
+    namespace: media
+    values:
+      - calibre-web.yaml
+
 #  - name: radarr
 #    chart: k8s-at-home/radarr
 #    namespace: media
