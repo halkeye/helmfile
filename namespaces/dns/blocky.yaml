@@ -1,4 +1,9 @@
 timeZone: "America/Vancouver"
+image:
+  repository: spx01/blocky
+  tag: v0.13
+  pullPolicy: IfNotPresent
+
 service:
   type: ClusterIP
   annotations:
@@ -48,6 +53,9 @@ config:
     whiteLists:
       ads:
         - whitelist.txt
+    blackLists:
+      games:
+        - gamesblocklists.txt
 
 resources:
   requests:
@@ -57,14 +65,15 @@ resources:
     memory: 500Mi
     cpu: 1000m
 
-replicas: 2
-affinity:
-  podAntiAffinity:
-    requiredDuringSchedulingIgnoredDuringExecution:
-      - labelSelector:
-          matchExpressions:
-          - key: app.kubernetes.io/name
-            operator: In
-            values:
-            - blocky
-        topologyKey: "kubernetes.io/hostname"
+replicas: 1
+
+#affinity:
+#  podAntiAffinity:
+#    requiredDuringSchedulingIgnoredDuringExecution:
+#      - labelSelector:
+#          matchExpressions:
+#          - key: app.kubernetes.io/name
+#            operator: In
+#            values:
+#            - blocky
+#        topologyKey: "kubernetes.io/hostname"
