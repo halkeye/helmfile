@@ -1,8 +1,0 @@
-releases:
-  - name: znc
-    chart: ../../charts/znc
-    namespace: irc
-    values:
-      - znc.yaml
-    secrets:
-      - znc-secrets.yaml
