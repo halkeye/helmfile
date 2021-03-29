@@ -1,4 +1,0 @@
-releases:
-  - name: gitter-irc-bridge
-    namespace: gitter-irc-bridge
-    chart: halkeye/gitter-irc-bridge
