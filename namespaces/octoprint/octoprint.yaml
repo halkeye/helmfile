@@ -50,12 +50,12 @@ securityContext:
 ## Persist configuration to a persistent volume
 persistence:
   enabled: true
-  storageClassName: linstor
+  storageClassName: longhorn
   size: 10Gi
 
 device: "/dev/ttyACM0"
 
 image:
   repository: halkeye/octoprint
-  tag: 1.4.0
+  tag: 1.4.2
   pullPolicy: Always

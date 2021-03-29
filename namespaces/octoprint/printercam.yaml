@@ -4,11 +4,7 @@ ingress:
     - secretName: printercam-tls
       hosts:
         - printercam.home.gavinmogan.com
-        - printercam.g4v.dev
   hosts:
-    - host: printercam.g4v.dev
-      paths:
-        - /
     - host: printercam.home.gavinmogan.com
       paths:
         - /
