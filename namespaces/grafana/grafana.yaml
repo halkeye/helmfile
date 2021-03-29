@@ -21,7 +21,10 @@ persistence:
 dashboards:
   default:
     synapse:
-      url: https://raw.githubusercontent.com/matrix-org/synapse/master/contrib/grafana/synapse.json
+      # url: https://raw.githubusercontent.com/matrix-org/synapse/master/contrib/grafana/synapse.json
+      gnetId: 10046
+      revision: 1
+      datasource: Prometheus
     docker-registry:
       gnetId: 9621
       revision: 2
@@ -36,7 +39,7 @@ dashboards:
       datasource: Prometheus
     node-exporter-full:
       gnetId: 1860
-      revision: 14
+      revision: 21
       datasource: Prometheus
       #url: https://grafana.com/grafana/dashboards/9367
     jenkins-performance:
@@ -65,6 +68,14 @@ dashboards:
       gnetId: 7249
       revision: 1
       datasource: Prometheus
+    cluster-health:
+      gnetId: 10000
+      revision: 1
+      datasource: Prometheus
+    longhorn:
+      gnetId: 13032
+      revision: 1
+      datasource: Prometheus
     postfix:
       gnetId: 10013
       revision: 2
@@ -74,7 +85,8 @@ dashboards:
       revision: 1
       datasource: Prometheus
     ingress-nginx:
-      url: https://raw.githubusercontent.com/kubernetes/ingress-nginx/master/deploy/grafana/dashboards/nginx.json
+      gnetId: 9614
+      revision: 1
       datasource: Prometheus
     unifi-usw:
       gnetId: 11312
