@@ -1,9 +1,0 @@
-releases:
-  - name: guacamole
-    chart: halkeye/guacamole
-    namespace: guacamole
-    values:
-      - ./guacamole.yaml
-    secrets:
-      - ../../secrets/guacamole.yaml
-
