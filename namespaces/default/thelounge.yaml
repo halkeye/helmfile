@@ -21,9 +21,9 @@ strategy:
 
 persistence:
   enabled: true
-  storageClassName: "linstor"
+  storageClassName: "longhorn"
   accessModes:
-    - ReadWriteMany
+    - ReadWriteOnce
 
 dnsConfig:
   options:

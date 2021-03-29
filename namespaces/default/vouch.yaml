@@ -27,7 +27,6 @@ config:
       - home.gavinmogan.com
       - g4v.dev
 
-    webapp: true
     testing: false
 
   oauth:
