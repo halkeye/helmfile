@@ -1,15 +1,15 @@
 releases:
   - name: openldap
-    chart: stable/openldap
+    chart: ../../charts/openldap
     namespace: openldap
     values:
       - openldap.yaml
     secrets:
-      - ../../secrets/openldap.yaml
-  - name: selfservice
-    chart: halkeye/ldap-self-service
-    namespace: openldap
-    values:
-      - selfservice.yaml
-    secrets:
-      - ../../secrets/selfservice.yaml
+      - openldap-secrets.yaml
+  #- name: selfservice
+  #  chart: halkeye/ldap-self-service
+  #  namespace: openldap
+  #  values:
+  #    - selfservice.yaml
+  #  secrets:
+  #    - ../../secrets/selfservice.yaml

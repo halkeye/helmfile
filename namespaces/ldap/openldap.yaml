@@ -8,9 +8,20 @@ strategy:
 
 persistence:
   enabled: true
-  accessMode: ReadWriteMany
+  accessMode: ReadWriteOnce
   size: 1Gi
-  storageClass: linstor
+  storageClass: longhorn
 
 service:
   type: LoadBalancer
+
+image:
+  repository: osixia/openldap
+  tag: 1.5.0
+  pullPolicy: IfNotPresent
+logLevel: debug
+
+tls:
+  enabled: false
+  CA:
+    enabled: false
