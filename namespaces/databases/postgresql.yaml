@@ -2,7 +2,7 @@ postgresql:
   service:
     type: NodePort
   persistence:
-    storageClass: "linstor"
+    storageClass: "longhorn"
   metrics:
     enabled: true
 resources:

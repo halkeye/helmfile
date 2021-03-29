@@ -1,10 +1,10 @@
 persistence:
   enabled: true
-  storageClass: linstor
+  storageClass: longhorn
 
 #persistentVolume:
 #  enabled: true
-#  storageClass: linstor
+#  storageClass: longhorn
 #  accessModes:
 #    - ReadWriteOnce
 #  size: 10Gi

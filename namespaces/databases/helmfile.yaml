@@ -1,6 +1,4 @@
 repositories:
-  - name: stable
-    url: https://kubernetes-charts.storage.googleapis.com
   - name: halkeye
     url: https://halkeye.github.io/helm-charts
   #- name: influxdata
@@ -10,7 +8,7 @@ repositories:
 
 releases:
   - name: redis
-    chart: stable/redis
+    chart: bitnami/redis
     namespace: default
     values:
       - redis.yaml
@@ -30,6 +28,13 @@ releases:
       - pgadmin.yaml
     secrets:
       - pgadmin-secret.yaml
+  - name: mysql
+    chart: bitnami/mysql
+    namespace: databases
+    values:
+      - mysql.yaml
+    secrets:
+      - mysql-secrets.yaml
   #- name: influxdb
   #  chart: influxdata/influxdb
   #  namespace: databases
