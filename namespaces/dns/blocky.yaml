@@ -65,15 +65,15 @@ resources:
     memory: 500Mi
     cpu: 1000m
 
-replicas: 1
+replicas: 2
 
-#affinity:
-#  podAntiAffinity:
-#    requiredDuringSchedulingIgnoredDuringExecution:
-#      - labelSelector:
-#          matchExpressions:
-#          - key: app.kubernetes.io/name
-#            operator: In
-#            values:
-#            - blocky
-#        topologyKey: "kubernetes.io/hostname"
+affinity:
+  podAntiAffinity:
+    requiredDuringSchedulingIgnoredDuringExecution:
+      - labelSelector:
+          matchExpressions:
+          - key: app.kubernetes.io/name
+            operator: In
+            values:
+            - blocky
+        topologyKey: "kubernetes.io/hostname"
