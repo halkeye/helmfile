@@ -1,0 +1,14 @@
+---
+persistence:
+  defaultClass: false
+  defaultClassReplicaCount: 2
+
+ingress:
+  enabled: true
+  host: longhorn.int.g4v.dev
+  tls: true
+  tlsSecret: longhorn-tls
+  annotations:
+    cert-manager.io/cluster-issuer: letsencrypt
+    kubernetes.io/ingress.class: nginx
+    kubernetes.io/tls-acme: "true"
