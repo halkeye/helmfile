@@ -13,4 +13,3 @@ ingress:
     kubernetes.io/tls-acme: "true"
 
 registry: r.g4v.dev
-clair: https://clair.r.g4v.dev

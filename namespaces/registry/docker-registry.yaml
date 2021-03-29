@@ -28,15 +28,15 @@ image:
   tag: 2.5.2
 storage: s3
 s3:
+  region: sfo2
+  regionEndpoint: https://sfo2.digitaloceanspaces.com
+  secure: true
+  bucket: g4v-registry
 service:
   annotations:
     prometheus.io/path: /metrics
     prometheus.io/port: "5001"
     prometheus.io/scrape: "true"
-  region: sfo2
-  regionEndpoint: https://sfo2.digitaloceanspaces.com
-  secure: true
-  bucket: g4v-registry
 configData:
   http:
     debug:
