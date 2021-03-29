@@ -1,0 +1,58 @@
+---
+affinity:
+  nodeAffinity:
+    requiredDuringSchedulingIgnoredDuringExecution:
+      nodeSelectorTerms:
+        - matchExpressions:
+            - key: kubernetes.io/hostname
+              operator: In
+              values:
+                - "nickfury"
+    preferredDuringSchedulingIgnoredDuringExecution:
+      - weight: 1
+        preference:
+          matchExpressions:
+            - key: kubernetes.io/hostname
+              operator: In
+              values:
+                - "nickfury"
+
+additionalVolumeMounts:
+  - name: usb
+    mountPath: "/dev/serial/by-id/usb-Silicon_Labs_HubZ_Smart_Home_Controller_C0F00761-if01-port0"
+  - name: ttyusb1
+    mountPath: "/dev/ttyUSB1"
+  - name: ttyusb0
+    mountPath: "/dev/ttyUSB0"
+
+additionalVolumes:
+  - name: usb
+    hostPath:
+      path: "/dev/serial/by-id/usb-Silicon_Labs_HubZ_Smart_Home_Controller_C0F00761-if01-port0"
+  - name: ttyusb1
+    hostPath:
+      path: "/dev/ttyUSB1"
+  - name: ttyusb0
+    hostPath:
+      path: "/dev/ttyUSB0"
+
+config:
+  advanced:
+    network_key: [1, 3, 5, 7, 9, 11, 13, 15, 0, 2, 4, 6, 8, 10, 12, 13]
+  homeasisstant: true
+  mqtt:
+    server: mqtt://mosquitto.mosquitto
+  serial:
+    port: "/dev/ttyUSB1"
+
+#port: "/dev/serial/by-id/usb-Silicon_Labs_HubZ_Smart_Home_Controller_C0F00761-if01-port0"
+
+persistence:
+  data:
+    enabled: true
+    size: 1Gi
+    storageClass: "longhorn"
+    accessMode: ReadWriteOnce
+
+securityContext:
+  privileged: true

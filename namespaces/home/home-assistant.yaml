@@ -1,7 +1,7 @@
 ---
 image:
   repository: homeassistant/home-assistant
-  tag: 2021.3.0
+  tag: 2021.3.4
 
 extraEnv:
   TZ: America/Vancouver
@@ -73,3 +73,40 @@ service:
         targetPort: 1900
       annotations:
         metallb.universe.tf/allow-shared-ip: hass-roku
+
+#affinity:
+#  nodeAffinity:
+#    requiredDuringSchedulingIgnoredDuringExecution:
+#      nodeSelectorTerms:
+#        - matchExpressions:
+#            - key: g4v.dev/usb.10c4.8a2a
+#              operator: In
+#              values:
+#                - "true"
+#    preferredDuringSchedulingIgnoredDuringExecution:
+#      - weight: 1
+#        preference:
+#          matchExpressions:
+#            - key: g4v.dev/usb.10c4.8a2a
+#              operator: In
+#              values:
+#                - "true"
+#
+#additionalVolumeMounts:
+#  - name: usb
+#    mountPath: "/dev/serial/by-id/usb-Silicon_Labs_HubZ_Smart_Home_Controller_C0F00761-if01-port0"
+#  - name: ttyusb0
+#    mountPath: "/dev/ttyUSB0"
+#  - name: ttyusb1
+#    mountPath: "/dev/ttyUSB1"
+#
+#additionalVolumes:
+#  - name: usb
+#    hostPath:
+#      path: "/dev/serial/by-id/usb-Silicon_Labs_HubZ_Smart_Home_Controller_C0F00761-if01-port0"
+#  - name: ttyusb0
+#    hostPath:
+#      path: "/dev/ttyUSB0"
+#  - name: ttyusb1
+#    hostPath:
+#      path: "/dev/ttyUSB1"

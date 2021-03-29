@@ -2,7 +2,7 @@
 timezone: 'America/Vancouver'
 
 image:
-  tag: 1.15.3
+  tag: 1.16.2
 
 puid: 1000
 guid: 1000
