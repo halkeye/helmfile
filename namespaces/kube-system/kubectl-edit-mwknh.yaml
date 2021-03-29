@@ -1,0 +1,53 @@
+# Please edit the object below. Lines beginning with a '#' will be ignored,
+# and an empty file will abort the edit. If an error occurs while saving this file will be
+# reopened with the relevant failures.
+#
+# ingresses.extensions "synapse" was not valid:
+# * : Invalid value: "The edited file failed validation": [ValidationError(Ingress.spec.rules[0].http.paths[0].backend): unknown field "name" in io.k8s.api.networking.v1.IngressBackend, ValidationError(Ingress.spec.rules[0].http.paths[0].backend): unknown field "port" in io.k8s.api.networking.v1.IngressBackend]
+#
+apiVersion: networking.k8s.io/v1
+kind: Ingress
+metadata:
+  annotations:
+    cert-manager.io/cluster-issuer: letsencrypt
+    kubernetes.io/ingress.class: nginx
+    kubernetes.io/tls-acme: "true"
+    meta.helm.sh/release-name: synapse
+    meta.helm.sh/release-namespace: matrix
+    nginx.ingress.kubernetes.io/proxy-body-size: 500m
+    prometheus.io/path: /_synapse/metrics
+    prometheus.io/port: "9090"
+    prometheus.io/scrape: "true"
+  creationTimestamp: "2020-12-23T01:09:41Z"
+  generation: 1
+  labels:
+    app.kubernetes.io/instance: synapse
+    app.kubernetes.io/managed-by: Helm
+    app.kubernetes.io/name: synapse
+    app.kubernetes.io/version: v1.24.0
+    helm.sh/chart: synapse-0.7.24
+  name: synapse
+  namespace: matrix
+  resourceVersion: "167002006"
+  selfLink: /apis/extensions/v1beta1/namespaces/matrix/ingresses/synapse
+  uid: f21eceb6-1036-4129-883e-fb916b663226
+spec:
+  rules:
+  - host: matrix.g4v.dev
+    http:
+      paths:
+      - path: /
+        pathType: ImplementationSpecific
+        backend:
+          service:
+            name: synapse
+            port:
+              number: 8443
+  tls:
+  - hosts:
+    - matrix.g4v.dev
+    secretName: synapse-tls
+status:
+  loadBalancer:
+    ingress:
+    - ip: 172.16.10.201

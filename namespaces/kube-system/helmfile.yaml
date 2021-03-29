@@ -1,10 +1,4 @@
 ---
-helmDefaults:
-  cleanupOnFail: true
-  wait: true
-  timeout: 300
-  atomic: true
-
 repositories:
   - name: bitnami
     url: https://charts.bitnami.com/bitnami
@@ -29,6 +23,8 @@ releases:
     chart: bitnami/metallb
     values:
       - metallb.yaml
+    secrets:
+      - metallb-secrets.yaml
   - name: external-dns
     namespace: kube-system
     chart: bitnami/external-dns
