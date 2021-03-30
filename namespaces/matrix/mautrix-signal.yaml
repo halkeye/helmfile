@@ -29,3 +29,7 @@ image:
     repository: dock.mau.dev/tulir/mautrix-signal
     tag: latest
     pullPolicy: Always
+
+persistence:
+  enabled: true
+  storageClassName: "longhorn"
