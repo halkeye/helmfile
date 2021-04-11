@@ -1,6 +1,7 @@
 ---
 persistence:
   enabled: true
+  storageClass: longhorn
 
 agent:
   volumes:
@@ -29,14 +30,14 @@ controller:
     prometheus.io/port: "8080"
     prometheus.io/scrape: "true"
   image: halkeye/jenkins
-  tag: "566fbac"
+  tag: "be3ade"
 
   resources:
     requests:
-      cpu: "1000m"
+      cpu: "2000m"
       memory: "1000Mi"
     limits:
-      cpu: "2000m"
+      cpu: "4000m"
       memory: "4096Mi"
 
   ingress:
@@ -64,7 +65,7 @@ controller:
   JCasC:
     defaultConfig: false
     configScripts:
-      zzzCustom: |-
+      zzzcustom: |-
         security:
           queueItemAuthenticator:
             authenticators:
@@ -105,6 +106,31 @@ controller:
               groupsFieldName: "group-membership"
           numExecutors: 0
           clouds:
+            - digitalOcean:
+                authToken: "${DIGITAL_OCEAN_TOKEN}"
+                privateKey: "${DIGITAL_OCEAN_SSH_KEY}"
+                connectionRetryWait: 10
+                instanceCap: 5
+                name: "dojenkins"
+                sshKeyId: 29638582
+                templates:
+                - idleTerminationInMinutes: 10
+                  installMonitoring: false
+                  instanceCap: 2
+                  labellessJobsAllowed: false
+                  # doctl compute image list | grep 71801581
+                  # 72401866    Docker 19.03.12 on Ubuntu 20.04                                               snapshot    Ubuntu           docker-20-04                                 true      25
+                  imageId: "72401866"
+                  name: "agent"
+                  numExecutors: 1
+                  regionId: "tor1"
+                  setupPrivateNetworking: false
+                  sizeId: "s-2vcpu-2gb"
+                  sshPort: 22
+                  username: "root"
+                  workspacePath: "/jenkins/"
+                timeoutMinutes: 5
+                usePrivateNetworking: false
             - kubernetes:
                 containerCapStr: "3"
                 jenkinsTunnel: "jenkins-agent:50000"
@@ -112,20 +138,18 @@ controller:
                 maxRequestsPerHostStr: "32"
                 name: "kubernetes"
                 namespace: "jenkins"
-                podLabels:
-                - key: "jenkins/jenkins-jenkins-slave"
-                  value: "true"
                 serverUrl: "https://kubernetes.default"
                 templates:
                 - containers:
-                  - alwaysPullImage: true
+                  - name: jnlp-linux
+                    alwaysPullImage: true
+                    image: "halkeye/jnlp-agent-docker:latest"
                     args: "^${computer.jnlpmac} ^${computer.name}"
                     envVars:
                     - envVar:
                         key: "JENKINS_URL"
                         value: "http://jenkins.jenkins.svc.cluster.local:8080"
-                    image: "jenkins/jnlp-agent-docker"
-                    runAsGroup: "998"
+                    runAsGroup: "999"
                     runAsUser: "1000"
                     livenessProbe:
                       failureThreshold: 0
@@ -188,8 +212,6 @@ controller:
             configs:
               - credentialsId: "github-admin-halkeye"
             hookUrl: "https://ci.g4v.dev/github-webhook/"
-          githubPullRequests:
-            publishedURL: "https://ci.g4v.dev"
           mailer:
             replyToAddress: "jenkins@g4v.dev"
             smtpHost: "${SMTP_SERVER}"
@@ -259,10 +281,9 @@ controller:
                     id: dockerhub-halkeye
                     username: "${DOCKERHUB_HALKEYE_USERNAME}"
                     password: "${DOCKERHUB_HALKEYE_PASSWORD}"
-                - usernamePassword:
+                - string:
                     id: modio-halkeye
-                    username: "${MODIO_HALKEYE_EMAIL}"
-                    password: "${MODIO_HALKEYE_API_KEY}"
+                    secret: "${MODIO_HALKEYE_ACCESS_TOKEN}"
                 - string:
                     id: github-admin-halkeye
                     secret: "${GITHUB_ADMIN_HALKEYE_SECRET}"
@@ -303,7 +324,7 @@ controller:
           - url: https://raw.githubusercontent.com/halkeye/jenkins-jobs/master/jobs.groovy
   sidecars:
     configAutoReload:
-      enabled: false
+      enabled: true
 
 rbac:
   create: true

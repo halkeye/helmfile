@@ -6,6 +6,7 @@ metadata:
   labels:
 {{ include "nfs-pvc.labels" . | indent 4 }}
 spec:
+  storageClassName: nfs-client
   accessModes:
 {{ .Values.pvc.accessModes | toYaml | nindent 4 }}
   resources:

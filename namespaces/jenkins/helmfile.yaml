@@ -1,6 +1,7 @@
 repositories:
   - name: jenkins
     url: https://charts.jenkins.io
+
 releases:
   - name: jenkins
     namespace: jenkins

@@ -33,6 +33,13 @@ releases:
       - pv:
           share: /storage/storage/downloads
 
+  - name: audiobooks
+    namespace: media
+    chart: ../../charts/nfs-pvc
+    values:
+      - pv:
+          share: "/storage/Audio/Audio Books"
+
   - name: cops
     chart: halkeye/cops
     #chart: /home/halkeye/git/halkeye-helm-charts/cops
@@ -90,6 +97,12 @@ releases:
     namespace: media
     values:
       - calibre-web.yaml
+
+  - name: booksonic-air
+    chart: k8s-at-home/booksonic-air
+    namespace: media
+    values:
+      - booksonic-air.yaml
 
 #  - name: radarr
 #    chart: k8s-at-home/radarr
