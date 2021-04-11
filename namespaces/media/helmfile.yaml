@@ -98,12 +98,6 @@ releases:
     values:
       - calibre-web.yaml
 
-  - name: booksonic-air
-    chart: k8s-at-home/booksonic-air
-    namespace: media
-    values:
-      - booksonic-air.yaml
-
 #  - name: radarr
 #    chart: k8s-at-home/radarr
 #    namespace: media
