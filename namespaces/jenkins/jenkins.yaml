@@ -30,7 +30,7 @@ controller:
     prometheus.io/port: "8080"
     prometheus.io/scrape: "true"
   image: halkeye/jenkins
-  tag: "be3ade"
+  tag: "aafcd5"
 
   resources:
     requests:
@@ -107,8 +107,8 @@ controller:
           numExecutors: 0
           clouds:
             - digitalOcean:
-                authToken: "${DIGITAL_OCEAN_TOKEN}"
-                privateKey: "${DIGITAL_OCEAN_SSH_KEY}"
+                authTokenCredentialId: halkeye-digitalocean
+                privateKeyCredentialId: halkeye-digitalocean-sshkey
                 connectionRetryWait: 10
                 instanceCap: 5
                 name: "dojenkins"
@@ -284,6 +284,14 @@ controller:
                 - string:
                     id: modio-halkeye
                     secret: "${MODIO_HALKEYE_ACCESS_TOKEN}"
+                - string:
+                    id: halkeye-digitalocean
+                    secret: "${DIGITAL_OCEAN_TOKEN}"
+                - basicSSHUserPrivateKey:
+                    id: halkeye-digitalocean-sshkey
+                    privateKeySource:
+                      directEntry:
+                        privateKey: "${DIGITAL_OCEAN_SSH_KEY}"
                 - string:
                     id: github-admin-halkeye
                     secret: "${GITHUB_ADMIN_HALKEYE_SECRET}"
