@@ -1,6 +1,6 @@
 ---
 persistence:
-  defaultClass: false
+  defaultClass: true
   defaultClassReplicaCount: 2
 
 ingress:
@@ -8,6 +8,7 @@ ingress:
   host: longhorn.int.g4v.dev
   tls: true
   tlsSecret: longhorn-tls
+  path: /
   annotations:
     cert-manager.io/cluster-issuer: letsencrypt
     kubernetes.io/ingress.class: nginx
