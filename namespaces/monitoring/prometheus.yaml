@@ -4,33 +4,33 @@ alertmanager:
   ingress:
     enabled: true
     hosts:
-      - alertmanager.home.gavinmogan.com
+      - alertmanager.int.g4v.dev
     tls:
       - secretName: prometheus-alertmanager-tls
         hosts:
-          - alertmanager.home.gavinmogan.com
+          - alertmanager.int.g4v.dev
     annotations:
       cert-manager.io/cluster-issuer: letsencrypt
       kubernetes.io/ingress.class: nginx
       kubernetes.io/tls-acme: "true"
 
-extraScrapeConfigs: |
-  - job_name: 'raspberrypi'
-    scheme: http
-    metrics_path: '/metrics'
-    static_configs:
-      - targets: ['raspberrypi.dhcp.home:9243']
+#extraScrapeConfigs: |
+#  - job_name: 'raspberrypi'
+#    scheme: http
+#    metrics_path: '/metrics'
+#    static_configs:
+#      - targets: ['raspberrypi.dhcp.home:9243']
 server:
   persistentVolume:
     storageClass: longhorn
   ingress:
     enabled: true
     hosts:
-      - prometheus.home.gavinmogan.com
+      - prometheus.int.g4v.dev
     tls:
       - secretName: prometheus-tls
         hosts:
-          - prometheus.home.gavinmogan.com
+          - prometheus.int.g4v.dev
     annotations:
       cert-manager.io/cluster-issuer: letsencrypt
       kubernetes.io/ingress.class: nginx
@@ -42,11 +42,11 @@ pushgateway:
   ingress:
     enabled: true
     hosts:
-      - pushgateway.home.gavinmogan.com
+      - pushgateway.int.g4v.dev
     tls:
       - secretName: prometheus-pushgateway-tls
         hosts:
-          - pushgateway.home.gavinmogan.com
+          - pushgateway.int.g4v.dev
     annotations:
       cert-manager.io/cluster-issuer: letsencrypt
       kubernetes.io/ingress.class: nginx
@@ -62,3 +62,41 @@ pushgateway:
 #
 kubeStateMetrics:
   enabled: false
+
+
+serverFiles:
+  alerting_rules.yml:
+    groups:
+      - name: Instances
+        rules:
+          - alert: InstanceDown
+            expr: up == 0
+            for: 5m
+            labels:
+              severity: page
+            annotations:
+              description: '{{ $labels.instance }} of job {{ $labels.job }} has been down for more than 5 minutes.'
+              summary: 'Instance {{ $labels.instance }} down'
+          - alert: Pods Down
+            expr: sum(kube_pod_status_phase{phase !~ "Running|Succeeded"}) by (phase) > 0
+            for: 5m
+            labels:
+              severity: page
+            annotations:
+              description: 'Bad pods for more than than 5 minutes.'
+              summary: 'Instance {{ $labels.instance }} down'
+          - alert: Unused PV
+            expr: sum(kube_persistentvolume_status_phase{phase!~"Bound"}) by (phase) > 0
+            for: 5m
+            labels:
+              severity: page
+            annotations:
+              description: 'Unused pv for more than than 5 minutes.'
+              summary: 'Unused PV'
+          - alert: Broken PVC
+            expr: sum(kube_persistentvolumeclaim_status_phase{phase!~"Bound"}) by (phase) > 0
+            for: 5m
+            labels:
+              severity: page
+            annotations:
+              summary: 'Broken PVC(s)'
