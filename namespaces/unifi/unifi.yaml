@@ -4,18 +4,12 @@ timezone: America/Vancouver
 ingress:
   enabled: true
   hosts:
-    - unifi.home.gavinmogan.com
-  tls:
-    - secretName: unifi-tls
-      hosts:
-        - unifi.home.gavinmogan.com
+    - unifi.int.g4v.dev
   annotations:
-    cert-manager.io/cluster-issuer: letsencrypt
+    kubernetes.io/ingress.class: internal
     nginx.ingress.kubernetes.io/proxy-body-size: "0"
     nginx.ingress.kubernetes.io/proxy-read-timeout: "600"
     nginx.ingress.kubernetes.io/proxy-send-timeout: "600"
-    kubernetes.io/ingress.class: nginx
-    kubernetes.io/tls-acme: "true"
     nginx.ingress.kubernetes.io/force-ssl-redirect: "true"
     nginx.ingress.kubernetes.io/backend-protocol: "HTTPS"
 persistence:

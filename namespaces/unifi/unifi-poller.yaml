@@ -9,7 +9,7 @@ config:
   unifi:
     defaults:
       user: "unifi-poller"
-      url: "https://unifi.home.gavinmogan.com"
+      url: "https://unifi.int.g4v.dev"
 pod:
   annotations:
     prometheus.io/path: /metrics
