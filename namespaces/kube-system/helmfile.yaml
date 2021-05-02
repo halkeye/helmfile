@@ -18,6 +18,18 @@ releases:
       - nginx-ingress.yaml
     secrets:
       - nginx-ingress-secrets.yaml
+  - name: internal-ingress
+    namespace: kube-system
+    chart: ingress-nginx/ingress-nginx
+    values:
+      - internal-ingress.yaml
+    secrets:
+      - internal-ingress-secrets.yaml
+  - name: wildcard-certificate
+    chart: halkeye/certificate
+    namespace: kube-system
+    values:
+      - internal-ingress-certificate.yaml
   - name: metallb
     namespace: kube-system
     chart: bitnami/metallb

@@ -1,0 +1,22 @@
+rbac:
+  create: true
+
+controller:
+  ingressClass: "internal"
+  extraArgs:
+    default-ssl-certificate: "kube-system/wildcard-tls"
+  stats:
+    enabled: true
+  metrics:
+    enabled: true
+    port: 10254
+    service:
+      annotations:
+        prometheus.io/scrape: "true"
+        prometheus.io/port: "10254"
+  config:
+    use-forwarded-headers: "true"
+  service:
+    externalTrafficPolicy: Local
+    annotations:
+      external-dns.alpha.kubernetes.io/hostname: '*.int.g4v.dev.'
