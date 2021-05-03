@@ -7,6 +7,7 @@ alertmanager:
       - alertmanager.int.g4v.dev
     annotations:
       kubernetes.io/ingress.class: internal
+      nginx.ingress.kubernetes.io/force-ssl-redirect: "true"
 
 #extraScrapeConfigs: |
 #  - job_name: 'raspberrypi'
@@ -23,6 +24,7 @@ server:
       - prometheus.int.g4v.dev
     annotations:
       kubernetes.io/ingress.class: internal
+      nginx.ingress.kubernetes.io/force-ssl-redirect: "true"
 
 pushgateway:
   persistentVolume:
@@ -33,6 +35,7 @@ pushgateway:
       - pushgateway.int.g4v.dev
     annotations:
       kubernetes.io/ingress.class: internal
+      nginx.ingress.kubernetes.io/force-ssl-redirect: "true"
 #
 #
 # The Prometheus PushGateway can be accessed via port 9091 on the following DNS name from within your cluster:
