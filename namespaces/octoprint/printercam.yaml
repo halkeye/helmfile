@@ -4,6 +4,7 @@ ingress:
     - host: printercam.int.g4v.dev
       paths: ['/']
   annotations:
+    nginx.ingress.kubernetes.io/force-ssl-redirect: "true"
     kubernetes.io/ingress.class: internal
 
 affinity:
