@@ -17,8 +17,6 @@ ingress:
 
 env:
   TZ: America/Vancouver
-  PUID: 1000
-  PGID: 1000
 
 resources:
   limits:
@@ -38,11 +36,19 @@ persistence:
     existingClaim: torrents-nfs-pvc
     mountPath: /downloads
 
-#persistence:
-#  config:
-#    enabled: true
-#    emptyDir: false
-#    storageClass: "longhorn"
+podSecurityContext:
+  runAsUser: 1000
+  runAsGroup: 1000
+
+initContainers:
+- name: update-volume-permission
+  image: busybox
+  command: ["sh", "-c", "chown -R 1000:1000 /config"]
+  volumeMounts:
+  - name: config
+    mountPath: /config
+  securityContext:
+    runAsUser: 0
 
 additionalVolumes:
   - name: qbittorrent-scripts
