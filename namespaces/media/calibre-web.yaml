@@ -1,6 +1,7 @@
 ---
 image:
-  tag: version-0.6.11
+  # tag: version-0.6.11
+  tag: nightly-version-541c8c4b
 
 ingress:
   enabled: true
@@ -37,7 +38,7 @@ env:
   TZ: America/Vancouver
   PUID: 1000
   PGID: 1000
-  DOCKER_MODS: linuxserver/calibre-web:calibre
+  #DOCKER_MODS: linuxserver/calibre-web:calibre
 
 persistence:
   config:
