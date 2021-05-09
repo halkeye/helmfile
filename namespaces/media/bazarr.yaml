@@ -43,4 +43,4 @@ resources:
 image:
   repository: linuxserver/bazarr
   pullPolicy: IfNotPresent
-  tag: version-v0.9.4
+  tag: version-v0.9.5
