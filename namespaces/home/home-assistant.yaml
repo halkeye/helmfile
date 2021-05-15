@@ -1,7 +1,7 @@
 ---
 image:
   repository: homeassistant/home-assistant
-  tag: 2021.3.4
+  tag: 2021.5.4
 
 extraEnv:
   TZ: America/Vancouver
@@ -14,18 +14,13 @@ codeserver:
   ingress:
     enabled: enabled
     hosts:
-      - host: hassconfig.home.gavinmogan.com
+      - host: hassconfig.int.g4v.dev
         paths:
           - path: /
-    tls:
-      - secretName: homeassistant-vscode-tls
-        hosts:
-          - hassconfig.home.gavinmogan.com
     annotations:
       nginx.ingress.kubernetes.io/proxy-body-size: "0"
-      cert-manager.io/cluster-issuer: letsencrypt
-      kubernetes.io/ingress.class: nginx
-      kubernetes.io/tls-acme: "true"
+      kubernetes.io/ingress.class: internal
+      nginx.ingress.kubernetes.io/force-ssl-redirect: "true"
 
 
 ingress:
