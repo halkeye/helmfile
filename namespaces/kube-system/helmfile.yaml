@@ -11,6 +11,11 @@ releases:
     chart: bitnami/metrics-server
     values:
       - metrics-server.yaml
+  - name: g4v-wildcard-certificate
+    chart: halkeye/certificate
+    namespace: kube-system
+    values:
+      - nginx-ingress-certificate.yaml
   - name: nginx-ingress
     namespace: kube-system
     chart: ingress-nginx/ingress-nginx

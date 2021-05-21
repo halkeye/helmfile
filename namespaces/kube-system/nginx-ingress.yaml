@@ -2,6 +2,8 @@ rbac:
   create: true
 controller:
   ingressClass: "nginx"
+  extraArgs:
+    default-ssl-certificate: "kube-system/wildcard-g4v-tls"
   stats:
     enabled: true
   metrics:
