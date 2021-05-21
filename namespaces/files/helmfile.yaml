@@ -1,0 +1,14 @@
+repositories:
+  - name: halkeye
+    url: https://halkeye.github.io/helm-charts
+
+releases:
+  - name: psitransfer
+    namespace: files
+    #chart: halkeye/psitransfer
+    chart: /home/halkeye/git/halkeye-helm-charts/psitransfer
+    values:
+      - psitransfer.yaml
+    secrets:
+      - psitransfer-secrets.yaml
+

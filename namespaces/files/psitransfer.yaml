@@ -1,0 +1,26 @@
+ingress:
+  enabled: true
+  hosts: ['t.g4v.dev']
+  tls:
+    - secretName: psitransfer-tls
+      hosts: ['t.g4v.dev']
+  annotations:
+    cert-manager.io/cluster-issuer: letsencrypt
+    kubernetes.io/ingress.class: nginx
+    kubernetes.io/tls-acme: "true"
+    nginx.ingress.kubernetes.io/proxy-body-size: "500m"
+    nginx.ingress.kubernetes.io/auth-signin: "https://vouch.g4v.dev/login?url=$scheme://$http_host$request_uri&vouch-failcount=$auth_resp_failcount&X-Vouch-Token=$auth_resp_jwt&error=$auth_resp_err"
+    nginx.ingress.kubernetes.io/auth-url: https://vouch.g4v.dev
+    nginx.ingress.kubernetes.io/auth-response-headers: X-Vouch-User
+    nginx.ingress.kubernetes.io/proxy-buffer-size: 128k
+    nginx.ingress.kubernetes.io/auth-snippet: |
+      # these return values are used by the @error401 call
+      auth_request_set $auth_resp_jwt $upstream_http_x_vouch_jwt;
+      auth_request_set $auth_resp_err $upstream_http_x_vouch_err;
+      auth_request_set $auth_resp_failcount $upstream_http_x_vouch_failcount;
+
+persistence:
+  enabled: true
+  storageClassName: "longhorn"
+  size: 20Gi
+
