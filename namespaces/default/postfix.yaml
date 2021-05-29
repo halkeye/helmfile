@@ -1,6 +1,6 @@
 postfix:
   relay_host: '[smtp.mailgun.org]:587'
-  relay_myhostname: home.gavinmogan.com
+  relay_myhostname: mail.int.g4v.dev
   relay_username: k8s@gavinmogan.com
 metrics:
   enabled: true
