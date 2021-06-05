@@ -5,13 +5,21 @@ image:
 ingress:
   enabled: true
   hosts:
+    - host: books.g4v.dev
+      paths:
+        - path: /
     - host: books2.g4v.dev
+      paths:
+        - path: /
+    - host: books.gavinmogan.com
       paths:
         - path: /
   tls:
     - secretName: calibre-web-tls
       hosts:
+        - books.g4v.dev
         - books2.g4v.dev
+        - books.gavinmogan.com
   annotations:
     cert-manager.io/cluster-issuer: letsencrypt
     kubernetes.io/ingress.class: nginx
@@ -21,13 +29,12 @@ ingress:
     nginx.ingress.kubernetes.io/auth-url: https://vouch.g4v.dev
     nginx.ingress.kubernetes.io/auth-response-headers: X-Vouch-User
     nginx.ingress.kubernetes.io/proxy-buffer-size: 128k
+    nginx.ingress.kubernetes.io/server-snippet: |
+      if ($host ~ "books.gavinmogan.com|books2.g4v.dev")
+      {
+        return 301 https://books.g4v.dev$request_uri;
+      }
     nginx.ingress.kubernetes.io/auth-snippet: |
-      #if ( $request_uri ~ ^/kobo/.* ) {
-      #  return 200;
-      #}
-      #if ( $request_uri ~ ^/download/[0-9]+/kepub ) {
-      #  return 200;
-      #}
       # these return values are used by the @error401 call
       auth_request_set $auth_resp_jwt $upstream_http_x_vouch_jwt;
       auth_request_set $auth_resp_err $upstream_http_x_vouch_err;
