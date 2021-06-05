@@ -40,13 +40,6 @@ releases:
       - pv:
           share: "/storage/Audio/Audio Books"
 
-  - name: cops
-    chart: halkeye/cops
-    #chart: /home/halkeye/git/halkeye-helm-charts/cops
-    namespace: media
-    values:
-      - cops.yaml
-
   - name: tautulli
     chart: halkeye/tautulli
     #chart: /home/halkeye/git/halkeye-helm-charts/tautulli
