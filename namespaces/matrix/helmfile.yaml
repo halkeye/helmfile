@@ -81,3 +81,11 @@ releases:
       - ./mautrix-twitter.yaml
     secrets:
       - ./mautrix-twitter-secret.yaml
+
+  - name: matrix-appservice-irc
+    #chart: halkeye/matrix-appservice-irc
+    namespace: matrix
+    values:
+      - ./matrix-appservice-irc.yaml
+    secrets:
+      - ./matrix-appservice-irc-secrets.yaml

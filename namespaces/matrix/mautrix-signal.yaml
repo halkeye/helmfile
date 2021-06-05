@@ -33,3 +33,7 @@ image:
 persistence:
   enabled: true
   storageClassName: "longhorn"
+
+strategy:
+  type: Recreate
+
