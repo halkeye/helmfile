@@ -1,7 +1,7 @@
 ---
 image:
   repository: homeassistant/home-assistant
-  tag: 2021.5.4
+  tag: 2021.6.0
 
 extraEnv:
   TZ: America/Vancouver
@@ -9,18 +9,22 @@ extraEnv:
 monitoring:
   enabled: false
 
-codeserver:
-  enabled: enabled
-  ingress:
-    enabled: enabled
-    hosts:
-      - host: hassconfig.int.g4v.dev
-        paths:
-          - path: /
-    annotations:
-      nginx.ingress.kubernetes.io/proxy-body-size: "0"
-      kubernetes.io/ingress.class: internal
-      nginx.ingress.kubernetes.io/force-ssl-redirect: "true"
+addons:
+  codeserver:
+    enabled: true
+    volumeMounts:
+      - name: config
+        mountPath: /config
+    ingress:
+      enabled: true
+      hosts:
+        - host: hassconfig.int.g4v.dev
+          paths:
+            - path: /
+      annotations:
+        nginx.ingress.kubernetes.io/proxy-body-size: "0"
+        kubernetes.io/ingress.class: internal
+        nginx.ingress.kubernetes.io/force-ssl-redirect: "true"
 
 
 ingress:
