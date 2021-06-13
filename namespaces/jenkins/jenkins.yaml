@@ -30,7 +30,7 @@ controller:
     prometheus.io/port: "8080"
     prometheus.io/scrape: "true"
   image: halkeye/jenkins
-  tag: "aafcd5"
+  tag: "4b6a9c"
 
   resources:
     requests:
