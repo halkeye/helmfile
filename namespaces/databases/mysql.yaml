@@ -1,6 +1,4 @@
 primary:
-  service:
-    type: NodePort
   persistence:
     storageClass: "longhorn"
   metrics:
