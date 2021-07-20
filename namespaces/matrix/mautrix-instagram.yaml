@@ -8,6 +8,10 @@ config:
     permissions:
       "g4v.dev": "user"
       "@halkeye:g4v.dev": "admin"
+  logging:
+    loggers:
+      aiohttp:
+        level: ERROR
 
 registration:
   namespaces:

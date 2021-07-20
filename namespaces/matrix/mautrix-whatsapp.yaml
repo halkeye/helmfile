@@ -65,6 +65,9 @@ config:
     file_mode: 384
     timestamp_format: Jan _2, 2006 15:04:05
     print_level: debug
+    loggers:
+      aiohttp:
+        level: ERROR
 registration:
   id: whatsapp
   url: http://mautrix-whatsapp.matrix.svc.cluster.local:29318

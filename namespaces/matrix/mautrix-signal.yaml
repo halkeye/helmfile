@@ -16,6 +16,10 @@ config:
       - full_name
       - first_name
       - phone
+  logging:
+    loggers:
+      aiohttp:
+        level: ERROR
 
 registration:
   namespaces:

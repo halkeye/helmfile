@@ -30,6 +30,10 @@ config:
       auth:
         public: https://hangouts.matrix.g4v.dev/login/
         prefix: /login
+  logging:
+    loggers:
+      aiohttp:
+        level: ERROR
 
 registration:
   id: hangouts
