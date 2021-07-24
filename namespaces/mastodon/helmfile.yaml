@@ -1,6 +1,7 @@
 releases:
   - name: mastodon-twitter-poster
-    chart: halkeye/mastodon-twitter-poster
+    #chart: halkeye/mastodon-twitter-poster
+    chart: /home/halkeye/git/halkeye-helm-charts/mastodon-twitter-poster
     namespace: mastodon
     values:
       - ./mastodon-twitter-poster.yaml

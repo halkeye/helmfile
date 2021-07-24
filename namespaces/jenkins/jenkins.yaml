@@ -30,7 +30,7 @@ controller:
     prometheus.io/port: "8080"
     prometheus.io/scrape: "true"
   image: halkeye/jenkins
-  tag: "4b6a9c"
+  tag: "d786c9"
 
   resources:
     requests:
@@ -116,13 +116,13 @@ controller:
                 templates:
                 - idleTerminationInMinutes: 10
                   installMonitoring: false
-                  instanceCap: 2
-                  labellessJobsAllowed: false
+                  instanceCap: 5
+                  labellessJobsAllowed: true
                   # doctl compute image list | grep 71801581
                   # 72401866    Docker 19.03.12 on Ubuntu 20.04                                               snapshot    Ubuntu           docker-20-04                                 true      25
                   imageId: "72401866"
                   name: "agent"
-                  numExecutors: 1
+                  numExecutors: 2
                   regionId: "tor1"
                   setupPrivateNetworking: false
                   sizeId: "s-2vcpu-2gb"
@@ -131,63 +131,64 @@ controller:
                   workspacePath: "/jenkins/"
                 timeoutMinutes: 5
                 usePrivateNetworking: false
-            - kubernetes:
-                containerCapStr: "3"
-                jenkinsTunnel: "jenkins-agent:50000"
-                jenkinsUrl: "http://jenkins:8080"
-                maxRequestsPerHostStr: "32"
-                name: "kubernetes"
-                namespace: "jenkins"
-                serverUrl: "https://kubernetes.default"
-                templates:
-                - containers:
-                  - name: jnlp-linux
-                    alwaysPullImage: true
-                    image: "halkeye/jnlp-agent-docker:latest"
-                    args: "^${computer.jnlpmac} ^${computer.name}"
-                    envVars:
-                    - envVar:
-                        key: "JENKINS_URL"
-                        value: "http://jenkins.jenkins.svc.cluster.local:8080"
-                    runAsGroup: "999"
-                    runAsUser: "1000"
-                    livenessProbe:
-                      failureThreshold: 0
-                      initialDelaySeconds: 0
-                      periodSeconds: 0
-                      successThreshold: 0
-                      timeoutSeconds: 0
-                    name: "jnlp"
-                    privileged: true
-                    resourceLimitCpu: "2.0"
-                    resourceLimitMemory: "2048Mi"
-                    resourceRequestCpu: "1.0"
-                    resourceRequestMemory: "1024Mi"
-                    ttyEnabled: false
-                    workingDir: "/home/jenkins/agent"
-                  hostNetwork: false
-                  idleMinutes: 30
-                  idleMinutesStr: "30"
-                  label: "jenkins-agent"
-                  name: "default"
-                  namespace: "jenkins"
-                  nodeUsageMode: "NORMAL"
-                  podRetention: "onFailure"
-                  serviceAccount: "default"
-                  workspaceVolume:
-                    emptyDirWorkspaceVolume:
-                      memory: true
-                  volumes:
-                   - hostPathVolume:
-                       hostPath: "/var/run/docker.sock"
-                       mountPath: "/var/run/docker.sock"
-                  yaml: |
-                    spec:
-                      dnsConfig:
-                        options:
-                          - name: ndots
-                            value: "1"
-                  yamlMergeStrategy: "override"
+            #- kubernetes:
+            #    containerCapStr: "3"
+            #    jenkinsTunnel: "jenkins-agent:50000"
+            #    jenkinsUrl: "http://jenkins:8080"
+            #    maxRequestsPerHostStr: "32"
+            #    name: "kubernetes"
+            #    namespace: "jenkins"
+            #    serverUrl: "https://kubernetes.default"
+            #    templates:
+            #    - containers:
+            #      - name: jnlp-linux
+            #        alwaysPullImage: true
+            #        #image: "jenkins/inbound-agent:4.7-1-jdk11"
+            #        image: "halkeye/jnlp-agent-docker:e29fd7"
+            #        args: "^${computer.jnlpmac} ^${computer.name}"
+            #        envVars:
+            #        - envVar:
+            #            key: "JENKINS_URL"
+            #            value: "http://jenkins.jenkins.svc.cluster.local:8080"
+            #        runAsGroup: "999"
+            #        runAsUser: "1000"
+            #        livenessProbe:
+            #          failureThreshold: 0
+            #          initialDelaySeconds: 0
+            #          periodSeconds: 0
+            #          successThreshold: 0
+            #          timeoutSeconds: 0
+            #        name: "jnlp"
+            #        privileged: true
+            #        resourceLimitCpu: "2.0"
+            #        resourceLimitMemory: "2048Mi"
+            #        resourceRequestCpu: "1.0"
+            #        resourceRequestMemory: "1024Mi"
+            #        ttyEnabled: false
+            #        workingDir: "/home/jenkins/agent"
+            #      hostNetwork: false
+            #      idleMinutes: 30
+            #      idleMinutesStr: "30"
+            #      label: "jenkins-agent"
+            #      name: "default"
+            #      namespace: "jenkins"
+            #      nodeUsageMode: "NORMAL"
+            #      podRetention: "onFailure"
+            #      serviceAccount: "default"
+            #      workspaceVolume:
+            #        emptyDirWorkspaceVolume:
+            #          memory: true
+            #      volumes:
+            #       - hostPathVolume:
+            #           hostPath: "/var/run/docker.sock"
+            #           mountPath: "/var/run/docker.sock"
+            #      yaml: |
+            #        spec:
+            #          dnsConfig:
+            #            options:
+            #              - name: ndots
+            #                value: "1"
+            #      yamlMergeStrategy: "override"
           crumbIssuer:
             standard:
               excludeClientIPFromCrumb: true

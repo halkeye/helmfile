@@ -44,13 +44,15 @@ config:
       mqtt.gavinmogan.com: 172.16.10.209
   conditional:
     mapping:
-      dhcp.home: tcp:172.16.10.203
+      dhcp.home: tcp:172.16.10.202
       g4v.dev: tcp:172.16.10.203
       home.gavinmogan.com: tcp:172.16.10.203
       odin.gavinmogan.com: tcp:172.16.10.203
-      10.16.172.in-addr.arpa: tcp:172.16.10.203
+      10.16.172.in-addr.arpa: tcp:172.16.10.202
   blocking:
     whiteLists:
+      whitelist:
+        - https://raw.githubusercontent.com/anudeepND/whitelist/master/domains/whitelist.txt
       ads:
         - whitelist.txt
     blackLists:

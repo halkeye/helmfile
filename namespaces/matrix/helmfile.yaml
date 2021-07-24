@@ -23,8 +23,8 @@ releases:
       - ./element-web.yaml
 
   - name: matrix-media-repo
-    chart: halkeye/matrix-media-repo
-    #chart: /home/halkeye/git/halkeye-helm-charts/matrix-media-repo
+    #chart: halkeye/matrix-media-repo
+    chart: /home/halkeye/git/halkeye-helm-charts/matrix-media-repo
     namespace: matrix
     values:
       - ./matrix-media-repo.yaml
@@ -48,7 +48,8 @@ releases:
       - ./mautrix-telegram-secret.yaml
 
   - name: mautrix-hangouts
-    chart: halkeye/mautrix-hangouts
+    #chart: halkeye/mautrix-hangouts
+    chart: /home/halkeye/git/halkeye-helm-charts/mautrix-hangouts
     namespace: matrix
     values:
       - ./mautrix-hangouts.yaml
@@ -56,8 +57,8 @@ releases:
       - ./mautrix-hangouts-secret.yaml
 
   - name: mautrix-signal
-    chart: halkeye/mautrix-signal
-    #chart: /home/halkeye/git/halkeye-helm-charts/mautrix-signal
+    #chart: halkeye/mautrix-signal
+    chart: /home/halkeye/git/halkeye-helm-charts/mautrix-signal
     namespace: matrix
     values:
       - ./mautrix-signal.yaml
@@ -65,8 +66,8 @@ releases:
       - ./mautrix-signal-secret.yaml
 
   - name: mautrix-instagram
-    chart: halkeye/mautrix-instagram
-    #chart: /home/halkeye/git/halkeye-helm-charts/mautrix-instagram
+    #chart: halkeye/mautrix-instagram
+    chart: /home/halkeye/git/halkeye-helm-charts/mautrix-instagram
     namespace: matrix
     values:
       - ./mautrix-instagram.yaml
@@ -74,8 +75,8 @@ releases:
       - ./mautrix-instagram-secret.yaml
 
   - name: mautrix-twitter
-    chart: halkeye/mautrix-twitter
-    #chart: /home/halkeye/git/halkeye-helm-charts/mautrix-twitter
+    #chart: halkeye/mautrix-twitter
+    chart: /home/halkeye/git/halkeye-helm-charts/mautrix-twitter
     namespace: matrix
     values:
       - ./mautrix-twitter.yaml
@@ -84,6 +85,7 @@ releases:
 
   - name: matrix-appservice-irc
     #chart: halkeye/matrix-appservice-irc
+    chart: /home/halkeye/git/halkeye-helm-charts/matrix-appservice-irc
     namespace: matrix
     values:
       - ./matrix-appservice-irc.yaml

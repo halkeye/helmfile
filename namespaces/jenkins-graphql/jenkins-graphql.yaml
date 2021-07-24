@@ -1,9 +1,9 @@
 ---
 persistence:
   enabled: true
-  storageClass: linstor
+  storageClass: longhorn
 
-master:
+controller:
   jenkinsAdminEmail: "graphql-jenkins@g4v.dev"
   serviceType: ClusterIP
   enableXmlConfig: false
@@ -13,6 +13,7 @@ master:
     enabled: true
     hostName: graphql-jenkins.g4v.dev
     path: /
+    apiVersion: networking.k8s.io/v1
     tls:
       - secretName: graphql-jenkins-tls
         hosts:
