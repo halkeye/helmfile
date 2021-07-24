@@ -1,21 +1,14 @@
 ---
 ingress:
-  enabled: true
-  hosts:
-    - host: nzbhydra.home.gavinmogan.com
-      paths:
-        - path: /
-  #hosts:
-  #  - nzbhydra.home.gavinmogan.com
-  tls:
-    - secretName: nzbhydra-tls
-      hosts:
-        - nzbhydra.home.gavinmogan.com
-  annotations:
-    cert-manager.io/cluster-issuer: letsencrypt
-    kubernetes.io/ingress.class: nginx
-    kubernetes.io/tls-acme: "true"
-    nginx.ingress.kubernetes.io/proxy-body-size: "0"
+  main:
+    enabled: true
+    hosts:
+      - host: nzbhydra.int.g4v.dev
+        paths:
+          - path: /
+    annotations:
+      kubernetes.io/ingress.class: internal
+      nginx.ingress.kubernetes.io/force-ssl-redirect: "true"
 
 env:
   TZ: America/Vancouver
@@ -39,4 +32,4 @@ resources:
 
 image:
   repository: linuxserver/nzbhydra2
-  tag: version-v3.14.2
+  tag: version-v3.15.0

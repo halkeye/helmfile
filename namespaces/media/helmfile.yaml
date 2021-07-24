@@ -50,7 +50,8 @@ releases:
       - tautulli-secrets.yaml
 
   - name: ubooquity
-    chart: halkeye/ubooquity
+    #chart: halkeye/ubooquity
+    chart: /home/halkeye/git/halkeye-helm-charts/ubooquity
     namespace: media
     values:
       - ubooquity.yaml
@@ -90,6 +91,12 @@ releases:
     namespace: media
     values:
       - calibre-web.yaml
+
+  - name: overseerr
+    chart: k8s-at-home/overseerr
+    namespace: media
+    values:
+      - overseerr.yaml
 
 #  - name: radarr
 #    chart: k8s-at-home/radarr
