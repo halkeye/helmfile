@@ -1,0 +1,28 @@
+helmDefaults:
+  atomic: true
+repositories:
+  - name: halkeye
+    url: https://halkeye.github.io/helm-charts
+releases:
+  - name: photos
+    namespace: photos
+    chart: ../../charts/nfs-pvc
+    values:
+      - pv:
+          share: /storage/homes/halkeye/Photos/
+
+  - name: photoprism-config
+    namespace: photos
+    chart: ../../charts/nfs-pvc
+    values:
+      - pv:
+          share: /volume1/Apps/photoprism
+          server: 172.16.10.10
+
+  - name: photoprism
+    namespace: photos
+    chart: k8s-at-home/photoprism
+    values:
+      - photoprism.yaml
+    secrets:
+      - photoprism-secrets.yaml

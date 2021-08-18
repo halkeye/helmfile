@@ -2,13 +2,11 @@
 ingress:
   enabled: true
   hosts:
-    - lasso.gavinmogan.com
     - vouch.g4v.dev
     - auth.gavinmogan.com
   tls:
     - secretName: vouch-tls
       hosts:
-        - lasso.gavinmogan.com
         - vouch.g4v.dev
         - auth.gavinmogan.com
   annotations:

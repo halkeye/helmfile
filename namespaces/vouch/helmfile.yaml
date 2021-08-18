@@ -1,0 +1,13 @@
+repositories:
+  - name: halkeye
+    url: https://halkeye.github.io/helm-charts
+
+releases:
+  - name: vouch
+    #chart: halkeye/vouch
+    chart: /home/halkeye/git/halkeye-helm-charts/vouch
+    namespace: vouch
+    values:
+      - vouch.yaml
+    secrets:
+      - vouch-secrets.yaml

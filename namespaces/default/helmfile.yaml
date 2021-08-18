@@ -15,13 +15,6 @@ releases:
     namespace: default
     values:
       - thelounge.yaml
-  - name: vouch
-    chart: halkeye/vouch
-    namespace: default
-    values:
-      - vouch.yaml
-    secrets:
-      - vouch-secrets.yaml
   - name: whoami
     chart: halkeye/whoami
     namespace: default
