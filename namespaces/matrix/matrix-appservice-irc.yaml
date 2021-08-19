@@ -35,7 +35,7 @@ config:
         networkId: "liberachat"
         port: 6697
         ssl: true
-        sasl: false
+        sasl: true
 
         # The connection password to send for all clients as a PASS (or SASL, if enabled above) command. Optional.
         # password: 'pa$$w0rd'
