@@ -3,7 +3,7 @@ ingress:
   main:
     enabled: true
     hosts:
-      - host: torrents.int.g4v.dev
+      - host: nzbget.int.g4v.dev
         paths:
           - path: /
     annotations:
@@ -28,8 +28,8 @@ persistence:
     storageClass: longhorn
   downloads:
     enabled: true
-    existingClaim: torrents-nfs-pvc
-    mountPath: /torrents
+    existingClaim: nzbs-nfs-pvc
+    mountPath: /nzb-downloads
 
 podSecurityContext:
   runAsUser: 1000
@@ -38,21 +38,15 @@ podSecurityContext:
 initContainers:
 - name: update-volume-permission
   image: busybox
-  command: ["sh", "-c", "chown -R 1000:1000 /config"]
+  command: ["sh", "-c", "chown -R 1000:1000 /config; chown 1000:1000 /nzb-downloads; chmod 755 /nzb-downloads;"]
   volumeMounts:
   - name: config
     mountPath: /config
+  - name: downloads
+    mountPath: /nzb-downloads
   securityContext:
     runAsUser: 0
 
-additionalVolumes:
-  - name: qbittorrent-scripts
-    emptyDir: {}
-
-additionalVolumeMounts:
-  - mountPath: /config/custom-cont-init.d
-    name: qbittorrent-scripts
-
 image:
-  tag: v4.3.7
+  tag: v21.1
 

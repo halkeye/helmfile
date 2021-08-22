@@ -1,3 +1,6 @@
+helmDefaults:
+  atomic: true
+
 repositories:
   - name: halkeye
     url: https://halkeye.github.io/helm-charts
@@ -10,35 +13,88 @@ releases:
     chart: ../../charts/nfs-pvc
     values:
       - pv:
-          share: /storage/Comics
+          server: 172.16.10.10
+          share: /volume1/Comics
 
   - name: books
     namespace: media
     chart: ../../charts/nfs-pvc
     values:
       - pv:
-          share: /storage/Books
+          server: 172.16.10.10
+          share: /volume1/Books
 
-  - name: videos
+  - name: tv
     namespace: media
     chart: ../../charts/nfs-pvc
     values:
       - pv:
-          share: /storage/Videos
+          server: 172.16.10.10
+          share: /volume1/TV
+
+  - name: movies
+    namespace: media
+    chart: ../../charts/nfs-pvc
+    values:
+      - pv:
+          server: 172.16.10.10
+          share: /volume1/Movies
+
+  - name: anime
+    namespace: media
+    chart: ../../charts/nfs-pvc
+    values:
+      - pv:
+          server: 172.16.10.10
+          share: /volume1/Anime
+
+  - name: anime-movies
+    namespace: media
+    chart: ../../charts/nfs-pvc
+    values:
+      - pv:
+          server: 172.16.10.10
+          share: /volume1/Anime Movies
+
+  - name: webseries
+    namespace: media
+    chart: ../../charts/nfs-pvc
+    values:
+      - pv:
+          server: 172.16.10.10
+          share: /volume1/Webseries
+
+  - name: webseries-movies
+    namespace: media
+    chart: ../../charts/nfs-pvc
+    values:
+      - pv:
+          server: 172.16.10.10
+          share: /volume1/Webseries Movies
 
   - name: torrents
     namespace: media
     chart: ../../charts/nfs-pvc
     values:
       - pv:
-          share: /storage/storage/downloads
+          server: 172.16.10.10
+          share: /volume1/Apps/torrents
+
+  - name: nzbs
+    namespace: media
+    chart: ../../charts/nfs-pvc
+    values:
+      - pv:
+          server: 172.16.10.10
+          share: /volume1/Apps/nzbget
 
   - name: audiobooks
     namespace: media
     chart: ../../charts/nfs-pvc
     values:
       - pv:
-          share: "/storage/Audio/Audio Books"
+          server: 172.16.10.10
+          share: "/volume1/Audio/Audio Books"
 
   - name: tautulli
     chart: halkeye/tautulli
@@ -74,6 +130,12 @@ releases:
     values:
       - qbittorrent.yaml
 
+  - name: nzbget
+    chart: k8s-at-home/nzbget
+    namespace: media
+    values:
+      - nzbget.yaml
+
   - name: jackett
     chart: halkeye/jackett
     namespace: media
@@ -98,37 +160,23 @@ releases:
     values:
       - overseerr.yaml
 
-#  - name: radarr
-#    chart: k8s-at-home/radarr
-#    namespace: media
-#    values:
-#      - radarr.yaml
-#
-#  - name: sonarr
-#    chart: k8s-at-home/sonarr
-#    namespace: media
-#    values:
-#      - sonarr.yaml
+  - name: radarr
+    chart: k8s-at-home/radarr
+    namespace: media
+    values:
+      - radarr.yaml
 
-#  - name: mylar-downloads
-#    namespace: media
-#    chart: ../../charts/nfs-pvc
-#    values:
-#      - pv:
-#          share: /storage/storage/downloads/Comics
-#
+  - name: sonarr
+    chart: k8s-at-home/sonarr
+    namespace: media
+    values:
+      - sonarr.yaml
+
 #  - name: mylar3
 #    chart: /home/halkeye/git/halkeye-helm-charts/mylar3
 #    namespace: media
 #    values:
 #      - mylar3.yaml
-#
-#  - name: comics-downloads
-#    namespace: media
-#    chart: ../../charts/nfs-pvc
-#    values:
-#      - pv:
-#          share: /storage/storage/downloads/Comics
 #
 #  - name: readarr
 #    chart: /home/halkeye/git/halkeye-helm-charts/readarr

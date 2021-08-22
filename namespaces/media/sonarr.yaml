@@ -1,49 +1,70 @@
 ---
-timezone: 'America/Vancouver'
+env:
+  TZ: America/Vancouver
 
-puid: 1000
-guid: 1000
-
-exportarr:
-  enabled: false
-  apikey: ''
+podSecurityContext:
+  runAsUser: 1000
+  runAsGroup: 1000
 
 ingress:
-  enabled: true
-  hosts:
-    - sonarr.home.gavinmogan.com
-  tls:
-    - secretName: sonarr-tls
-      hosts:
-        - sonarr.home.gavinmogan.com
-  annotations:
-    cert-manager.io/cluster-issuer: letsencrypt
-    kubernetes.io/ingress.class: nginx
-    kubernetes.io/tls-acme: "true"
-    nginx.ingress.kubernetes.io/proxy-body-size: "500m"
+  main:
+    enabled: true
+    hosts:
+      - host: sonarr.int.g4v.dev
+        paths:
+          - path: /
+    annotations:
+      kubernetes.io/ingress.class: internal
+      nginx.ingress.kubernetes.io/proxy-body-size: "0"
 
 persistence:
   config:
     enabled: true
     storageClass: longhorn
-
   media:
     enabled: false
     storageClass: longhorn
+  tv:
+    enabled: true
+    existingClaim: tv-nfs-pvc
+    mountPath: /tv
+  anime:
+    enabled: true
+    existingClaim: anime-nfs-pvc
+    mountPath: /anime
+  webseries:
+    enabled: true
+    existingClaim: webseries-nfs-pvc
+    mountPath: /webseries
+  torrents:
+    enabled: true
+    existingClaim: torrents-nfs-pvc
+    mountPath: /torrents
+  nzb-downloads:
+    enabled: true
+    existingClaim: nzbs-nfs-pvc
+    mountPath: /nzb-downloads
 
-  extraExistingClaimMounts:
-    - name: tv
-      mountPath: /storage/Videos/TV
-      existingClaim: sonarr-storage-tv-cifs-pvc
-    - name: anime
-      mountPath: /storage/Videos/Anime
-      existingClaim: sonarr-storage-anime-cifs-pvc
-    - name: webseries
-      mountPath: /storage/Videos/Webseries
-      existingClaim: sonarr-storage-webseries-cifs-pvc
-    - name: downloads
-      mountPath: /media/storage/downloads/TV
-      existingClaim: sonarr-downloads-cifs-pvc
+
+initContainers:
+- name: update-volume-permission
+  image: busybox
+  command: ["sh", "-c", "chown -R 1000:1000 /config; for i in tv anime webseries torrents nzb-downloads; do chown 1000:1000 /$i; chmod 755 /$i; done"]
+  volumeMounts:
+  - name: config
+    mountPath: /config
+  - name: tv
+    mountPath: /tv
+  - name: anime
+    mountPath: /anime
+  - name: webseries
+    mountPath: /webseries
+  - name: torrents
+    mountPath: /torrents
+  - name: nzb-downloads
+    mountPath: /nzb-downloads
+  securityContext:
+    runAsUser: 0
 
 resources:
   limits:
@@ -52,3 +73,6 @@ resources:
   requests:
     cpu: 100m
     memory: 128Mi
+
+image:
+  tag: v3.0.6.1265

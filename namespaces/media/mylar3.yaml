@@ -28,9 +28,9 @@ persistence:
     - name: comics
       mountPath: /comics
       existingClaim: comics-nfs-pvc
-    - name: downloads
-      mountPath: /storage/storage/downloads/Comics
-      existingClaim: mylar-downloads-nfs-pvc
+    - name: torrents
+      mountPath: /torrents/Comics
+      existingClaim: torrents-nfs-pvc
 
 resources:
   limits:
