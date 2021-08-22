@@ -30,7 +30,7 @@ controller:
     prometheus.io/port: "8080"
     prometheus.io/scrape: "true"
   image: halkeye/jenkins
-  tag: "d786c9"
+  tag: "ff9568"
 
   resources:
     requests:
@@ -105,6 +105,22 @@ controller:
               fullNameFieldName: "name"
               groupsFieldName: "group-membership"
           numExecutors: 0
+          nodes:
+            - permanent:
+                name: "odin"
+                nodeName: "odin"
+                numExecutors: 4
+                remoteFS: "/home/jenkins"
+                launcher:
+                  ssh:
+                    credentialsId: "odin-ssh-key"
+                    host: "odin.dhcp.home"
+                    workDir: "/home/jenkins"
+                    sshHostKeyVerificationStrategy: "nonVerifyingKeyVerificationStrategy"
+                retentionStrategy:
+                  demand: 
+                    idleDelay: 1000
+                    inDemandDelay: 0
           clouds:
             - digitalOcean:
                 authTokenCredentialId: halkeye-digitalocean
@@ -118,8 +134,10 @@ controller:
                   installMonitoring: false
                   instanceCap: 5
                   labellessJobsAllowed: true
-                  # doctl compute image list | grep 71801581
-                  # 72401866    Docker 19.03.12 on Ubuntu 20.04                                               snapshot    Ubuntu           docker-20-04                                 true      25
+                  # doctl compute image list | grep -i docker | grep 20.04
+                  # 69060922    Docker 19.03.12 on Ubuntu 20.04                                               snapshot    Ubuntu                                                 false     25
+                  # 71801581    Docker 19.03.12 on Ubuntu 20.04                                               snapshot    Ubuntu                                                 false     25
+                  # 72401866    Docker 19.03.12 on Ubuntu 20.04                                               snapshot    Ubuntu                                                 false     25
                   imageId: "72401866"
                   name: "agent"
                   numExecutors: 2
@@ -329,6 +347,12 @@ controller:
                     id: sauce-minecraft-gavinmogan
                     username: "${SAUCE_MINECRAFT_GAVINMOGAN_USERNAME}"
                     password: "${SAUCE_MINECRAFT_GAVINMOGAN_PASSWORD}"
+                - basicSSHUserPrivateKey:
+                    id: odin-ssh-key
+                    username: "jenkins"
+                    privateKeySource:
+                      directEntry:
+                        privateKey: "${ODIN_SSH_KEY}"
         jobs:
           - url: https://raw.githubusercontent.com/halkeye/jenkins-jobs/master/jobs.groovy
   sidecars:

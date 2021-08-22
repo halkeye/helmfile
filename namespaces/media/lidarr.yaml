@@ -1,0 +1,64 @@
+---
+env:
+  TZ: America/Vancouver
+
+podSecurityContext:
+  runAsUser: 1000
+  runAsGroup: 1000
+
+ingress:
+  main:
+    enabled: true
+    hosts:
+      - host: lidarr.int.g4v.dev
+        paths:
+          - path: /
+    annotations:
+      kubernetes.io/ingress.class: internal
+      nginx.ingress.kubernetes.io/force-ssl-redirect: "true"
+      nginx.ingress.kubernetes.io/proxy-body-size: "0"
+
+persistence:
+  config:
+    enabled: true
+    storageClass: longhorn
+  media:
+    enabled: false
+    storageClass: longhorn
+  music:
+    enabled: true
+    existingClaim: music-nfs-pvc
+    mountPath: /music
+  torrents:
+    enabled: true
+    existingClaim: torrents-nfs-pvc
+    mountPath: /torrents
+  nzb-downloads:
+    enabled: true
+    existingClaim: nzbs-nfs-pvc
+    mountPath: /nzb-downloads
+
+
+initContainers:
+- name: update-volume-permission
+  image: busybox
+  command: ["sh", "-c", "chown -R 1000:1000 /config; for i in music torrents nzb-downloads; do chown 1000:1000 /$i; chmod 755 /$i; done"]
+  volumeMounts:
+  - name: config
+    mountPath: /config
+  - name: music
+    mountPath: /music
+  - name: torrents
+    mountPath: /torrents
+  - name: nzb-downloads
+    mountPath: /nzb-downloads
+  securityContext:
+    runAsUser: 0
+
+resources:
+  limits:
+    cpu: 1500m
+    memory: 2048Mi
+  requests:
+    cpu: 500m
+    memory: 512Mi

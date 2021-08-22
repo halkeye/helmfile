@@ -2,21 +2,18 @@ image:
   repository: halkeye/goplaxt
 
 allowed_hostnames:
-  - plaxt.gavinmogan.com
-  - plaxt.home.gavinmogan.com
+  - plaxt.g4v.dev
 
 ingress:
   enabled: true
   paths:
     - /
   hosts:
-    - plaxt.home.gavinmogan.com
-    - plaxt.gavinmogan.com
+    - plaxt.g4v.dev
   tls:
     - secretName: plaxt-tls
       hosts:
-        - plaxt.home.gavinmogan.com
-        - plaxt.gavinmogan.com
+        - plaxt.g4v.dev
   annotations:
     cert-manager.io/cluster-issuer: letsencrypt
     kubernetes.io/ingress.class: nginx
