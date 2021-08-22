@@ -3,7 +3,7 @@ ingress:
   main:
     enabled: true
     hosts:
-      - host: torrents.int.g4v.dev
+      - host: prowlarr.int.g4v.dev
         paths:
           - path: /
     annotations:
@@ -25,12 +25,8 @@ resources:
 persistence:
   config:
     enabled: true
-    size: 8Gi
+    size: 1Gi
     storageClass: longhorn
-  downloads:
-    enabled: true
-    existingClaim: torrents-nfs-pvc
-    mountPath: /torrents
 
 podSecurityContext:
   runAsUser: 1000
@@ -46,14 +42,6 @@ initContainers:
   securityContext:
     runAsUser: 0
 
-additionalVolumes:
-  - name: qbittorrent-scripts
-    emptyDir: {}
-
-additionalVolumeMounts:
-  - mountPath: /config/custom-cont-init.d
-    name: qbittorrent-scripts
-
 image:
-  tag: v4.3.7
+  tag: v0.1.1.849
 
