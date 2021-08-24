@@ -33,20 +33,21 @@ persistence:
     mountPath: /nzb-downloads
 
 podSecurityContext:
-  runAsUser: 1000
-  runAsGroup: 1000
+  runAsUser: 1026
+  runAsGroup: 100
 
 initContainers:
-- name: update-volume-permission
-  image: busybox
-  command: ["sh", "-c", "chown -R 1000:1000 /config; chown 1000:1000 /nzb-downloads; chmod 755 /nzb-downloads;"]
-  volumeMounts:
-  - name: config
-    mountPath: /config
-  - name: downloads
-    mountPath: /nzb-downloads
-  securityContext:
-    runAsUser: 0
+  update-volume-permission:
+    name: update-volume-permission
+    image: busybox
+    command: ["sh", "-c", "chown -R 1026:100 /config; chown 1026:100 /nzb-downloads; chmod 755 /nzb-downloads;"]
+    volumeMounts:
+    - name: config
+      mountPath: /config
+    - name: downloads
+      mountPath: /nzb-downloads
+    securityContext:
+      runAsUser: 0
 
 image:
   tag: v21.1

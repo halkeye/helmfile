@@ -29,7 +29,8 @@ maxmem: "1024"
 extraVolumes:
   - name: comics
     persistentVolumeClaim:
-      claimName: comics-nfs-pvc
+      #claimName: comics-nfs-pvc
+      claimName: comics-cifs-cifs-pvc
 
 extraVolumeMounts:
   - mountPath: /comics

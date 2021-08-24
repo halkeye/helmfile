@@ -12,8 +12,8 @@ ingress:
 
 env:
   TZ: America/Vancouver
-  PUID: 1001
-  PGID: 1001
+  PUID: 1026
+  PGID: 100
 
 persistence:
   config:

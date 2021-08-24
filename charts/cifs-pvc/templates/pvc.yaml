@@ -6,8 +6,9 @@ metadata:
   labels:
 {{ include "cifs-pvc.labels" . | indent 4 }}
 spec:
-  accessModes:
-{{ .Values.pvc.accessModes | toYaml | nindent 4 }}
+  storageClassName: ""
+  volumeName: {{ include "cifs-pvc.fullname" . }}
+  accessModes: {{ .Values.pvc.accessModes | toYaml | nindent 4 }}
   resources:
     requests:
       storage: {{ .Values.pvc.resources.requests.storage }}

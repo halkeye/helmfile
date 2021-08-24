@@ -36,8 +36,8 @@ ingress:
 
 env:
   TZ: America/Vancouver
-  PUID: 1000
-  PGID: 1000
+  PUID: 1026
+  PGID: 100
   #DOCKER_MODS: linuxserver/calibre-web:calibre
 
 persistence:

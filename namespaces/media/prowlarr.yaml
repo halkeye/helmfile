@@ -29,18 +29,19 @@ persistence:
     storageClass: longhorn
 
 podSecurityContext:
-  runAsUser: 1000
-  runAsGroup: 1000
+  runAsUser: 1026
+  runAsGroup: 100
 
 initContainers:
-- name: update-volume-permission
-  image: busybox
-  command: ["sh", "-c", "chown -R 1000:1000 /config"]
-  volumeMounts:
-  - name: config
-    mountPath: /config
-  securityContext:
-    runAsUser: 0
+  update-volume-permission:
+    name: update-volume-permission
+    image: busybox
+    command: ["sh", "-c", "chown -R 1026:100 /config"]
+    volumeMounts:
+    - name: config
+      mountPath: /config
+    securityContext:
+      runAsUser: 0
 
 image:
   tag: v0.1.1.849

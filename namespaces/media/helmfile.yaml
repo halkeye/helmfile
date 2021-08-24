@@ -16,6 +16,16 @@ releases:
           server: 172.16.10.10
           share: /volume1/Comics
 
+  - name: comics-cifs
+    namespace: media
+    chart: ../../charts/cifs-pvc
+    values:
+      - pv:
+          server: 172.16.10.10
+          share: /Comics
+          uid:
+          gid:
+
   - name: books
     namespace: media
     chart: ../../charts/nfs-pvc

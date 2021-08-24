@@ -7,13 +7,17 @@ metadata:
 spec:
   capacity:
     storage: {{ .Values.pvc.resources.requests.storage }}
-  accessModes:
-    {{ .Values.pvc.accessModes | toYaml | nindent 4 }}
+  persistentVolumeReclaimPolicy: Retain
+  accessModes: {{ .Values.pvc.accessModes | toYaml | nindent 4 }}
   flexVolume:
     driver: juliohm/cifs
     options:
+{{- if .Values.pv.uid }}
       opts: uid={{ .Values.pv.uid }},gid={{ .Values.pv.gid }}
+{{- end }}
       server: {{ .Values.pv.server | quote }}
       share: {{ required "PV Share is required" .Values.pv.share | quote }}
+{{ if .Values.username }}
     secretRef:
       name: {{ include "cifs-pvc.fullname" . }}
+{{- end }}

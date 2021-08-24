@@ -3,8 +3,8 @@ env:
   TZ: America/Vancouver
 
 podSecurityContext:
-  runAsUser: 1000
-  runAsGroup: 1000
+  runAsUser: 1026
+  runAsGroup: 100
 
 ingress:
   main:
@@ -48,24 +48,25 @@ persistence:
 
 
 initContainers:
-- name: update-volume-permission
-  image: busybox
-  command: ["sh", "-c", "chown -R 1000:1000 /config; for i in tv anime webseries torrents nzb-downloads; do chown 1000:1000 /$i; chmod 755 /$i; done"]
-  volumeMounts:
-  - name: config
-    mountPath: /config
-  - name: tv
-    mountPath: /tv
-  - name: anime
-    mountPath: /anime
-  - name: webseries
-    mountPath: /webseries
-  - name: torrents
-    mountPath: /torrents
-  - name: nzb-downloads
-    mountPath: /nzb-downloads
-  securityContext:
-    runAsUser: 0
+  update-volume-permission:
+    name: update-volume-permission
+    image: busybox
+    command: ["sh", "-c", "chown -R 1026:100 /config; for i in tv anime webseries torrents nzb-downloads; do chown 1026:100 /$i; chmod 755 /$i; done"]
+    volumeMounts:
+    - name: config
+      mountPath: /config
+    - name: tv
+      mountPath: /tv
+    - name: anime
+      mountPath: /anime
+    - name: webseries
+      mountPath: /webseries
+    - name: torrents
+      mountPath: /torrents
+    - name: nzb-downloads
+      mountPath: /nzb-downloads
+    securityContext:
+      runAsUser: 0
 
 resources:
   limits:
