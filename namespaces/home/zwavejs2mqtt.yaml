@@ -1,0 +1,65 @@
+---
+ingress:
+  main:
+    enabled: true
+    hosts:
+      - host: zwavejs2mqtt.int.g4v.dev
+        paths:
+          - path: /
+    annotations:
+      kubernetes.io/ingress.class: internal
+      nginx.ingress.kubernetes.io/force-ssl-redirect: "true"
+      nginx.ingress.kubernetes.io/proxy-body-size: "0"
+
+persistence:
+  config:
+    enabled: true
+    storageClass: longhorn
+  usb:
+    enabled: true
+    type: hostPath
+    dev: /dev/serial/by-id/usb-0658_0200-if00
+
+resources:
+  limits:
+    cpu: 500m
+    memory: 1024Mi
+  requests:
+    cpu: 100m
+    memory: 128Mi
+
+service:
+  main:
+    enabled: true
+    ports:
+      websocket:
+        enabled: true
+        port: 3000
+
+image:
+  tag: 5.5.1
+
+additionalVolumeMounts:
+  - name: usb
+    mountPath: /dev/serial/by-id/usb-0658_0200-if00
+additionalVolumes:
+  - name: usb
+    hostPath:
+      path: /dev/serial/by-id/usb-0658_0200-if00
+affinity:
+  nodeAffinity:
+    requiredDuringSchedulingIgnoredDuringExecution:
+      nodeSelectorTerms:
+        - matchExpressions:
+            - key: g4v.dev/usb.0658.0200
+              operator: In
+              values:
+                - "true"
+    preferredDuringSchedulingIgnoredDuringExecution:
+      - weight: 1
+        preference:
+          matchExpressions:
+            - key: g4v.dev/usb.0658.0200
+              operator: In
+              values:
+                - "true"

@@ -36,3 +36,8 @@ releases:
 #    chart: k8s-at-home/zigbee2mqtt
 #    values:
 #      - zigbee2mqtt.yaml
+  - name: zwavejs2mqtt
+    chart: k8s-at-home/zwavejs2mqtt
+    namespace: home
+    values:
+      - zwavejs2mqtt.yaml

@@ -1,2 +1,9 @@
 
 Bus 002 Device 002: ID 0658:0200 Sigma Designs, Inc. Aeotec Z-Stick Gen5 (ZW090) - UZB
+
+
+https://github.com/k8snetworkplumbingwg/multus-cni/blob/master/docs/how-to-use.md
+https://github.com/Neraud/home-server/blob/62ba3d5892c083aaff659e83847d5cada76a0d02/ansible/install_infra/roles/kubernetes-master-cni-deploy/templates/multus/interfaces/k8s-bridge.yml.j2
+https://github.com/Neraud/home-server/blob/62ba3d5892c083aaff659e83847d5cada76a0d02/ansible/install_applications/roles/home-homeassistant.deploy/app/deploy/homeassistant-statefulSet.yaml.j2#L23
+
+https://community.home-assistant.io/t/openid-connect-login-via-command-line-auth/119736/2
