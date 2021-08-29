@@ -11,6 +11,10 @@ ingress:
       nginx.ingress.kubernetes.io/force-ssl-redirect: "true"
       nginx.ingress.kubernetes.io/proxy-body-size: "500m"
 
+#podSecurityContext:
+#  runAsUser: 1026
+#  runAsGroup: 100
+
 env:
   TZ: America/Vancouver
   PUID: 1026
@@ -23,14 +27,38 @@ persistence:
   media:
     enabled: false
     storageClass: longhorn
-
-additionalVolumes:
-  - name: videos
-    persistentVolumeClaim:
-      claimName: videos-nfs-pvc
-additionalVolumeMounts:
-  - name: videos
-    mountPath: /storage/Videos
+  tv:
+    enabled: true
+    existingClaim: tv-nfs-pvc
+    mountPath: /tv
+  anime:
+    enabled: true
+    existingClaim: anime-nfs-pvc
+    mountPath: /anime
+  webseries:
+    enabled: true
+    existingClaim: webseries-nfs-pvc
+    mountPath: /webseries
+  movies:
+    enabled: true
+    existingClaim: movies-nfs-pvc
+    mountPath: /movies
+  anime-movies:
+    enabled: true
+    existingClaim: anime-movies-nfs-pvc
+    mountPath: /anime-movies
+  webseries-movies:
+    enabled: true
+    existingClaim: webseries-movies-nfs-pvc
+    mountPath: /webseries-movies
+  torrents:
+    enabled: true
+    existingClaim: torrents-nfs-pvc
+    mountPath: /torrents
+  nzb-downloads:
+    enabled: true
+    existingClaim: nzbs-nfs-pvc
+    mountPath: /nzb-downloads
 
 resources:
   limits:
