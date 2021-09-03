@@ -17,7 +17,9 @@ config:
       name: "wg-access-server"
       issuer: "https://keycloak.g4v.dev/auth/realms/master"
       clientID: "wireguard"
-      redirectURL: "https://admin-vpn.g4v.dev/oidc-finish"
+      redirectURL: "https://admin-vpn.g4v.dev/callback"
+      claimMapping:
+        admin: "'WireguardAdmins' in group_membership"
 wireguard:
   service:
     externalTrafficPolicy: Local
