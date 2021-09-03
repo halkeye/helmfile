@@ -1,6 +1,7 @@
 env:
   LDAP_ORGANISATION: "Gavin Mogan"
   LDAP_DOMAIN: "gavinmogan.com"
+  LDAP_TLS: "false"
 
 strategy:
   type: Recreate
@@ -18,10 +19,28 @@ service:
 image:
   repository: osixia/openldap
   tag: 1.5.0
+  #repository: jenkinsciinfra/ldap
+  #tag: df2e8b
   pullPolicy: IfNotPresent
+
 logLevel: debug
 
-tls:
-  enabled: false
-  CA:
-    enabled: false
+customLdifFiles:
+  01-add-samba-types.ldif: |-
+#  01-add-samba-types.ldif: |-
+#    dn: olcDatabase={1}mdb,cn=config
+#    changetype: modify
+#    replace: olcDbIndex
+#    olcDbIndex: objectClass eq
+#    olcDbIndex: uidNumber,gidNumber eq
+#    olcDbIndex: loginShell eq
+#    olcDbIndex: uid,cn eq,sub
+#    olcDbIndex: memberUid eq,sub
+#    olcDbIndex: member,uniqueMember eq
+#    olcDbIndex: sambaSID eq
+#    olcDbIndex: sambaPrimaryGroupSID eq
+#    olcDbIndex: sambaGroupType eq
+#    olcDbIndex: sambaSIDList eq
+#    olcDbIndex: sambaDomainName eq
+#    olcDbIndex: default sub,eq
+

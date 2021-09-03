@@ -34,10 +34,8 @@ spec:
         app: {{ template "openldap.name" . }}
         release: {{ .Release.Name }}
     spec:
-      {{- if or .Values.customLdifFiles .Values.tls.enabled }}
-      initContainers:
-      {{- end }}
       {{- if .Values.customLdifFiles }}
+      initContainers:
       - name: {{ .Chart.Name }}-init-ldif
         image: busybox
         command: ['sh', '-c', 'cp /customldif/* /ldifworkingdir']
@@ -49,31 +47,6 @@ spec:
           mountPath: /ldifworkingdir
         resources:
 {{ toYaml .Values.initResources | indent 10 }}
-      {{- end }}
-      {{- if .Values.tls.enabled }}
-      - name: {{ .Chart.Name }}-init-tls
-        image: busybox
-        command: ['sh', '-c', 'cp /tls/* /certs']
-        imagePullPolicy: {{ .Values.image.pullPolicy }}
-        volumeMounts:
-          - name: tls
-            mountPath: /tls
-          - name: certs
-            mountPath: /certs
-        resources:
-{{ toYaml .Values.initResources | indent 10 }}
-      {{- if .Values.tls.CA.enabled }}
-      - name: {{ .Chart.Name }}-init-catls
-        image: busybox
-        command: ['sh', '-c', 'cp /catls/ca.crt /certs']
-        volumeMounts:
-          - name: catls
-            mountPath: /catls
-          - name: certs
-            mountPath: /certs
-        resources:
-{{ toYaml .Values.initResources | indent 10 }}
-      {{- end }}
       {{- end }}
       containers:
         - name: {{ .Chart.Name }}
@@ -102,25 +75,31 @@ spec:
             - name: data
               mountPath: /etc/ldap/slapd.d
               subPath: config-data
+            - name: tls
+              mountPath: /etc/ldap/ssl
+              readOnly: true
+            - name: certs
+              mountPath: /container/service/slapd/assets/certs
+              readOnly: true
             {{- if .Values.customLdifFiles }}
             - name: ldifworkingdir
               mountPath: /container/service/slapd/assets/config/bootstrap/ldif/custom
             {{- end }}
-            {{- if .Values.tls.enabled }}
-            - name: certs
-              mountPath: /container/service/slapd/assets/certs
-            {{- end }}
           env:
-          {{- if .Values.tls.enabled }}
-            - name: LDAP_TLS_CRT_FILENAME
-              value: tls.crt
-            - name: LDAP_TLS_KEY_FILENAME
-              value: tls.key
-          {{- if .Values.tls.CA.enabled }}
+            - name: OPENLDAP_SSL_CA
+              value: "ca.crt"
+            - name: OPENLDAP_SSL_CRT
+              value: "tls.crt"
+            - name: OPENLDAP_SSL_KEY
+              value: "tls.key"
             - name: LDAP_TLS_CA_CRT_FILENAME
-              value: ca.crt
-          {{- end }}
-          {{- end }}
+              value: "ca.crt"
+            - name: LDAP_TLS_CRT_FILENAME
+              value: "tls.crt"
+            - name: LDAP_TLS_KEY_FILENAME
+              value: "tls.key"
+            - name: DISABLE_CHOWN
+              value: "true"
           livenessProbe:
             tcpSocket:
               port: ldap-port
@@ -155,16 +134,6 @@ spec:
         - name: ldifworkingdir
           emptyDir: {}
         {{- end }}
-        {{- if .Values.tls.enabled }}
-        - name: tls
-          secret:
-            secretName: {{ .Values.tls.secret }}
-        {{- if .Values.tls.CA.enabled }}
-        - name: catls
-          secret:
-            secretName: {{ .Values.tls.CA.secret }}
-        {{- end }}
-        {{- end }}
         - name: certs
           emptyDir:
             medium: Memory
@@ -174,4 +143,14 @@ spec:
             claimName: {{ .Values.persistence.existingClaim | default (include "openldap.fullname" .) }}
         {{- else }}
           emptyDir: {}
-        {{- end -}}
+        {{- end }}
+        - name: tls
+          secret:
+            secretName: {{ template "openldap.fullname" . }}-tls
+#            items:
+#              - key: tls.crt
+#                path: cert.pem
+#              - key: tls.key
+#                path: privkey.key
+#              - key: ca.crt
+#                path: ca.crt

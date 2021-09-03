@@ -1,0 +1,15 @@
+---
+apiVersion: cert-manager.io/v1alpha2
+kind: Certificate
+metadata:
+  name:  {{ template "openldap.fullname" . }}-tls
+spec:
+  secretName:  {{ template "openldap.fullname" . }}-tls
+  dnsNames:
+  {{- range .Values.dnsNames }}
+  - {{ . }}
+  {{- end }}
+  issuerRef:
+    name: selfsigned-issuer
+    kind: ClusterIssuer
+    group: cert-manager.io
