@@ -71,4 +71,4 @@ resources:
 image:
   repository: linuxserver/bazarr
   pullPolicy: IfNotPresent
-  tag: version-v0.9.5
+  tag: version-v0.9.9

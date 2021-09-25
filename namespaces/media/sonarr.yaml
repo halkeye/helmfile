@@ -70,8 +70,8 @@ initContainers:
 
 resources:
   limits:
-    cpu: 500m
-    memory: 1024Mi
+    cpu: 1000m
+    memory: 2048Mi
   requests:
     cpu: 100m
     memory: 128Mi
