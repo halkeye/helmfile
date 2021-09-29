@@ -1,41 +1,63 @@
 ---
 
-config:
-  timezone: 'America/Vancouver'
-  puid: 1000
-  guid: 1000
+env:
+  TZ: America/Vancouver
+
+podSecurityContext:
+  runAsUser: 1026
+  runAsGroup: 100
 
 ingress:
-  enabled: true
-  hosts:
-    - readarr.home.gavinmogan.com
-  tls:
-    - secretName: readarr-tls
-      hosts:
-        - readarr.home.gavinmogan.com
-  annotations:
-    cert-manager.io/cluster-issuer: letsencrypt
-    kubernetes.io/ingress.class: nginx
-    kubernetes.io/tls-acme: "true"
-    nginx.ingress.kubernetes.io/proxy-body-size: "500m"
+  main:
+    enabled: true
+    hosts:
+      - host: readarr.int.g4v.dev
+        paths:
+          - path: /
+    annotations:
+        kubernetes.io/ingress.class: internal
+        nginx.ingress.kubernetes.io/force-ssl-redirect: "true"
+        nginx.ingress.kubernetes.io/proxy-body-size: "0"
 
 persistence:
   config:
     enabled: true
     storageClassName: longhorn
+  media:
+    enabled: false
+  comics:
+    enabled: true
+    existingClaim: comics-nfs-pvc
+    mountPath: /comics
+  torrents:
+    enabled: true
+    existingClaim: torrents-nfs-pvc
+    mountPath: /torrents
+  nzb-downloads:
+    enabled: true
+    existingClaim: nzbs-nfs-pvc
+    mountPath: /nzb-downloads
 
-  extraExistingClaimMounts:
+initContainers:
+  update-volume-permission:
+    name: update-volume-permission
+    image: busybox
+    command: ["sh", "-c", "chown -R 1026:100 /config; for i in comics torrents nzb-downloads; do chown 1026:100 /$i; chmod 755 /$i; done"]
+    volumeMounts:
+    - name: config
+      mountPath: /config
     - name: comics
       mountPath: /comics
-      existingClaim: comics-nfs-pvc
     - name: torrents
-      mountPath: /torrents/Comics
-      existingClaim: torrents-nfs-pvc
-
+      mountPath: /torrents
+    - name: nzb-downloads
+      mountPath: /nzb-downloads
+    securityContext:
+      runAsUser: 0
 resources:
   limits:
-    cpu: 500m
-    memory: 1024Mi
+    cpu: 1000m
+    memory: 2048Mi
   requests:
     cpu: 100m
     memory: 128Mi

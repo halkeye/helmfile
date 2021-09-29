@@ -1,5 +1,5 @@
-helmDefaults:
-  atomic: true
+#helmDefaults:
+#  atomic: true
 
 repositories:
   - name: halkeye
@@ -208,8 +208,8 @@ releases:
 #    values:
 #      - mylar3.yaml
 #
-#  - name: readarr
-#    chart: /home/halkeye/git/halkeye-helm-charts/readarr
-#    namespace: media
-#    values:
-#      - readarr.yaml
+  #- name: readarr
+  #  chart: k8s-at-home/readarr
+  #  namespace: media
+  #  values:
+  #    - readarr.yaml
