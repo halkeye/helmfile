@@ -37,7 +37,8 @@ service:
         port: 3000
 
 image:
-  tag: 5.5.1
+  name: zwavejs/zwavejs2mqtt
+  tag: 5.6.2
 
 additionalVolumeMounts:
   - name: usb

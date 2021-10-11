@@ -1,7 +1,7 @@
 ---
 image:
   repository: homeassistant/home-assistant
-  tag: 2021.9.6
+  tag: 2021.10.3
 
 extraEnv:
   TZ: America/Vancouver
@@ -25,7 +25,6 @@ addons:
         nginx.ingress.kubernetes.io/proxy-body-size: "0"
         kubernetes.io/ingress.class: internal
         nginx.ingress.kubernetes.io/force-ssl-redirect: "true"
-
 
 ingress:
   enabled: true
@@ -72,7 +71,6 @@ service:
         targetPort: 1900
       annotations:
         metallb.universe.tf/allow-shared-ip: hass-roku
-
 #affinity:
 #  nodeAffinity:
 #    requiredDuringSchedulingIgnoredDuringExecution:
