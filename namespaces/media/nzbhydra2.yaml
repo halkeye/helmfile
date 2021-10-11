@@ -32,4 +32,4 @@ resources:
 
 image:
   repository: linuxserver/nzbhydra2
-  tag: version-v3.15.1
+  tag: version-v3.17.3

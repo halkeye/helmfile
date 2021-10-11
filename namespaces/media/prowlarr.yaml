@@ -44,5 +44,4 @@ initContainers:
       runAsUser: 0
 
 image:
-  tag: v0.1.1.919
-
+  tag: v0.1.1.951

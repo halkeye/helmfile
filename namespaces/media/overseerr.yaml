@@ -28,3 +28,7 @@ resources:
   requests:
     cpu: 100m
     memory: 128Mi
+
+image:
+  tag: 1.26.1
+

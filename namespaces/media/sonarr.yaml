@@ -77,4 +77,4 @@ resources:
     memory: 128Mi
 
 image:
-  tag: v3.0.6.1265
+  tag: v3.0.6.1342

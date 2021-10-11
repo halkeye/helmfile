@@ -17,8 +17,8 @@ ingress:
 
 env:
   TZ: America/Vancouver
-  PUID: 1026
-  PGID: 100
+  #PUID: 1026
+  #PGID: 100
 
 persistence:
   config:
@@ -60,6 +60,28 @@ persistence:
     existingClaim: nzbs-nfs-pvc
     mountPath: /nzb-downloads
 
+initContainers:
+  update-volume-permission:
+    name: update-volume-permission
+    image: busybox
+    command: ["sh", "-c", "chown -R 1026:100 /config; for i in tv anime webseries movies anime-movies webseries-movies; do chown 1026:100 /$i; chmod 755 /$i; done"]
+    volumeMounts:
+    - name: config
+      mountPath: /config
+    - name: tv
+      mountPath: /tv
+    - name: anime
+      mountPath: /anime
+    - name: webseries
+      mountPath: /webseries
+    - name: movies
+      mountPath: /movies
+    - name: anime-movies
+      mountPath: /anime-movies
+    - name: webseries-movies
+      mountPath: /webseries-movies
+    securityContext:
+      runAsUser: 0
 resources:
   limits:
     cpu: 500m
