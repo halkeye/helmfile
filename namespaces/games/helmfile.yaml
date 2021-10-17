@@ -2,7 +2,15 @@ repositories:
   - name: halkeye
     url: https://halkeye.github.io/helm-charts
 
-releases: []
+releases:
+  - name: pterodactyl-panel
+    #chart: halkeye/pterodactyl-panel
+    chart: /home/halkeye/git/halkeye-helm-charts/pterodactyl-panel
+    namespace: games
+    values:
+      - pterodactyl-panel.yaml
+    secrets:
+      - pterodactyl-panel-secrets.yaml
   #- name: sevendaysdie
   #  chart: halkeye/sevendaysdie
   #  namespace: sevendaysdie

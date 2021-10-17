@@ -1,0 +1,117 @@
+databases:
+- cluster_name: db-mysql-sfo2-06502
+  db_name: pterodactyl
+  db_user: pterodactyl
+  engine: MYSQL
+  name: db-mysql-sfo2-06502
+  production: true
+  version: "8"
+- cluster_name: db-redis-sfo2-47696
+  engine: REDIS
+  name: db-redis-sfo2-47696
+  production: true
+  version: "6"
+domains:
+- domain: dedigames.g4v.dev
+  type: PRIMARY
+envs:
+- key: DATABASE_URL
+  scope: RUN_TIME
+  value: ${db-mysql-sfo2-06502.DATABASE_URL}
+- key: APP_URL
+  scope: RUN_AND_BUILD_TIME
+  value: https://dedigames.g4v.dev
+- key: DB_HOST
+  scope: RUN_AND_BUILD_TIME
+  value: ${db-mysql-sfo2-06502.HOSTNAME}
+- key: DB_PORT
+  scope: RUN_AND_BUILD_TIME
+  value: ${db-mysql-sfo2-06502.PORT}
+- key: DB_DATABASE
+  scope: RUN_AND_BUILD_TIME
+  value: ${db-mysql-sfo2-06502.DATABASE}
+- key: DB_USERNAME
+  scope: RUN_AND_BUILD_TIME
+  value: ${db-mysql-sfo2-06502.USERNAME}
+- key: DB_PASSWORD
+  scope: RUN_AND_BUILD_TIME
+  value: ${db-mysql-sfo2-06502.PASSWORD}
+- key: REDIS_HOST
+  scope: RUN_AND_BUILD_TIME
+  value: ${db-redis-sfo2-47696.HOSTNAME}
+- key: REDIS_PORT
+  scope: RUN_AND_BUILD_TIME
+  value: ${db-redis-sfo2-47696.PORT}
+- key: MAIL_DRIVER
+  scope: RUN_AND_BUILD_TIME
+  value: smtp
+- key: MAIL_HOST
+  scope: RUN_AND_BUILD_TIME
+  value: smtp.mailgun.org
+- key: MAIL_PORT
+  scope: RUN_AND_BUILD_TIME
+  value: "587"
+- key: MAIL_USERNAME
+  scope: RUN_AND_BUILD_TIME
+  type: SECRET
+  value: EV[1:nup24WDdqfrq9JjUAk1GPnJV0Gz1ZNrh:vx9F7s7y+A/W4yq41cEN5d6E3DWtTL5SouQYhO78465prXBPwJ4M]
+- key: MAIL_PASSWORD
+  scope: RUN_AND_BUILD_TIME
+  type: SECRET
+  value: EV[1:E7sHissIel8vCqV+Pibsish9WnBBeX24:0n/cq5WFPMERiDWP31aoGIGq/Ib4G7vFLBz2nxhJF4ivwwtnhmdAI+hlfmvyykRgFg9BebXzj1RRelHM5rFZDfqQ]
+- key: MAIL_ENCRYPTION
+  scope: RUN_AND_BUILD_TIME
+  value: tls
+- key: MAIL_FROM
+  scope: RUN_AND_BUILD_TIME
+  type: SECRET
+  value: EV[1:7db5CCZs8vSlcIp8jSjoYjr+j3Yu2TqC:M4ymdcZluMx1rhOMNP8TteshDaP14s3BqBL5O0IufB5KHwQcZsMp]
+- key: REDIS_PASSWORD
+  scope: RUN_AND_BUILD_TIME
+  value: ${db-redis-sfo2-47696.PASSWORD}
+- key: APP_DEBUG
+  scope: RUN_AND_BUILD_TIME
+  value: "true"
+- key: APP_KEY
+  scope: RUN_AND_BUILD_TIME
+  type: SECRET
+  value: EV[1:mN4O4FFaJRkf+tpMzsrAXX7gSj3kZJUe:ZZ3sSKf55kOa9o/1M1ScdNoVnJeJ/XAeVC7Yu1NOD1tsPVnV+zGOVt/8UKhME08xhEXWVvpI3rHA/S5iKbhQ82uW6Q==]
+- key: TRUSTED_PROXIES
+  scope: RUN_AND_BUILD_TIME
+  value: '*'
+- key: APP_BACKUP_DRIVER
+  scope: RUN_AND_BUILD_TIME
+  value: s3
+- key: AWS_DEFAULT_REGION
+  scope: RUN_AND_BUILD_TIME
+  value: sfo2
+- key: AWS_ACCESS_KEY_ID
+  scope: RUN_AND_BUILD_TIME
+  type: SECRET
+  value: EV[1:xSBQdqU+4UTlx6+rWE9GQBL25rpVgnFJ:C+x0zxA7Z/lYUqdWMGQoDv7e9wcNMvDozzRV4quDf8elSsoN]
+- key: AWS_SECRET_ACCESS_KEY
+  scope: RUN_AND_BUILD_TIME
+  type: SECRET
+  value: EV[1:u12SPWAKowLWj0KwG9R4iZH0jnvpcQ5M:GvA3VqSf2wIHCabMDa/DrrpPvrd8hysXjQCGKc3/LUj2KwwsuhzVGdSZECkZPNFMdXpgb4gFPANB/FU=]
+- key: AWS_ENDPOINT
+  scope: RUN_AND_BUILD_TIME
+  value: https://sfo2.digitaloceanspaces.com/
+- key: AWS_BACKUPS_BUCKET
+  scope: RUN_AND_BUILD_TIME
+  value: halkeye-pterodactyl
+name: ccarney-16-pterodactyl-panel
+region: sfo
+services:
+- http_port: 80
+  image:
+    registry: ccarney16
+    registry_type: DOCKER_HUB
+    repository: pterodactyl-panel
+    tag: v1.6.2
+  instance_count: 1
+  instance_size_slug: basic-xs
+  name: ccarney-16-pterodactyl-panel
+  routes:
+  - path: /
+  run_command: sh -c "(trap 'kill 0' SIGINT; /entrypoint.sh p:start & /entrypoint.sh
+    p:cron & /entrypoint.sh p:worker)"
