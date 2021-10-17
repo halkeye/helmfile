@@ -35,6 +35,11 @@ releases:
       - mysql.yaml
     secrets:
       - mysql-secrets.yaml
+  - name: phpmyadmin
+    chart: bitnami/phpmyadmin
+    namespace: databases
+    values:
+      - phpmyadmin.yaml
   #- name: influxdb
   #  chart: influxdata/influxdb
   #  namespace: databases
