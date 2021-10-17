@@ -4,7 +4,7 @@ rbac:
 controller:
   ingressClass: "internal"
   extraArgs:
-    default-ssl-certificate: "kube-system/wildcard-tls"
+    default-ssl-certificate: "kube-system/int-wildcard-tls"
   stats:
     enabled: true
   metrics:
@@ -19,4 +19,4 @@ controller:
   service:
     externalTrafficPolicy: Local
     annotations:
-      external-dns.alpha.kubernetes.io/hostname: '*.int.g4v.dev.'
+      external-dns.alpha.kubernetes.io/hostname: "*.int.g4v.dev."

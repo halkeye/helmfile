@@ -5,12 +5,16 @@ repositories:
     url: https://prometheus-community.github.io/helm-charts
   - name: bitnami
     url: https://charts.bitnami.com/bitnami
+  - name: wiremind
+    url: https://wiremind.github.io/wiremind-helm-charts
 releases:
   - name: prometheus
     chart: prometheus-community/prometheus
     namespace: monitoring
     values:
       - prometheus.yaml
+    secrets:
+      - prometheus-secrets.yaml
   - name: helm-exporter
     chart: sstarcher/helm-exporter
     namespace: monitoring
@@ -18,5 +22,10 @@ releases:
   #  chart: prometheus-community/prometheus-node-exporter
   #  namespace: monitoring
   - name: kube-state-metrics
-    chart:  bitnami/kube-state-metrics
+    chart: bitnami/kube-state-metrics
     namespace: monitoring
+  - name: karma
+    chart: wiremind/karma
+    namespace: monitoring
+    values:
+      - karma.yaml

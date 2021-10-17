@@ -2,6 +2,6 @@ issuerRef:
   kind: ClusterIssuer
   name: letsencrypt
 dnsNames:
-  - '*.int.g4v.dev'
-commonName: '*.int.g4v.dev'
-secretName: wildcard-tls
+  - "*.int.g4v.dev"
+commonName: "*.int.g4v.dev"
+secretName: int-wildcard-tls

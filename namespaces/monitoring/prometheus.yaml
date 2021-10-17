@@ -1,38 +1,41 @@
 alertmanager:
+  strategy:
+    type: Recreate
   persistentVolume:
     storageClass: longhorn
   ingress:
     enabled: true
     hosts:
       - alertmanager.int.g4v.dev
+    ingressClassName: "internal"
     annotations:
       kubernetes.io/ingress.class: internal
       nginx.ingress.kubernetes.io/force-ssl-redirect: "true"
 
-#extraScrapeConfigs: |
-#  - job_name: 'raspberrypi'
-#    scheme: http
-#    metrics_path: '/metrics'
-#    static_configs:
-#      - targets: ['raspberrypi.dhcp.home:9243']
 server:
+  strategy:
+    type: Recreate
   persistentVolume:
     storageClass: longhorn
   ingress:
     enabled: true
     hosts:
       - prometheus.int.g4v.dev
+    ingressClassName: "internal"
     annotations:
       kubernetes.io/ingress.class: internal
       nginx.ingress.kubernetes.io/force-ssl-redirect: "true"
 
 pushgateway:
+  strategy:
+    type: Recreate
   persistentVolume:
     storageClass: longhorn
   ingress:
     enabled: true
     hosts:
       - pushgateway.int.g4v.dev
+    ingressClassName: "internal"
     annotations:
       kubernetes.io/ingress.class: internal
       nginx.ingress.kubernetes.io/force-ssl-redirect: "true"
@@ -48,7 +51,6 @@ pushgateway:
 kubeStateMetrics:
   enabled: false
 
-
 serverFiles:
   alerting_rules.yml:
     groups:
@@ -60,28 +62,28 @@ serverFiles:
             labels:
               severity: page
             annotations:
-              description: '{{ $labels.instance }} of job {{ $labels.job }} has been down for more than 5 minutes.'
-              summary: 'Instance {{ $labels.instance }} down'
+              description: "{{ $labels.instance }} of job {{ $labels.job }} has been down for more than 5 minutes."
+              summary: "Instance {{ $labels.instance }} down"
           - alert: Pods Down
             expr: sum(kube_pod_status_phase{phase !~ "Running|Succeeded"}) by (phase) > 0
             for: 5m
             labels:
               severity: page
             annotations:
-              description: 'Bad pods for more than than 5 minutes.'
-              summary: 'Instance {{ $labels.instance }} down'
+              description: "Bad pods for more than than 5 minutes."
+              summary: "Instance {{ $labels.instance }} down"
           - alert: Unused PV
             expr: sum(kube_persistentvolume_status_phase{phase!~"Bound"}) by (phase) > 0
             for: 5m
             labels:
               severity: page
             annotations:
-              description: 'Unused pv for more than than 5 minutes.'
-              summary: 'Unused PV'
+              description: "Unused pv for more than than 5 minutes."
+              summary: "Unused PV"
           - alert: Broken PVC
             expr: sum(kube_persistentvolumeclaim_status_phase{phase!~"Bound"}) by (phase) > 0
             for: 5m
             labels:
               severity: page
             annotations:
-              summary: 'Broken PVC(s)'
+              summary: "Broken PVC(s)"

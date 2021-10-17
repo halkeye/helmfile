@@ -1,0 +1,27 @@
+service:
+  annotations:
+    prometheus.io/scrape: "true"
+ingress:
+  enabled: true
+  hosts:
+    - karma.int.g4v.dev
+  annotations:
+    nginx.ingress.kubernetes.io/force-ssl-redirect: "true"
+  ingressClassName: "internal"
+
+configMap:
+  enabled: true
+  rawConfig:
+    alertmanager:
+      interval: 60s
+      servers:
+        - name: prod-alertmanager
+          uri: http://prometheus-alertmanager
+          timeout: 10s
+          proxy: false
+    annotations:
+      default:
+        hidden: false
+      hidden:
+        - help
+      visible: []
