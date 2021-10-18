@@ -1,7 +1,7 @@
 timeZone: "America/Vancouver"
 image:
   repository: spx01/blocky
-  tag: v0.13
+  tag: v0.16
   pullPolicy: IfNotPresent
 
 service:
@@ -74,8 +74,8 @@ affinity:
     requiredDuringSchedulingIgnoredDuringExecution:
       - labelSelector:
           matchExpressions:
-          - key: app.kubernetes.io/name
-            operator: In
-            values:
-            - blocky
+            - key: app.kubernetes.io/name
+              operator: In
+              values:
+                - blocky
         topologyKey: "kubernetes.io/hostname"
