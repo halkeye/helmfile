@@ -16,21 +16,26 @@ ingress:
 
 configjson:
   default_server_name: "g4v.dev"
-  #default_server_config:
-  #  m.homeserver:
-  #    base_url: "https://matrix.g4v.dev"
-  #    server_name: "g4v.dev"
+  default_server_config:
+    m.homeserver:
+      base_url: "https://matrix.g4v.dev"
+      server_name: "g4v.dev"
+    m.identity_server:
+      base_url: "https://vector.im"
+  disable_guests: true
   brand: "Gavin Chat"
   default_theme: "dark"
   defaultCountryCode: CA
-  #integrations_ui_url: "https://dimension.matrix.g4v.dev/riot"
-  #integrations_rest_url: "https://dimension.matrix.g4v.dev/api/v1/scalar"
-  #integrations_widgets_urls: ["https://dimension.matrix.g4v.dev/widgets"]
-  #integrations_jitsi_widget_url: "https://dimension.matrix.g4v.dev/widgets/jitsi"
-  integrations_ui_url: "https://dimension.t2bot.io/riot"
-  integrations_rest_url: "https://dimension.t2bot.io/api/v1/scalar"
-  integrations_widgets_urls: ["https://dimension.t2bot.io/widgets"]
-  integrations_jitsi_widget_url: "https://dimension.t2bot.io/widgets/jitsi"
+  showLabsSettings: true
+  #integrations_ui_url: "https://dimension.t2bot.io/element"
+  #integrations_rest_url: "https://dimension.t2bot.io/api/v1/scalar"
+  #integrations_jitsi_widget_url: "https://dimension.t2bot.io/widgets/jitsi"
+  #integrations_widgets_urls:
+  #  - https://dimension.t2bot.io/widgets
+  #  - https://scalar.vector.im/_matrix/integrations/v1
+  #  - https://scalar.vector.im/api
+  #  - https://scalar-staging.vector.im/_matrix/integrations/v1
+  #  - https://scalar-staging.vector.im/api
   welcomeUserId: "@riot-bot:g4v.dev"
   settingDefaults:
     breadcrumbs: true
@@ -53,13 +58,12 @@ configjson:
           timeline-text-secondary-color: "#99AAB5"
           timeline-highlights-color: "#32353b"
           reaction-row-button-selected-bg-color: "#b9bbbe"
-
-
   roomDirectory:
     servers:
       - mozilla.org
       - matrix.org
       - gitter.im
+      - libera.chat
 dnsConfig:
   options:
     - name: ndots

@@ -6,6 +6,9 @@ config:
     community_id: "signal:g4v.dev"
     as_token: ""
     hs_token: ""
+  metrics:
+    enabled: true
+    listen_port: 8000
   bridge:
     community_template: "signal_{localpart}={server}"
     permissions:
@@ -25,14 +28,8 @@ registration:
   namespaces:
     users:
       - exclusive: true
-        regex: '@signal_.+:g4v.dev'
+        regex: "@signal_.+:g4v.dev"
         group_id: +signal:g4v.dev
-
-image:
-  mautrixSignal:
-    repository: dock.mau.dev/tulir/mautrix-signal
-    tag: latest
-    pullPolicy: Always
 
 persistence:
   enabled: true
@@ -41,3 +38,6 @@ persistence:
 strategy:
   type: Recreate
 
+podAnnotations:
+  prometheus.io/scrape: "true"
+  prometheus.io/port: "9595"
