@@ -1,3 +1,7 @@
+podAnnotations:
+  prometheus.io/scrape: "true"
+  prometheus.io/port: "8000"
+
 config:
   homeserver:
     address: https://matrix.g4v.dev
@@ -17,5 +21,5 @@ registration:
   namespaces:
     users:
       - exclusive: true
-        regex: '@signal_.+:g4v.dev'
+        regex: "@signal_.+:g4v.dev"
         group_id: +signal:g4v.dev

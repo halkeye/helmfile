@@ -32,7 +32,8 @@ releases:
       - ./matrix-media-repo-secret.yaml
 
   - name: mautrix-whatsapp
-    chart: halkeye/mautrix-whatsapp
+    #chart: halkeye/mautrix-whatsapp
+    chart: /home/halkeye/git/halkeye-helm-charts/mautrix-whatsapp
     namespace: matrix
     values:
       - ./mautrix-whatsapp.yaml

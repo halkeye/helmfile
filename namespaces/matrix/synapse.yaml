@@ -30,7 +30,7 @@ probes:
 homeserver:
   server_name: "g4v.dev"
   signing_key_path: "/data/signing.key"
-  admin_contact: 'mailto:matrix@g4v.dev'
+  admin_contact: "mailto:matrix@g4v.dev"
   enable_registration: false
   public_baseurl: https://matrix.g4v.dev/
   app_service_config_files:
@@ -38,7 +38,7 @@ homeserver:
     - /config/telegram-registration.yaml
     - /config/instagram-registration.yaml
     - /config/twitter-registration.yaml
-    - /config/hangouts-registration.yaml
+    - /config/googlechat-registration.yaml
     - /config/signal-registration.yaml
     - /config/appservice-irc-registration.yaml
   enable_group_creation: true
@@ -130,10 +130,10 @@ extraConfigs:
     namespaces:
       users:
         - exclusive: true
-          regex: '@telegram_.+:g4v.dev'
+          regex: "@telegram_.+:g4v.dev"
       aliases:
         - exclusive: true
-          regex: '#telegram_.+:g4v.dev'
+          regex: "#telegram_.+:g4v.dev"
     url: http://mautrix-telegram.matrix.svc.cluster.local:29317
     sender_localpart: telegrambot
     rate_limited: false
@@ -142,10 +142,10 @@ extraConfigs:
     namespaces:
       users:
         - exclusive: true
-          regex: '@instagram_.+:g4v.dev'
+          regex: "@instagram_.+:g4v.dev"
       aliases:
         - exclusive: true
-          regex: '#instagram_.+:g4v.dev'
+          regex: "#instagram_.+:g4v.dev"
     url: http://mautrix-instagram.matrix.svc.cluster.local:29328
     sender_localpart: instagrambot
     rate_limited: false
@@ -154,29 +154,29 @@ extraConfigs:
     namespaces:
       users:
         - exclusive: true
-          regex: '@twitter_.+:g4v.dev'
+          regex: "@twitter_.+:g4v.dev"
       aliases:
         - exclusive: true
-          regex: '#twitter_.+:g4v.dev'
+          regex: "#twitter_.+:g4v.dev"
     url: http://mautrix-twitter.matrix.svc.cluster.local:29328
     sender_localpart: twitterbot
     rate_limited: false
-  hangouts-registration.yaml:
-    id: hangouts
+  googlechat-registration.yaml:
+    id: googlechat
     namespaces:
       users:
         - exclusive: true
-          regex: '@hangouts_.+:g4v.dev'
-          group_id: +hangouts:g4v.dev
-    url: http://mautrix-hangouts:29320
-    sender_localpart: hangoutsbot
+          regex: "@googlechat.+:g4v.dev"
+          group_id: +googlechat:g4v.dev
+    url: http://mautrix-googlechat:29320
+    sender_localpart: googlechat
     rate_limited: false
   signal-registration.yaml:
     id: signal
     namespaces:
       users:
         - exclusive: true
-          regex: '@signal_.+:g4v.dev'
+          regex: "@signal_.+:g4v.dev"
           group_id: +signal:g4v.dev
     url: http://mautrix-signal:29328
     sender_localpart: signalbot
@@ -187,11 +187,11 @@ extraConfigs:
     namespaces:
       users:
         - exclusive: true
-          regex: '@irc_.*:g4v.dev'
+          regex: "@irc_.*:g4v.dev"
       aliases:
         - exclusive: true
-          regex: '#irc_.*:g4v.dev'
-    url: 'http://matrix-appservice-irc:9999'
+          regex: "#irc_.*:g4v.dev"
+    url: "http://matrix-appservice-irc:9999"
     sender_localpart: appservice-irc
     rate_limited: false
     protocols:

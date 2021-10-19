@@ -2,6 +2,9 @@ config:
   homeserver:
     address: https://matrix.g4v.dev
     domain: g4v.dev
+  metrics:
+    enabled: true
+    listen: 0.0.0.0:8000
   appservice:
     address: http://mautrix-whatsapp.matrix.svc.cluster.local:29318
     database:
@@ -18,7 +21,7 @@ config:
       avatar: mxc://maunium.net/NeXNQarUbrlYBiPCpprYsRqr
   bridge:
     username_template: whatsapp_{{.}}
-    displayname_template: '{{if .Notify}}{{.Notify}}{{else}}{{.Jid}}{{end}} (WA)'
+    displayname_template: "{{if .Notify}}{{.Notify}}{{else}}{{.Jid}}{{end}} (WA)"
     community_template: whatsapp_{{.Localpart}}={{.Server}}
     connection_timeout: 20
     login_qr_regen_count: 2
@@ -40,10 +43,10 @@ config:
     invite_own_puppet_for_backfilling: true
     private_chat_portal_meta: false
     allow_user_invite: false
-    command_prefix: '!wa'
+    command_prefix: "!wa"
     permissions:
-      '*': 5
-      '@halkeye:g4v.dev': 100
+      "*": 5
+      "@halkeye:g4v.dev": 100
       g4v.dev: 10
     relaybot:
       enabled: false
@@ -51,16 +54,16 @@ config:
       invites: []
       message_formats:
         m.audio: <b>{{ .Sender.Displayname }}</b> sent an audio file
-        m.emote: '* <b>{{ .Sender.Displayname }}</b> {{ .Message }}'
+        m.emote: "* <b>{{ .Sender.Displayname }}</b> {{ .Message }}"
         m.file: <b>{{ .Sender.Displayname }}</b> sent a file
         m.image: <b>{{ .Sender.Displayname }}</b> sent an image
         m.location: <b>{{ .Sender.Displayname }}</b> sent a location
-        m.notice: '<b>{{ .Sender.Displayname }}</b>: {{ .Message }}'
-        m.text: '<b>{{ .Sender.Displayname }}</b>: {{ .Message }}'
+        m.notice: "<b>{{ .Sender.Displayname }}</b>: {{ .Message }}"
+        m.text: "<b>{{ .Sender.Displayname }}</b>: {{ .Message }}"
         m.video: <b>{{ .Sender.Displayname }}</b> sent a video
   logging:
     directory: /logs
-    file_name_format: '{{.Date}}-{{.Index}}.log'
+    file_name_format: "{{.Date}}-{{.Index}}.log"
     file_date_format: "2006-01-02"
     file_mode: 384
     timestamp_format: Jan _2, 2006 15:04:05
@@ -75,5 +78,8 @@ registration:
   rate_limited: false
   namespaces:
     users:
-    - regex: ^@whatsapp_[0-9]+:g4v.dev$
-      exclusive: true
+      - regex: ^@whatsapp_[0-9]+:g4v.dev$
+        exclusive: true
+podAnnotations:
+  prometheus.io/scrape: "true"
+  prometheus.io/port: "8000"
