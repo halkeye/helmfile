@@ -47,14 +47,14 @@ releases:
     secrets:
       - ./mautrix-telegram-secret.yaml
 
-  - name: mautrix-hangouts
-    #chart: halkeye/mautrix-hangouts
-    chart: /home/halkeye/git/halkeye-helm-charts/mautrix-hangouts
+  - name: mautrix-googlechat
+    #chart: halkeye/mautrix-googlechat
+    chart: /home/halkeye/git/halkeye-helm-charts/mautrix-googlechat
     namespace: matrix
     values:
-      - ./mautrix-hangouts.yaml
+      - ./mautrix-googlechat.yaml
     secrets:
-      - ./mautrix-hangouts-secret.yaml
+      - ./mautrix-googlechat-secret.yaml
 
   - name: mautrix-signal
     #chart: halkeye/mautrix-signal

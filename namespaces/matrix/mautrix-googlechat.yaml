@@ -1,11 +1,11 @@
 ingress:
   enabled: true
   tls:
-    - secretName: mautrix-hangouts-tls
+    - secretName: mautrix-googlechat-tls
       hosts:
-        - hangouts.matrix.g4v.dev
+        - googlechat.matrix.g4v.dev
   hosts:
-    - host: hangouts.matrix.g4v.dev
+    - host: googlechat.matrix.g4v.dev
       paths:
         - /
   annotations:
@@ -13,22 +13,26 @@ ingress:
     kubernetes.io/ingress.class: nginx
     kubernetes.io/tls-acme: "true"
 
+podAnnotations:
+  prometheus.io/scrape: "true"
+  prometheus.io/port: "8000"
+
 config:
   homeserver:
     address: https://matrix.g4v.dev
     domain: g4v.dev
   appservice:
-    community_id: "hangouts:g4v.dev"
+    community_id: "googlechat:g4v.dev"
     as_token: ""
     hs_token: ""
   bridge:
-    community_template: "hangouts_{localpart}={server}"
+    community_template: "googlechat{localpart}={server}"
     permissions:
       "g4v.dev": "user"
       "@halkeye:g4v.dev": "admin"
     web:
       auth:
-        public: https://hangouts.matrix.g4v.dev/login/
+        public: https://googlechat.matrix.g4v.dev/login/
         prefix: /login
   logging:
     loggers:
@@ -36,12 +40,12 @@ config:
         level: ERROR
 
 registration:
-  id: hangouts
+  id: googlechat
   namespaces:
     users:
       - exclusive: true
-        regex: '@hangouts_.+:g4v.dev'
-        group_id: +hangouts:g4v.dev
-  url: http://mautrix-hangouts:29320
-  sender_localpart: hangoutsbot
+        regex: "@googlechat.+:g4v.dev"
+        group_id: +googlechat:g4v.dev
+  url: http://mautrix-googlechat:29320
+  sender_localpart: googlechat
   rate_limited: false
