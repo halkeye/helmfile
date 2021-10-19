@@ -41,7 +41,8 @@ releases:
       - ./mautrix-whatsapp-secret.yaml
 
   - name: mautrix-telegram
-    chart: halkeye/mautrix-telegram
+    #chart: halkeye/mautrix-telegram
+    chart: /home/halkeye/git/halkeye-helm-charts/mautrix-telegram
     namespace: matrix
     values:
       - ./mautrix-telegram.yaml

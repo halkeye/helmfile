@@ -44,7 +44,7 @@ registration:
   namespaces:
     users:
       - exclusive: true
-        regex: "@googlechat.+:g4v.dev"
+        regex: "@googlechat_.+:g4v.dev"
         group_id: +googlechat:g4v.dev
   url: http://mautrix-googlechat:29320
   sender_localpart: googlechat
