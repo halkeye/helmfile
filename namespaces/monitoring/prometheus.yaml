@@ -88,3 +88,10 @@ serverFiles:
               severity: page
             annotations:
               summary: "Broken PVC(s)"
+          - alert: Matrix Bridge is down
+            expr: bridge_connected == 0
+            for: 5m
+            labels:
+              severity: page
+            annotations:
+              summary: "Matrix bridge is down"
