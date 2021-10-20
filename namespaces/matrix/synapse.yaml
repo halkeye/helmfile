@@ -19,6 +19,11 @@ ingress:
 
 cacheFactor: 5.0
 
+podAnnotations:
+  prometheus.io/path: /_synapse/metrics
+  prometheus.io/port: "9000"
+  prometheus.io/scrape: "true"
+
 probes:
   liveness:
     failureThreshold: 15
