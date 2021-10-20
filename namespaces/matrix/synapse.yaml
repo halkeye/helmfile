@@ -27,6 +27,13 @@ probes:
     failureThreshold: 15
     periodSeconds: 30
 
+extra_python_modules:
+  - git+https://github.com/devture/matrix-synapse-shared-secret-auth
+  - git+https://github.com/t2bot/synapse-simple-antispam#egg=synapse-simple-antispam
+  - git+https://github.com/matrix-org/synapse-s3-storage-provider
+
+existingMediaClaim: synapse-media-nfs-pvc
+
 homeserver:
   server_name: "g4v.dev"
   signing_key_path: "/data/signing.key"
@@ -53,7 +60,43 @@ homeserver:
     enable_notifs: false
     notif_from: "Your Friendly %(app)s homeserver <noreply@g4v.dev>"
     client_base_url: "http://chat.g4v.dev"
-  enable_media_repo: false
+  enable_media_repo: true
+  # Directory where uploaded images and attachments are stored.
+  media_store_path: "/data/media_store"
+
+  # The largest allowed upload size in bytes
+  max_upload_size: 1000M
+
+  # Maximum number of pixels that will be thumbnailed
+  max_image_pixels: 32M
+
+  url_preview_enabled: true
+
+  url_preview_ip_range_blacklist:
+    - "127.0.0.0/8"
+    - "10.0.0.0/8"
+    - "172.16.0.0/12"
+    - "192.168.0.0/16"
+    - "100.64.0.0/10"
+    - "169.254.0.0/16"
+    - "::1/128"
+    - "fe80::/64"
+    - "fc00::/7"
+
+  url_preview_url_blacklist:
+    # blacklist any URL with a username in its URI
+    - username: "*"
+    # blacklist all *.google.com URLs
+    - netloc: "google.com"
+    - netloc: "*.google.com"
+    # blacklist all plain HTTP URLs
+    - scheme: "http"
+    # blacklist http(s)://www.acme.com/foo
+    - netloc: "www.acme.com"
+      path: "/foo"
+    # blacklist any URL with a literal IPv4 address
+    - netloc: '^[0-9]+\.[0-9]+\.[0-9]+\.[0-9]+$'
+
   password_config:
     enabled: true
   sso:

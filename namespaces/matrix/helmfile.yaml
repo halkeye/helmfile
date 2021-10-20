@@ -6,6 +6,14 @@ repositories:
     url: https://halkeye.github.io/helm-charts
 
 releases:
+  - name: synapse-media
+    namespace: matrix
+    chart: ../../charts/nfs-pvc
+    values:
+      - pv:
+          server: 172.16.10.10
+          share: /volume1/Apps/synapse-media
+
   - name: synapse
     chart: /home/halkeye/git/halkeye-helm-charts/synapse
     #chart: halkeye/synapse
