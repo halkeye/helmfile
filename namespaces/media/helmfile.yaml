@@ -130,12 +130,6 @@ releases:
     values:
       - ubooquity.yaml
 
-  - name: zap2xml
-    chart: ../../charts/zap2xml
-    namespace: media
-    secrets:
-      - zap2xml-secret.yaml
-
   - name: nzbhydra2
     chart: k8s-at-home/nzbhydra2
     namespace: media
@@ -159,12 +153,6 @@ releases:
     namespace: media
     values:
       - prowlarr.yaml
-
-  - name: jackett
-    chart: halkeye/jackett
-    namespace: media
-    values:
-      - jackett.yaml
 
   - name: bazarr
     chart: k8s-at-home/bazarr
@@ -201,15 +189,14 @@ releases:
     namespace: media
     values:
       - lidarr.yaml
-
 #  - name: mylar3
 #    chart: /home/halkeye/git/halkeye-helm-charts/mylar3
 #    namespace: media
 #    values:
 #      - mylar3.yaml
 #
-  #- name: readarr
-  #  chart: k8s-at-home/readarr
-  #  namespace: media
-  #  values:
-  #    - readarr.yaml
+#- name: readarr
+#  chart: k8s-at-home/readarr
+#  namespace: media
+#  values:
+#    - readarr.yaml

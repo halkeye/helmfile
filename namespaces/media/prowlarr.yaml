@@ -38,10 +38,10 @@ initContainers:
     image: busybox
     command: ["sh", "-c", "chown -R 1026:100 /config"]
     volumeMounts:
-    - name: config
-      mountPath: /config
+      - name: config
+        mountPath: /config
     securityContext:
       runAsUser: 0
 
 image:
-  tag: v0.1.1.951
+  tag: v0.1.2.1042

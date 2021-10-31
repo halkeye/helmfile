@@ -30,5 +30,4 @@ resources:
     memory: 128Mi
 
 image:
-  tag: 1.26.1
-
+  tag: 1.27.0
