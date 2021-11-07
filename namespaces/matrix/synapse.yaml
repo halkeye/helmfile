@@ -210,14 +210,14 @@ extraConfigs:
     sender_localpart: twitterbot
     rate_limited: false
   googlechat-registration.yaml:
-    id: googlechat
+    id: googlechatbot
     namespaces:
       users:
         - exclusive: true
           regex: "@googlechat_.+:g4v.dev"
           group_id: +googlechat:g4v.dev
     url: http://mautrix-googlechat:29320
-    sender_localpart: googlechat
+    sender_localpart: googlechatbot
     rate_limited: false
   signal-registration.yaml:
     id: signal
