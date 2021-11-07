@@ -18,10 +18,10 @@ controller:
       requiredDuringSchedulingIgnoredDuringExecution:
         - labelSelector:
             matchExpressions:
-            - key: app.kubernetes.io/name
-              operator: In
-              values:
-                - jenkins
+              - key: app.kubernetes.io/name
+                operator: In
+                values:
+                  - jenkins
           topologyKey: "kubernetes.io/hostname"
   jenkinsAdminEmail: jenkins@g4v.dev
   serviceType: ClusterIP
@@ -30,7 +30,7 @@ controller:
     prometheus.io/port: "8080"
     prometheus.io/scrape: "true"
   image: halkeye/jenkins
-  tag: "ef27b7"
+  tag: "df2379"
 
   resources:
     requests:
@@ -362,4 +362,3 @@ controller:
 rbac:
   create: true
   readSecrets: true
-
