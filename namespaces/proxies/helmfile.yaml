@@ -1,0 +1,6 @@
+releases:
+  - name: home
+    namespace: proxies
+    chart: ../../charts/proxy-endpoint
+    values:
+      - home.yaml

@@ -1,0 +1,18 @@
+apiVersion: v1
+kind: Endpoints
+metadata:
+  name: {{ include "proxy-endpoint.fullname" . }}
+  labels:
+{{ include "proxy-endpoint.labels" . | indent 4 }}
+subsets:
+- addresses:
+  {{- range .Values.endpoint_hostnames }}
+  - hostname: {{ . | quote }}
+  {{- end }}
+  {{- range .Values.endpoint_ips }}
+  - ip: {{ . | quote }}
+  {{- end }}
+  ports:
+  - name: http
+    port: {{ .Values.service.port }}
+    protocol: TCP

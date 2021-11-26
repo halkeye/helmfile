@@ -1,0 +1,22 @@
+service:
+  port: 8123
+
+ingress:
+  enabled: true
+  hosts:
+    - home.g4v.dev
+  tls:
+    - secretName: homeassistant-tls
+      hosts:
+        - home.g4v.dev
+  annotations:
+    nginx.ingress.kubernetes.io/proxy-body-size: "0"
+    cert-manager.io/cluster-issuer: letsencrypt
+    kubernetes.io/ingress.class: nginx
+    kubernetes.io/tls-acme: "true"
+
+#endpoint_hostnames:
+#  - homeassistant.dhcp.home
+
+endpoint_ips:
+  - 172.16.10.172
