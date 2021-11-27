@@ -36,19 +36,10 @@ Common labels
 */}}
 {{- define "proxy-endpoint.labels" -}}
 helm.sh/chart: {{ include "proxy-endpoint.chart" . }}
-{{ include "proxy-endpoint.selectorLabels" . }}
 {{- if .Chart.AppVersion }}
 app.kubernetes.io/version: {{ .Chart.AppVersion | quote }}
 {{- end }}
 app.kubernetes.io/managed-by: {{ .Release.Service }}
-{{- end -}}
-
-{{/*
-Selector labels
-*/}}
-{{- define "proxy-endpoint.selectorLabels" -}}
-app.kubernetes.io/name: {{ include "proxy-endpoint.name" . }}
-app.kubernetes.io/instance: {{ .Release.Name }}
 {{- end -}}
 
 {{/*

@@ -12,5 +12,3 @@ spec:
       targetPort: http
       protocol: TCP
       name: http
-  selector:
-    {{- include "proxy-endpoint.selectorLabels" . | nindent 4 }}
