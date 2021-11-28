@@ -1,0 +1,11 @@
+primary:
+  persistence:
+    storageClass: "longhorn"
+  metrics:
+    enabled: true
+  resources:
+    requests:
+      memory: 1024Mi
+      cpu: 250m
+auth:
+  rootPassword: v92kHPLaXGJ2BA8EjS8FdWkg

@@ -1,18 +1,18 @@
 ---
 env:
-  PHOTOPRISM_PUBLIC: "false"                     # No authentication required (disables password protection)
+  PHOTOPRISM_PUBLIC: "false" # No authentication required (disables password protection)
   PHOTOPRISM_SITE_URL: "https://photos.g4v.dev"
   PHOTOPRISM_SITE_TITLE: "Gavin's Photos"
   PHOTOPRISM_SITE_CAPTION: "Browse Your Life"
   PHOTOPRISM_SITE_DESCRIPTION: "Open-Source Personal Photo Management"
   PHOTOPRISM_SITE_AUTHOR: "@halkeye"
-  PHOTOPRISM_DETECT_NSFW: "true"                # Flag photos as private that MAY be offensive (requires TensorFlow)
-  PHOTOPRISM_ORIGINALS_LIMIT: 1000               # File size limit for originals in MB (increase for high-res video)
-  PHOTOPRISM_READONLY: "false"                   # Don't modify originals directory (reduced functionality)
-  PHOTOPRISM_DATABASE_DRIVER: "mysql"            # Use MariaDB (or MySQL) instead of SQLite for improved performance
-  PHOTOPRISM_DATABASE_SERVER: "mysql.databases.svc.cluster.local:3306"     # MariaDB database server (hostname:port)
-  PHOTOPRISM_DATABASE_NAME: "photoprism"         # MariaDB database schema name
-  PHOTOPRISM_DATABASE_USER: "photoprism"         # MariaDB database user name
+  PHOTOPRISM_DETECT_NSFW: "true" # Flag photos as private that MAY be offensive (requires TensorFlow)
+  PHOTOPRISM_ORIGINALS_LIMIT: 1000 # File size limit for originals in MB (increase for high-res video)
+  PHOTOPRISM_READONLY: "false" # Don't modify originals directory (reduced functionality)
+  PHOTOPRISM_DATABASE_DRIVER: "mysql" # Use MariaDB (or MySQL) instead of SQLite for improved performance
+  PHOTOPRISM_DATABASE_SERVER: "mariadb.databases.svc.cluster.local:3306" # MariaDB database server (hostname:port)
+  PHOTOPRISM_DATABASE_NAME: "photoprism" # MariaDB database schema name
+  PHOTOPRISM_DATABASE_USER: "photoprism" # MariaDB database user name
 
 persistence:
   config:
@@ -20,12 +20,12 @@ persistence:
     existingClaim: photoprism-config-nfs-pvc
   originals:
     enabled: true
-    existingClaim: photos-nfs-pvc
+    existingClaim: photos-cifs-pvc
 
-podSecurityContext:
-  runAsUser: 1000
-  runAsGroup: 1000
-  fsGroup: 1000
+#podSecurityContext:
+#  runAsUser: 1026
+#  runAsGroup: 100
+#  fsGroup: 100
 
 ingress:
   main:
@@ -43,3 +43,7 @@ ingress:
       kubernetes.io/ingress.class: nginx
       kubernetes.io/tls-acme: "true"
       nginx.ingress.kubernetes.io/proxy-body-size: "0"
+
+image:
+  tag: latest
+  pullPolicy: Always

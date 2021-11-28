@@ -28,13 +28,13 @@ releases:
       - pgadmin.yaml
     secrets:
       - pgadmin-secret.yaml
-  - name: mysql
-    chart: bitnami/mysql
+  - name: mariadb
+    chart: bitnami/mariadb
     namespace: databases
     values:
-      - mysql.yaml
+      - mariadb.yaml
     secrets:
-      - mysql-secrets.yaml
+      - mariadb-secrets.yaml
   - name: phpmyadmin
     chart: bitnami/phpmyadmin
     namespace: databases

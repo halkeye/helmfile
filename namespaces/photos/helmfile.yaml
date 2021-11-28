@@ -1,15 +1,15 @@
-helmDefaults:
-  atomic: true
+#helmDefaults:
+#  atomic: true
 repositories:
-  - name: halkeye
-    url: https://halkeye.github.io/helm-charts
+  - name: k8s-at-home
+    url: https://k8s-at-home.com/charts/
+
 releases:
   - name: photos
     namespace: photos
-    chart: ../../charts/nfs-pvc
-    values:
-      - pv:
-          share: /storage/homes/halkeye/Photos/
+    chart: ../../charts/cifs-pvc
+    secrets:
+      - cifs-secrets.yaml
 
   - name: photoprism-config
     namespace: photos

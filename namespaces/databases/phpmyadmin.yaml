@@ -9,4 +9,5 @@ ingress:
 db:
   allowArbitraryServer: false
   port: 3306
-  host: mysql.databases.svc.cluster.local
+  host: mariadb.databases.svc.cluster.local
+  username: root
