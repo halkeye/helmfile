@@ -130,12 +130,6 @@ releases:
     values:
       - ubooquity.yaml
 
-  - name: nzbhydra2
-    chart: k8s-at-home/nzbhydra2
-    namespace: media
-    values:
-      - nzbhydra2.yaml
-
   - name: qbittorrent
     chart: k8s-at-home/qbittorrent
     namespace: media

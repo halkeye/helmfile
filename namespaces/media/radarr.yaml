@@ -1,4 +1,8 @@
 ---
+image:
+  image: ghcr.io/k8s-at-home/radarr
+  tag: v3.2.2.5080
+
 env:
   TZ: America/Vancouver
 
@@ -50,20 +54,25 @@ initContainers:
   00-update-volume-permission:
     name: update-volume-permission
     image: busybox
-    command: ["sh", "-c", "chown -R 1026:100 /config; for i in movies anime-movies webseries-movies torrents nzb-downloads; do chown 1026:100 /$i; chmod 755 /$i; done"]
+    command:
+      [
+        "sh",
+        "-c",
+        "chown -R 1026:100 /config; for i in movies anime-movies webseries-movies torrents nzb-downloads; do chown 1026:100 /$i; chmod 755 /$i; done",
+      ]
     volumeMounts:
-    - name: config
-      mountPath: /config
-    - name: movies
-      mountPath: /movies
-    - name: anime-movies
-      mountPath: /anime-movies
-    - name: webseries-movies
-      mountPath: /webseries-movies
-    - name: torrents
-      mountPath: /torrents
-    - name: nzb-downloads
-      mountPath: /nzb-downloads
+      - name: config
+        mountPath: /config
+      - name: movies
+        mountPath: /movies
+      - name: anime-movies
+        mountPath: /anime-movies
+      - name: webseries-movies
+        mountPath: /webseries-movies
+      - name: torrents
+        mountPath: /torrents
+      - name: nzb-downloads
+        mountPath: /nzb-downloads
     securityContext:
       runAsUser: 0
 
@@ -74,6 +83,3 @@ resources:
   requests:
     cpu: 100m
     memory: 128Mi
-
-image:
-  tag: v3.2.2.5080

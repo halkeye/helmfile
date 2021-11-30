@@ -1,4 +1,8 @@
 ---
+image:
+  repository: ghcr.io/k8s-at-home/lidarr
+  tag: v1.0.0.2255
+
 env:
   TZ: America/Vancouver
 
@@ -38,21 +42,25 @@ persistence:
     existingClaim: nzbs-nfs-pvc
     mountPath: /nzb-downloads
 
-
 initContainers:
   update-volume-permission:
     name: update-volume-permission
     image: busybox
-    command: ["sh", "-c", "chown -R 1026:100 /config; for i in music torrents nzb-downloads; do chown 1026:100 /$i; chmod 755 /$i; done"]
+    command:
+      [
+        "sh",
+        "-c",
+        "chown -R 1026:100 /config; for i in music torrents nzb-downloads; do chown 1026:100 /$i; chmod 755 /$i; done",
+      ]
     volumeMounts:
-    - name: config
-      mountPath: /config
-    - name: music
-      mountPath: /music
-    - name: torrents
-      mountPath: /torrents
-    - name: nzb-downloads
-      mountPath: /nzb-downloads
+      - name: config
+        mountPath: /config
+      - name: music
+        mountPath: /music
+      - name: torrents
+        mountPath: /torrents
+      - name: nzb-downloads
+        mountPath: /nzb-downloads
     securityContext:
       runAsUser: 0
 

@@ -64,22 +64,27 @@ initContainers:
   update-volume-permission:
     name: update-volume-permission
     image: busybox
-    command: ["sh", "-c", "chown -R 1026:100 /config; for i in tv anime webseries movies anime-movies webseries-movies; do chown 1026:100 /$i; chmod 755 /$i; done"]
+    command:
+      [
+        "sh",
+        "-c",
+        "chown -R 1026:100 /config; for i in tv anime webseries movies anime-movies webseries-movies; do chown 1026:100 /$i; chmod 755 /$i; done",
+      ]
     volumeMounts:
-    - name: config
-      mountPath: /config
-    - name: tv
-      mountPath: /tv
-    - name: anime
-      mountPath: /anime
-    - name: webseries
-      mountPath: /webseries
-    - name: movies
-      mountPath: /movies
-    - name: anime-movies
-      mountPath: /anime-movies
-    - name: webseries-movies
-      mountPath: /webseries-movies
+      - name: config
+        mountPath: /config
+      - name: tv
+        mountPath: /tv
+      - name: anime
+        mountPath: /anime
+      - name: webseries
+        mountPath: /webseries
+      - name: movies
+        mountPath: /movies
+      - name: anime-movies
+        mountPath: /anime-movies
+      - name: webseries-movies
+        mountPath: /webseries-movies
     securityContext:
       runAsUser: 0
 resources:
@@ -93,4 +98,4 @@ resources:
 image:
   repository: linuxserver/bazarr
   pullPolicy: IfNotPresent
-  tag: version-v0.9.9
+  tag: version-v1.0.1
