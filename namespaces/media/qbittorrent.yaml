@@ -17,6 +17,7 @@ ingress:
 
 env:
   TZ: America/Vancouver
+  WAIT_FOR_VPN: "true"
 
 resources:
   limits:
@@ -35,6 +36,10 @@ persistence:
     enabled: true
     existingClaim: torrents-nfs-pvc
     mountPath: /torrents
+  shared:
+    enabled: true
+    type: emptyDir
+    mountPath: /shared
 
 podSecurityContext:
   runAsUser: 1026
@@ -46,8 +51,8 @@ initContainers:
     image: busybox
     command: ["sh", "-c", "chown -R 1026:100 /config"]
     volumeMounts:
-    - name: config
-      mountPath: /config
+      - name: config
+        mountPath: /config
     securityContext:
       runAsUser: 0
 
@@ -59,6 +64,38 @@ additionalVolumeMounts:
   - mountPath: /config/custom-cont-init.d
     name: qbittorrent-scripts
 
-image:
-  tag: v4.3.7
+addons:
+  vpn:
+    enabled: true
+    # This Should be set to `openvpn`. This will set the add-on to use the default settings for OpenVPN based connections.
+    type: openvpn
 
+    openvpn:
+      image:
+        repository: halkeye/openvpn-client
+
+    # If the podSecurityContext is set to run as a different user, make sure to run the OpenVPN container as root.
+    # This is required for it to be able to read certain configuration files.
+    securityContext:
+      runAsGroup: 0
+      runAsUser: 0
+
+    env:
+      # Set this environment variable to 'on' to make sure all traffic gets routed through the VPN container.
+      # Make sure to check the other environment variables for the OpenVPN image to see how you can exclude certain
+      # traffic from these firewall rules.
+      FIREWALL: "on"
+
+    # The scripts that get run when the VPN connection opens/closes are defined here.
+    # The default scripts will write a string to represent the current connection state to a file.
+    # Our qBittorrent image has a feature that can wait for this file to contain the word 'connected' before actually starting the application.
+    scripts:
+      up: |-
+        #!/bin/bash
+        /etc/openvpn/up.sh
+        echo "connected" > /shared/vpnstatus
+
+      down: |-
+        #!/bin/bash
+        /etc/openvpn/down.sh
+        echo "disconnected" > /shared/vpnstatus

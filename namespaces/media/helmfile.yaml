@@ -135,6 +135,8 @@ releases:
     namespace: media
     values:
       - qbittorrent.yaml
+    secrets:
+      - qbittorrent-secrets.yaml
 
   - name: nzbget
     chart: k8s-at-home/nzbget
