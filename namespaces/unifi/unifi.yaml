@@ -1,38 +1,59 @@
 image:
-  tag:  6.2.25
-timezone: America/Vancouver
-ingress:
-  enabled: true
-  hosts:
-    - unifi.int.g4v.dev
-  annotations:
-    kubernetes.io/ingress.class: internal
-    nginx.ingress.kubernetes.io/proxy-body-size: "0"
-    nginx.ingress.kubernetes.io/proxy-read-timeout: "600"
-    nginx.ingress.kubernetes.io/proxy-send-timeout: "600"
-    nginx.ingress.kubernetes.io/force-ssl-redirect: "true"
-    nginx.ingress.kubernetes.io/backend-protocol: "HTTPS"
-persistence:
-  enabled: true
-  storageClass: "longhorn"
+  tag: v6.5.55
 
-guiService:
-  externalTrafficPolicy: Local
-  type: LoadBalancer
-  annotations:
-    metallb.universe.tf/allow-shared-ip: unifi
-discoveryService:
-  externalTrafficPolicy: Local
-  type: LoadBalancer
-  annotations:
-    metallb.universe.tf/allow-shared-ip: unifi
-stunService:
-  externalTrafficPolicy: Local
-  type: LoadBalancer
-  annotations:
-    metallb.universe.tf/allow-shared-ip: unifi
-controllerService:
-  externalTrafficPolicy: Local
-  type: LoadBalancer
-  annotations:
-    metallb.universe.tf/allow-shared-ip: unifi
+timezone: America/Vancouver
+
+ingress:
+  main:
+    enabled: true
+    ingressClassName: internal
+    hosts:
+      - host: unifi.int.g4v.dev
+        paths:
+          - path: /
+    annotations:
+      nginx.ingress.kubernetes.io/proxy-body-size: "0"
+      nginx.ingress.kubernetes.io/proxy-read-timeout: "600"
+      nginx.ingress.kubernetes.io/proxy-send-timeout: "600"
+      nginx.ingress.kubernetes.io/force-ssl-redirect: "true"
+      nginx.ingress.kubernetes.io/backend-protocol: "HTTPS"
+
+persistence:
+  data:
+    enabled: true
+    storageClass: "longhorn"
+    accessMode: ReadWriteOnce
+    size: 5Gi
+
+service:
+  main:
+    type: LoadBalancer
+    externalTrafficPolicy: Local
+    annotations:
+      metallb.universe.tf/allow-shared-ip: unifi
+    ports:
+      stun:
+        enabled: false
+      syslog:
+        enabled: false
+      discovery:
+        enabled: false
+  udp:
+    enabled: true
+    type: LoadBalancer
+    externalTrafficPolicy: Local
+    annotations:
+      metallb.universe.tf/allow-shared-ip: unifi
+    ports:
+      stun:
+        enabled: true
+        port: 3478
+        protocol: UDP
+      syslog:
+        enabled: true
+        port: 5514
+        protocol: UDP
+      discovery:
+        enabled: true
+        port: 10001
+        protocol: UDP

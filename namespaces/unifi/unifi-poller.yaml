@@ -15,3 +15,11 @@ pod:
     prometheus.io/path: /metrics
     prometheus.io/port: "9130"
     prometheus.io/scrape: "true"
+
+ingress:
+  ingressClassName: internal
+
+podAnnotations:
+  prometheus.io/path: /metrics
+  prometheus.io/port: "9130"
+  prometheus.io/scrape: "true"
