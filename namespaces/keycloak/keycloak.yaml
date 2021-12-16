@@ -6,11 +6,21 @@ ingress:
         - keycloak.g4v.dev
   rules:
     - host: keycloak.g4v.dev
-      paths: ['/']
+      paths:
+        - path: /
+          pathType: Prefix
   annotations:
     cert-manager.io/cluster-issuer: letsencrypt
     kubernetes.io/ingress.class: nginx
     kubernetes.io/tls-acme: "true"
+  console:
+    enabled: true
+    ingressClassName: internal
+    rules:
+      - host: keycloak.int.g4v.dev
+        paths:
+          - path: /
+            pathType: Prefix
 
 extraEnv: |-
   - name: PROXY_ADDRESS_FORWARDING
