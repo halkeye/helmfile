@@ -4,3 +4,8 @@ releases:
     chart: ../../charts/proxy-endpoint
     values:
       - home.yaml
+  - name: pikvm
+    namespace: proxies
+    chart: ../../charts/proxy-endpoint
+    values:
+      - pikvm.yaml

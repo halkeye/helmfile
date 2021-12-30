@@ -1,0 +1,14 @@
+service:
+  port: 443
+
+ingress:
+  enabled: true
+  ingressClassName: internal
+  hosts:
+    - pikvm.int.g4v.dev
+  annotations:
+    nginx.ingress.kubernetes.io/proxy-body-size: "0"
+    nginx.ingress.kubernetes.io/backend-protocol: "https"
+
+endpoint_ips:
+  - 172.16.10.158
