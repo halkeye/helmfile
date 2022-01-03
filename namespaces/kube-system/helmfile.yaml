@@ -30,7 +30,7 @@ releases:
       - internal-ingress.yaml
     secrets:
       - internal-ingress-secrets.yaml
-  - name: wildcard-certificate
+  - name: internal-wildcard-certificate
     chart: halkeye/certificate
     namespace: kube-system
     values:

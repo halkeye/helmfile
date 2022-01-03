@@ -3,6 +3,10 @@ rbac:
 
 controller:
   ingressClass: "internal"
+  ingressClassResource:
+    name: "internal"
+    controllerValue: "k8s.io/ingress-nginx-internal"
+    enabled: true
   extraArgs:
     default-ssl-certificate: "kube-system/int-wildcard-tls"
   stats:
