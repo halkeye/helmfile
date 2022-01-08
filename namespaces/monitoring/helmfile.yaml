@@ -7,6 +7,8 @@ repositories:
     url: https://charts.bitnami.com/bitnami
   - name: wiremind
     url: https://wiremind.github.io/wiremind-helm-charts
+  - name: k8s-at-home
+    url: https://k8s-at-home.com/charts/
 releases:
   - name: prometheus
     chart: prometheus-community/prometheus
@@ -29,3 +31,16 @@ releases:
     namespace: monitoring
     values:
       - karma.yaml
+  - name: prometheus-nut-exporter
+    chart: k8s-at-home/prometheus-nut-exporter
+    namespace: monitoring
+    values:
+      - env:
+          TZ: American/Vancouver
+      - resources:
+          limits:
+            cpu: "10m"
+            memory: "16Mi"
+          requests:
+            cpu: "1m"
+            memory: "8Mi"

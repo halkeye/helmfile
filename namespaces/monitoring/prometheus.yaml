@@ -3,7 +3,7 @@ alertmanager:
     type: Recreate
   persistentVolume:
     storageClass: longhorn
-  baseURL: https://prometheus.int.g4v.dev/
+  baseURL: https://alertmanager.int.g4v.dev/
   ingress:
     enabled: true
     hosts:
@@ -14,6 +14,7 @@ alertmanager:
       nginx.ingress.kubernetes.io/force-ssl-redirect: "true"
 
 server:
+  baseURL: https://prometheus.int.g4v.dev/
   strategy:
     type: Recreate
   persistentVolume:
@@ -28,6 +29,7 @@ server:
       nginx.ingress.kubernetes.io/force-ssl-redirect: "true"
 
 pushgateway:
+  baseURL: https://pushgateway.int.g4v.dev/
   strategy:
     type: Recreate
   persistentVolume:
