@@ -1,0 +1,86 @@
+---
+env:
+  TZ: America/Vancouver
+
+ingress:
+  main:
+    enabled: true
+    ingressClassName: internal
+    hosts:
+      - host: adguard.int.g4v.dev
+        paths:
+          - path: /
+    annotations:
+      kubernetes.io/ingress.class: internal
+      nginx.ingress.kubernetes.io/force-ssl-redirect: "true"
+      nginx.ingress.kubernetes.io/proxy-body-size: "0"
+
+persistence:
+  config:
+    enabled: true
+    storageClass: longhorn
+  data:
+    enabled: false
+    storageClass: longhorn
+
+controller:
+  replicas: 1
+
+service:
+  combined-dns-172:
+    enabled: true
+    type: LoadBalancer
+    loadBalancerIP: "172.16.10.210"
+    externalTrafficPolicy: Local
+    ports:
+      tcp:
+        enabled: true
+        port: 53
+        protocol: TCP
+        targetPort: 53
+      udp:
+        enabled: true
+        port: 53
+        protocol: UDP
+        targetPort: 53
+  combined-dns-10:
+    enabled: true
+    type: LoadBalancer
+    loadBalancerIP: "10.1.0.10"
+    externalTrafficPolicy: Local
+    ports:
+      tcp:
+        enabled: true
+        port: 53
+        protocol: TCP
+        targetPort: 53
+      udp:
+        enabled: true
+        port: 53
+        protocol: UDP
+        targetPort: 53
+  dns-tcp:
+    enabled: false
+    type: LoadBalancer
+    loadBalancerIP: "172.16.10.210"
+    #loadBalancerIP: "10.1.0.10"
+    annotations:
+      metallb.universe.tf/allow-shared-ip: adguard-home-svc
+  dns-udp:
+    enabled: false
+    type: LoadBalancer
+    loadBalancerIP: "172.16.10.210"
+    #loadBalancerIP: "10.1.0.10"
+    annotations:
+      metallb.universe.tf/allow-shared-ip: adguard-home-svc
+
+affinity:
+  podAntiAffinity:
+    requiredDuringSchedulingIgnoredDuringExecution:
+      - labelSelector:
+          matchExpressions:
+            - key: app.kubernetes.io/name
+              operator: In
+              values:
+                - adguard-home
+        topologyKey: "kubernetes.io/hostname"

@@ -1,7 +1,9 @@
 timeZone: "America/Vancouver"
 image:
-  repository: spx01/blocky
-  tag: v0.16
+  #repository: spx01/blocky
+  #tag: v0.16
+  repository: ghcr.io/0xerr0r/blocky
+  tag: v0.17
   pullPolicy: IfNotPresent
 
 service:
@@ -25,23 +27,6 @@ serviceUDP:
     metallb.universe.tf/allow-shared-ip: blocky-svc
 
 config:
-  customDNS:
-    mapping:
-      test: 127.0.0.1
-      theirc.gavinmogan.com: 172.16.10.201
-      dev.gavinmogan.com: 172.16.10.201
-      hab.gavinmogan.com: 172.16.10.201
-      books.gavinmogan.com: 172.16.10.201
-      stats.gavinmogan.com: 172.16.10.201
-      lasso.gavinmogan.com: 172.16.10.201
-      turtl.gavinmogan.com: 172.16.10.201
-      whoami.gavinmogan.com: 172.16.10.201
-      plaxt.gavinmogan.com: 172.16.10.201
-      plexstats.gavinmogan.com: 172.16.10.201
-      kaitlyn-mc.halkeye.net: 172.16.10.201
-      minecraft.halkeye.net: 172.16.10.201
-      whostreaming.halkeye.net: 172.16.10.201
-      mqtt.gavinmogan.com: 172.16.10.209
   conditional:
     mapping:
       dhcp.home: tcp:172.16.10.202
@@ -79,3 +64,7 @@ affinity:
               values:
                 - blocky
         topologyKey: "kubernetes.io/hostname"
+
+podAnnotations:
+  prometheus.io/scrape: "true"
+  prometheus.io/port: "4000"

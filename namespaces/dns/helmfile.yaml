@@ -32,3 +32,8 @@ releases:
       - blocky.yaml
     secrets:
       - blocky-secrets.yaml
+  - name: adguard-home
+    chart: k8s-at-home/adguard-home
+    namespace: dns
+    values:
+      - adguard-home.yaml

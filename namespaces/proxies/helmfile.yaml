@@ -9,3 +9,24 @@ releases:
     chart: ../../charts/proxy-endpoint
     values:
       - pikvm.yaml
+  - name: dev
+    namespace: proxies
+    chart: ../../charts/proxy-endpoint
+    values:
+      - service:
+          port: 3000
+      - ingress:
+          enabled: true
+          ingressClassName: nginx
+          hosts:
+            - dev.g4v.dev
+          #tls:
+          #  - secretName: dev-tls
+          #    hosts:
+          #      - dev.g4v.dev
+          #annotations:
+          #  nginx.ingress.kubernetes.io/proxy-body-size: "0"
+          #  cert-manager.io/cluster-issuer: letsencrypt
+          #  kubernetes.io/tls-acme: "true"
+      - endpoint_ips:
+          - 172.16.10.2
