@@ -1,17 +1,16 @@
 ingress:
   enabled: true
   hosts:
-    - stats.gavinmogan.com
+    - stats.g4v.dev
   tls:
     - secretName: grafana-tls
       hosts:
-        - stats.gavinmogan.com
+        - stats.g4v.dev
 
   annotations:
     cert-manager.io/cluster-issuer: letsencrypt
     kubernetes.io/ingress.class: nginx
     kubernetes.io/tls-acme: "true"
-
 
 adminUser: gavin@gavinmogan.com
 
@@ -111,6 +110,10 @@ dashboards:
     blocky:
       url: https://raw.githubusercontent.com/0xERR0R/blocky/master/docs/blocky-grafana.json
       datasource: Prometheus
+    nut:
+      gnetId: 14371
+      revision: 1
+      datasource: Prometheus
 
 plugins:
   - grafana-clock-panel
@@ -127,9 +130,9 @@ dashboardProviders:
   dashboardproviders.yaml:
     apiVersion: 1
     providers:
-      - name: 'default'
+      - name: "default"
         orgId: 1
-        folder: ''
+        folder: ""
         type: file
         disableDeletion: false
         editable: true
@@ -154,7 +157,7 @@ datasources:
 
 env:
   GF_DEFAULT_INSTANCE_NAME: grafana-8595bd8566-fxgn7
-  GF_SERVER_ROOT_URL: https://stats.gavinmogan.com
+  GF_SERVER_ROOT_URL: https://stats.g4v.dev
   GF_AWS_PROFILES: default
   GF_AUTH_ANONYMOUS_ENABLED: "false"
   GF_AUTH_DISABLE_LOGIN_FORM: "true"
