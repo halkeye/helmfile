@@ -9,6 +9,8 @@ repositories:
     url: https://wiremind.github.io/wiremind-helm-charts
   - name: k8s-at-home
     url: https://k8s-at-home.com/charts/
+  - name: grafana
+    url: https://grafana.github.io/helm-charts
 releases:
   - name: prometheus
     chart: prometheus-community/prometheus
@@ -31,6 +33,13 @@ releases:
     namespace: monitoring
     values:
       - karma.yaml
+  - name: grafana
+    chart: grafana/grafana
+    namespace: grafana
+    values:
+      - grafana.yaml
+    secrets:
+      - grafana-secrets.yaml
   - name: prometheus-nut-exporter
     chart: k8s-at-home/prometheus-nut-exporter
     namespace: monitoring
